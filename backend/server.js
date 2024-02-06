@@ -10,7 +10,7 @@ const morgan = require('morgan');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -42,38 +42,24 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
-const userApiRoutes = require('./routes/users-api');
-const widgetApiRoutes = require('./routes/widgets-api');
-const usersRoutes = require('./routes/users');
-const feedsRoutes = require('./routes/feeds');
-const favoritesRoutes = require('./routes/favorites');
-const searchRoutes = require('./routes/search');
-const searchApiRoutes = require('./routes/search-api');
-const loginRoutes = require('./routes/login');
-const registerRoutes = require('./routes/register');
-const feedsApiRoutes = require('./routes/feeds-api');
-const favoritesApiRoutes = require('./routes/favorites-api');
-const messageApiRoutes = require('./routes/message-api');
-const messageRoutes = require('./routes/message');
-const logoutRoutes = require('./routes/logout');
+const userRoute = require('./routes/users');
+const recipeRoute = require('./routes/recipes');
+const favoriteRoute = require('./routes/favorites');
+const searchRoute = require('./routes/search');
+const registerRoute = require('./routes/register');
+const reviewRoute = require('./routes/reviews');
+const ingredientRoute = require('./routes/ingredients');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
-app.use('/api/users', userApiRoutes);
-app.use('/api/widgets', widgetApiRoutes);
-app.use('/users', usersRoutes);
-app.use('/f', feedsRoutes);
-app.use('/fav', favoritesRoutes);
-app.use('/s', searchRoutes);
-app.use('/api/search', searchApiRoutes);
-app.use('/login', loginRoutes);
-app.use('/register', registerRoutes);
-app.use('/api/feeds', feedsApiRoutes);
-app.use('/api/fav', favoritesApiRoutes);
-app.use('/api/msg', messageApiRoutes);
-app.use('/m', messageRoutes);
-app.use('/logout', logoutRoutes);
+app.use('/users', userRoute);
+app.use('/recipes', recipeRoute);
+app.use('/fav', favoriteRoute);
+app.use('/s', searchRoute);
+app.use('/register', registerRoute);
+app.use('/reviews', reviewRoute);
+app.use('/ingredients', ingredientRoute);
 
 // Note: mount other resources here, using the same pattern above
 
@@ -82,7 +68,8 @@ app.use('/logout', logoutRoutes);
 // Separate them into separate routes files (see above).
 
 app.get('/', (req, res) => {
-  res.redirect('/f/feeds');
+  //res.redirect('/');
+  res.send("Hello World!")
 });
 
 
