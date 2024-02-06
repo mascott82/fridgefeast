@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <title>Keegeegee - Buy/Sell</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" />
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/newFeed.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700;800&family=Spectral:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet">
+
+    <script src="/vendor/jquery-3.0.0.js"></script>
+    <script defer src="/scripts/users.js"></script>
+    <script defer src="/scripts/app.js"></script>
+  </head>
+
+  <body>
+
+    <%- include('partials/_header') %>
+
+    <div class="nl-container">
+      <h1 class="nl-title">New Listing</h1>
+      <div class="container-fluid listing-form">
+        <form action="/api/feeds/new" method="post" id="newFeedForm" name="newFeedForm" enctype="multipart/form-data">
+          <div class="mb-3">
+            <label for="feedTitle" class="form-label">Title:&nbsp;</label>
+            <input type="text" class="form-control" id="feedTitle" name="feedTitle" aria-describedby="titleHelp" required>
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+          </div>
+          <div class="mb-3">
+            <label for="feedPrice" class="form-label">Price:&nbsp;</label>
+            <input type="text" class="form-control" id="feedPrice" name="feedPrice" required>
+          </div>
+          <div class="mb-3">
+            <label for="feedImage" class="form-label">Image:&nbsp;</label>
+            <input type="file" class="form-control" id="feedImage" name="feedImage" required>
+          </div>
+          <div class="mb-3">
+            <label for="feedDesc" class="form-label">Description:&nbsp;</label>
+            <textarea class="form-control" aria-label="With textarea" id="feedDesc" name="feedDesc"></textarea>
+          </div>
+
+          <div class="nl-buttons">
+            <button type="reset" class="btn" id="reset-btn">Reset</button>
+            <button type="submit" class="btn" id="submit-btn">Submit</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+  </body>
+
+</html>

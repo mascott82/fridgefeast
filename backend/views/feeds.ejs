@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <title>Keegeegee - Buy/Sell</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" />
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/feeds.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700;800&family=Spectral:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet">
+
+    <script src="/vendor/jquery-3.0.0.js"></script>
+    <script defer src="/scripts/users.js"></script>
+    <script defer src="/scripts/app.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"
+      integrity="sha512-X/YkDZyjTf4wyc2Vy16YGCPHwAY8rZJY+POgokZjQB2mhIRFJCckEGc6YyX9eNsPfn0PzThEuNs+uaomE5CO6A==" crossorigin="anonymous"
+      referrerpolicy="no-referrer"></script>
+  </head>
+
+  <body>
+
+    <%- include('partials/_header') %>
+
+      <div class="container-fluid">
+
+        <div class="search-bar">
+          <h1 id="feed-title" class="page-title">Welcome to KeeGeeGee </h1>
+          <form id="searchForm" action="/s/search" method="post">
+            <div class="input-group mb-3" id="searchBox">
+              <span class="input-group-text" id="inputGroup-sizing-default">Search by Price: </span>
+              <span class="input-group-text" id="inputGroup-sizing-default">Min: $</span>
+              <input id="minPrice" name="minPrice" type="text" class="form-control" aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default">
+              <span class="input-group-text" id="inputGroup-sizing-default">Max: $</span>
+              <input id="maxPrice" name="maxPrice" type="text" class="form-control" aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default">
+              <button class="btn btn-outline-secondary" type="submit" id="searchBtn">Search</button>
+            </div>
+          </form>
+        </div>
+
+
+
+        <div class="row" id="feedsList">
+          <% for (let i=0; i < results.length; i++) { %>
+            <% if (i % 4===0) { %>
+        </div>
+        <div class="row">
+          <% } %>
+
+            <div class="col-lg-3">
+              <div class="card mb-3" id="cardbox_<%= results[i].id %>">
+                <div class="card-body">
+                  <img src="<%= results[i].image_url %>" class="card-img-top" alt="..." id="feed-listing-img">
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      <%= results[i].title %>
+                    </h5>
+                    <p class="card-text">
+                      <%= results[i].description %>
+                    </p>
+                    <p class="card-text">
+                      <%= results[i].price %>
+                    </p>
+                    <p class="card-text">
+                      <%= results[i].username %>
+                    </p>
+                    <p class="card-text">
+                      <%= results[i].email %>
+                    </p>
+                    <p class="card-text">
+                      <%= results[i].created_at %>
+                    </p>
+                    <div class="btn-group" id="icon-btn-group" role="group" aria-label="Basic example">
+                      <% if (!results[i].isSoldBtnActive) {%>
+                      <button type="button" class="btn" value="<%= results[i].id %>" id="fav_<%= results[i].id %>">
+
+                          <% if (results[i].isFavBtnActive) {%>
+                            <i class="fa-solid fa-heart card-icon"></i>
+                            <% } else { %>
+                              <i class="far fa-heart card-icon"></i>
+                              <% } %>
+                      </button>
+                      <% } %>
+                      <% if (results[i].isMsgBtnActive) { %>
+                        <button type="button" class="btn" value="<%= results[i].id %>" id="msg_<%= results[i].id %>"
+                          name="<%= results[i].username %>,<%= results[i].user_id %>,<%= results[i].id%>,<%= results[i].pid%>">
+                          <i class="fa-solid fa-inbox card-icon"></i>
+                        </button>
+
+                        <button type="button" class="btn" value="<%= results[i].id %>" id="email_<%= results[i].id %>"
+                          value="<%= results[i].email %>">
+                          <i class="fa-regular fa-envelope card-icon"></i>
+                        </button>
+
+                        <button type="button" class="btn" value="<%= results[i].id %>" id="sms_<%= results[i].id %>"
+                          name="<%= results[i].username %>,<%= results[i].user_id %>,<%= results[i].id%>,<%= results[i].pid%>,<%= results[i].phone_number %>">
+                          <i class="fa-regular fa-comment-dots card-icon"></i>
+                        </button>
+                        <% } %>
+                          <% if (results[i].isSoldBtnActive) {%>
+                            <button type="button" class="btn" id="sold-btn" value="<%= results[i].id %>" id="sold_<%= results[i].id %>">Mark as
+                              sold</button>
+                            <% } %>
+                              <% if (results[i].isDelBtnActive) {%>
+                                <button type="button" class="btn" id="delete-btn" value="<%= results[i].id %>" id="del_<%= results[i].id %>">
+                                  Delete
+                                </button>
+                                <% } %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <% if ((i + 1) % 4===0 || (i + 1)===results.length) { %>
+        </div>
+        <% } %>
+          <% } %>
+      </div>
+
+
+
+      <div class="modal fade" id="msgModal" tabindex="-1" aria-labelledby="msgModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="msgModalLabel">New message</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="msgModalForm">
+              <div class="modal-body">
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Recipient:</label>
+                  <input type="text" class="form-control" id="recipient-name">
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Message:</label>
+                  <textarea class="form-control" id="message-text"></textarea>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="msgModalSubmit">Send message</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      </div>
+
+  </body>
+
+</html>

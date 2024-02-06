@@ -1,0 +1,133 @@
+.nav-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  background-color: #3d405b;
+  color: #EAE3EA;
+  padding: 0 3rem;
+  height: 10vh;
+  margin: 0 auto;
+  position: sticky;
+  top: 0;
+  z-index: 3;
+}
+
+.nav-bar-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.nav-search {
+  padding: 0;
+}
+
+.search-text {
+  margin-left: 1rem;
+}
+
+.nav-bar-right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.nav-link-left {
+  padding: 1rem 0 1rem 0.5rem;
+  color: #fffbf9;
+  text-decoration: none;
+}
+
+.nav-link-left :visited {
+  padding: 1rem 0 1rem 0.5rem;
+  color: #fffbf9;
+  text-decoration: none;
+}
+
+.nav-link-right {
+  padding: 0.2rem;
+  color: #fffbf9;
+}
+
+.nav-link-right:visited {
+  padding: 0.2rem;
+  color: #fffbf9;
+}
+
+.nav-user {
+  padding-right: 1rem;
+  padding-left: 0.25rem;
+}
+
+.nav-logout {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.search-btn {
+  border: none;
+  background-color: transparent;
+}
+
+.user-btn {
+  border: none;
+  background-color: transparent;
+  color: #fffbf9;
+}
+
+.user-btn:hover {
+  border: none;
+  background-color: transparent;
+  height: 10vh;
+}
+
+.dropdown-links {
+  display: none;
+  position: absolute;
+  top: 10vh;
+  right: 4vh;
+  background-color: #eeeff5;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.logout-btn {
+  width: 100%;
+  border: none;
+  padding: 1rem;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+  color: #3d405b;
+}
+
+.logout-btn:hover {
+  background-color: #d9dae7;
+}
+
+.dropdown-links a {
+  float: none;
+  color: #3d405b;
+  padding: 1rem;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-links a:hover {
+  background-color: #d9dae7;
+  width: 100%;
+}
+
+.nav-dropdown:hover .dropdown-links {
+  display: block;
+  width: 10vw;
+  background-color: #eeeff5;
+}
+
+.fa-house {
+  padding-right: 0.3rem;
+}
