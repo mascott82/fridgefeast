@@ -5,65 +5,31 @@
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 
-const express = require('express');
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 
-const { getRecipes, getRecipeById } = require('../db/queries/recipe');
+const { getRecipes, getRecipeById } = require('../db/queries/recipe')
 
-router.get('/list', (req, res) => {
-  const userId = req.session.userId ? req.session.userId : 1;
-  const results = [];
+router.get('/', (req, res) => {
+  const results = []
   getRecipes()
     .then(recipes => {
       recipes.forEach(element => {
        
-        results.push(element);
-      });
+        results.push(element)
+      })
+      res.json(results)
+    })
+})
 
-      const templateVars = { username: req.session.username, userId: req.session.userId, results };
-      res.render('recipes', templateVars);
-    });
-});
+router.get('/:id', (req, res) => {
+  const recipeId = req.params.id
+  const results = []
+  getRecipeById(recipeId)
+    .then(recipe => {
+      
+      res.json(recipe)
+    })
+})
 
-router.get('/new', (req, res) => {
-  const templateVars = { username: req.session.username, userId: req.session.userId };
-  res.render('newFeed', templateVars);
-});
-
-// router.get('/myrecipe', (req, res) => {
-//   const userId = req.session.userId ? req.session.userId : 1;
-//   const results = [];
-
-//   if (!req.session.userId) {
-//     const templateVars = { username: req.session.username, userId: req.session.userId, results };
-//     res.render('login', templateVars);
-//   } else {
-//     feed.getFeedsByUser(userId)
-//       .then(feeds => {
-//         feeds.forEach(element => {
-//           if (userId === element.user_id) {
-//             element['isMsgBtnActive'] = false;
-//             element['isSoldBtnActive'] = true;
-//             element['isDelBtnActive'] = true;
-//           } else {
-//             element['isMsgBtnActive'] = true;
-//             element['isSoldBtnActive'] = false;
-//             element['isDelBtnActive'] = false;
-//           }
-
-//           getFavouriteByUserIdAndItemId(userId, element.id)
-//             .then(tempVal => {
-//               if (tempVal.length > 0) {
-//                 element['isFavBtnActive'] = true;
-//               }
-//             });
-//           results.push(element);
-//         });
-
-//         const templateVars = { username: req.session.username, userId: req.session.userId, results };
-//         res.render('myfeeds', templateVars);
-//       });
-//   }
-// });
-
-module.exports = router;
+module.exports = router

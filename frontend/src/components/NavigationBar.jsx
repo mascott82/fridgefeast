@@ -13,12 +13,15 @@ const NavigationBar = () => {
           <Nav className="me-auto">
             <Nav.Link href="#home">Sign Up</Nav.Link>
             <Nav.Link href="#link">Login</Nav.Link>
+
+            {/* UPDATE to only show Users drop down when logged in */}
             <NavDropdown title="User" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Favourites</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">Pantry</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="#action/3.4">Logout</NavDropdown.Item>
             </NavDropdown>
+          
           </Nav>
         </Navbar.Collapse>
       </Container>

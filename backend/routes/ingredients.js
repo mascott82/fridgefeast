@@ -10,7 +10,7 @@ const router = express.Router()
 
 const { getIngredients, addIngredient } = require('../db/queries/ingredient')
 
-router.get('/list', (req, res) => {
+router.get('/', (req, res) => {
   const userId = req.session.userId ? req.session.userId : 1
   const results = []
   getIngredients()
@@ -28,41 +28,5 @@ router.get('/new', (req, res) => {
   const templateVars = { username: req.session.username, userId: req.session.userId }
   res.render('newFeed', templateVars)
 })
-
-// router.get('/myfeeds', (req, res) => {
-//   const userId = req.session.userId ? req.session.userId : 1;
-//   const results = [];
-
-//   if (!req.session.userId) {
-//     const templateVars = { username: req.session.username, userId: req.session.userId, results };
-//     res.render('login', templateVars);
-//   } else {
-//     feed.getFeedsByUser(userId)
-//       .then(feeds => {
-//         feeds.forEach(element => {
-//           if (userId === element.user_id) {
-//             element['isMsgBtnActive'] = false;
-//             element['isSoldBtnActive'] = true;
-//             element['isDelBtnActive'] = true;
-//           } else {
-//             element['isMsgBtnActive'] = true;
-//             element['isSoldBtnActive'] = false;
-//             element['isDelBtnActive'] = false;
-//           }
-
-//           getFavouriteByUserIdAndItemId(userId, element.id)
-//             .then(tempVal => {
-//               if (tempVal.length > 0) {
-//                 element['isFavBtnActive'] = true;
-//               }
-//             });
-//           results.push(element);
-//         });
-
-//         const templateVars = { username: req.session.username, userId: req.session.userId, results };
-//         res.render('myfeeds', templateVars);
-//       });
-//   }
-// });
 
 module.exports = router
