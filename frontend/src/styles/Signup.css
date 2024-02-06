@@ -1,0 +1,91 @@
+
+.signup-background {
+    background-image: url('https://assets.epicurious.com/photos/5763132cff66dde1456dfed0/16:9/w_2560%2Cc_limit/Mint_Leaves.jpg'); /* Replace with the actual path to your background image */
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .signup-container {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 400px; /* Adjust width as needed */
+  }
+  
+  .signup-title {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .signup-form input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  .password-container {
+    position: relative;
+    margin-bottom: 10px;
+  }
+  
+  .password-container input {
+    padding-right: 70px; 
+  }
+  
+  .toggle-password-button {
+    position: absolute;
+    right: 10px;
+    top: 50%; /* Center button vertically */
+    transform: translateY(-50%); /* Align center with input height */
+    width: 50px;
+    height: 25px;
+    padding: 0;
+    line-height: 25px; /*Align text vertically*/
+    font-size: 0.75em; 
+    background-color: #bada55;
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    color: white;
+    cursor: pointer;
+  }
+  
+  .toggle-password:focus {
+    outline: none;
+  }
+  .signup-form button:not(.toggle-password-button)  {
+    width: 80px;
+    height:40px;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .signup-form button:hover {
+    background-color: #0056b3;
+  }
+  
+  .login-redirect {
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .login-redirect a {
+    color: #007bff;
+  }
+  
+  .login-redirect a:hover {
+    text-decoration: underline;
+  }

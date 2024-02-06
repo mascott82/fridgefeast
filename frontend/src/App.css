@@ -1,9 +1,10 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  height: 100vh; /* This will ensure that the #root element takes up the full viewport height */
+  width: 100%; /* This will ensure that the #root element takes up the full viewport width */
+  margin: 0; 
+  padding: 0; 
 }
+
 
 .logo {
   height: 6em;
