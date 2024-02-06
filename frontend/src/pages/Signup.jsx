@@ -10,37 +10,48 @@ const Signup = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  
+    const [passwordWarning, setPasswordWarning] = useState('');
     // Handle form submission
     const handleSubmit = (event) => {
       event.preventDefault();
       console.log(firstName, lastName, email, password, confirmPassword);
     };
-
-    // const togglePasswordVisibility = () => {
-    //     setShowPassword(!showPassword);
-    //   };
+    
+    const handlePasswordChange = (e) => {
+        if (e.target.value.length < 8) {
+          setPasswordWarning('Password cannot be more than 8 characters.');
+        } else {
+          setPasswordWarning(''); // Clear the warning
+        }
+        setPassword(e.target.value);
+      };
   
     return (
       <div className="signup-background">
         <div className="signup-container">
           <h1 className="signup-title">SIGN UP</h1>
           <form className="signup-form" onSubmit={handleSubmit}>
+            <label htmlFor="first-name">First Name</label>
             <input
+              id="first-name"
               type="text"
               placeholder="Enter first name"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               required
             />
+            <label htmlFor="last-name">Last Name</label>
             <input
+              id="last-name"
               type="text"
               placeholder="Enter last name"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
               required
             />
+            <label htmlFor="email">Email</label>
             <input
+              id="email"
               type="email"
               placeholder="Example@gmail.com"
               value={email}
@@ -48,11 +59,13 @@ const Signup = () => {
               required
             />
           <div className="password-container">
+            <label htmlFor="password">Password</label>
             <input
+              id="password"
               type={showPassword ? 'text' : 'password'}
               placeholder="Must be at least 8 characters"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handlePasswordChange}
               required
               minLength={8}
             />
@@ -63,9 +76,12 @@ const Signup = () => {
             >
               {showPassword ? 'Hide' : 'Show'}
             </button>
+            {passwordWarning && <div className="password-warning">{passwordWarning}</div>}
           </div>
           <div className="password-container">
+          <label htmlFor="confirm-password">Confirm Password</label>
             <input
+              id="confirm-password"
               type={showConfirmPassword ? 'text' : 'password'}
               placeholder="Confirm password"
               value={confirmPassword}

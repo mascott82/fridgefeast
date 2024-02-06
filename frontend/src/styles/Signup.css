@@ -45,7 +45,7 @@
   .toggle-password-button {
     position: absolute;
     right: 10px;
-    top: 50%; /* Center button vertically */
+    top: 67%; /* Center button vertically */
     transform: translateY(-50%); /* Align center with input height */
     width: 50px;
     height: 25px;
@@ -88,4 +88,9 @@
   
   .login-redirect a:hover {
     text-decoration: underline;
+  }
+
+  .password-warning {
+    color: red; 
+    margin-top: 5px; 
   }
