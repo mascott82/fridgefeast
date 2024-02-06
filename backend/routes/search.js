@@ -8,16 +8,10 @@
 const express = require('express');
 const router  = express.Router();
 
-const feed = require('../db/queries/feeds');
+router.get('/:i', (req, res) => {
+  const ingredients = req.params.i;
 
-router.get('/:minprice/:maxprice', (req, res) => {
-  const minPrice = req.params.minprice;
-  const maxPrice = req.params.maxprice;
-
-  feed.getFeedsByPrice(minPrice, maxPrice)
-    .then(feeds => {
-      res.render('feeds', { feeds });
-    });
+  console.log("====", ingredients);
 });
 
 module.exports = router;

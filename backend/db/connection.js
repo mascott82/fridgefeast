@@ -1,20 +1,21 @@
-// PG database client/connection setup
+const dotenv = require('dotenv');
 const { Pool } = require('pg');
+dotenv.config();
 
-// Check the environment to determine whether to use SSL
-const useSSL = process.env.NODE_ENV === 'production';
-
-const dbParams = {
+const dbConfig = {
   host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
+  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : undefined,
   database: process.env.DB_NAME,
-  ssl: useSSL ? { rejectUnauthorized: false } : false,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
 };
 
-const db = new Pool(dbParams);
+const apiKey = process.env.API_KEY;
 
-db.connect();
+const debugMode = process.env.DEBUG === 'true';
 
-module.exports = db;
+// Use dbConfig, apiKey, and debugMode in your application
+const dbPool = new Pool(dbConfig);
+dbPool.connect();
+
+module.exports = { dbPool };

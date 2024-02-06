@@ -1,10 +1,7 @@
-// load .env data into process.env
-require('dotenv').config();
-
 // other dependencies
 const fs = require('fs');
 const chalk = require('chalk');
-const db = require('../db/connection');
+const { dbPool } = require('../db/connection');
 
 // PG connection setup
 // const connectionString = process.env.DATABASE_URL ||
@@ -19,7 +16,7 @@ const runSchemaFiles = async () => {
   for (const fn of schemaFilenames) {
     const sql = fs.readFileSync(`./db/schema/${fn}`, 'utf8');
     console.log(`\t-> Running ${chalk.green(fn)}`);
-    await db.query(sql);
+    await dbPool.query(sql);
   }
 };
 
@@ -30,15 +27,12 @@ const runSeedFiles = async () => {
   for (const fn of schemaFilenames) {
     const sql = fs.readFileSync(`./db/seeds/${fn}`, 'utf8');
     console.log(`\t-> Running ${chalk.green(fn)}`);
-    await db.query(sql);
+    await dbPool.query(sql);
   }
 };
 
 const runResetDB = async () => {
   try {
-    process.env.DB_HOST &&
-      console.log(`-> Connecting to PG on ${process.env.DB_HOST} as ${process.env.DB_USER}...`);
-
     await runSchemaFiles();
     await runSeedFiles();
     process.exit();

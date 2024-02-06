@@ -1,11 +1,11 @@
--- Users table seeds here (Example)
-INSERT INTO users (username, email, password, phone_number) VALUES ('john_doe', 'john.doe@email.com', 'password', '123-456-7890');
-INSERT INTO users (username, email, password, phone_number) VALUES ('jane_smith', 'jane.smith@email.com', 'password', '987-654-3210');
-INSERT INTO users (username, email, password, phone_number) VALUES ('bob_jenkins', 'bob.jenkins@email.com', 'password', '555-555-5555');
-INSERT INTO users (username, email, password, phone_number) VALUES ('susan_miller', 'susan.miller@email.com', 'password', '123-987-6543');
-INSERT INTO users (username, email, password, phone_number) VALUES ('alex_wilson', 'alex.wilson@email.com', 'password', '555-123-4567');
-INSERT INTO users (username, email, password, phone_number) VALUES ('emily_jones', 'emily.jones@email.com', 'password', '987-789-0123');
-INSERT INTO users (username, email, password, phone_number) VALUES ('mike_anderson', 'mike.anderson@email.com', 'password', '321-654-0987');
-INSERT INTO users (username, email, password, phone_number) VALUES ('lisa_jackson', 'lisa.jackson@email.com', 'password', '888-555-1234');
-INSERT INTO users (username, email, password, phone_number) VALUES ('kevin_brown', 'kevin.brown@email.com', 'password', '555-888-9999');
-INSERT INTO users (username, email, password, phone_number) VALUES ('amy_carter', 'amy.carter@email.com', 'password', '111-222-3333');
+INSERT INTO users (first_name, last_name, email, password) VALUES
+('John', 'Doe', 'john.doe@email.com', 'password123'),
+('Alice', 'Smith', 'alice.smith@email.com', 'securepass456'),
+('Bob', 'Johnson', 'bob.johnson@email.com', 'userpass789'),
+('Emma', 'Clark', 'emma.clark@email.com', 'password456'),
+('Michael', 'Anderson', 'michael.anderson@email.com', 'pass1234'),
+('Olivia', 'Williams', 'olivia.williams@email.com', 'securepass789'),
+('Daniel', 'Brown', 'daniel.brown@email.com', 'userpass123'),
+('Sophia', 'Miller', 'sophia.miller@email.com', 'password789'),
+('David', 'Wilson', 'david.wilson@email.com', 'pass5678'),
+('Ava', 'Jones', 'ava.jones@email.com', 'securepass567');
