@@ -23,6 +23,8 @@ const Homepage = () => {
       {/* Featured Recipes Card Section */}
       <div className="p-5 bg-light">
         <h2 className="mb-4">Featured Recipes</h2>
+
+        {/* TO DO: update card to pull information from database */}
         <Row>
           <Col md={3}>
             <Card className="recipe-card">

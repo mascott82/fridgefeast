@@ -14,7 +14,7 @@ const NavigationBar = () => {
             <Nav.Link href="#signup">Sign Up</Nav.Link>
             <Nav.Link href="#login">Login</Nav.Link>
 
-            {/* UPDATE to only show Users drop down when logged in */}
+            {/* TO DO: UPDATE to only show Users drop down when logged in */}
             <NavDropdown title="User" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Favourites</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">Pantry</NavDropdown.Item>
