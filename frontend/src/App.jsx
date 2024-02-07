@@ -9,6 +9,8 @@ import "./App.css"
 import NavigationBar from "./components/NavigationBar"
 import Homepage from "./components/Homepage"
 import "./styles/Homepage.css"
+import searchModal from "./components/SearchModal"
+import "./styles/NavigationBar.css"
 
 function App() {
   // const [count, setCount] = useState(0)
