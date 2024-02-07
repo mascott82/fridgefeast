@@ -97,7 +97,7 @@ const Signup = () => {
               {showConfirmPassword ? 'Hide' : 'Show'}
             </button>
           </div>
-            <button type="submit" className="signup-form-button">Sign up</button>
+          <div className="button-container"><button type="submit" className="signup-form-button">Sign up</button></div>
           </form>
           <p className="login-redirect">
             Already have an account? <a href="/login">Log in</a>

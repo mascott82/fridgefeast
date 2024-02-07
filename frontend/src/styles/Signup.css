@@ -1,6 +1,6 @@
 
 .signup-background {
-    background-image: url('https://assets.epicurious.com/photos/5763132cff66dde1456dfed0/16:9/w_2560%2Cc_limit/Mint_Leaves.jpg'); /* Replace with the actual path to your background image */
+    background-image: url('https://stellaskitchenco.com/cdn/shop/files/tablescape_2.jpg?v=1693317520&width=3840'); 
     background-size: cover;
     background-position: center;
     height: 100vh;
@@ -15,7 +15,7 @@
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 400px; /* Adjust width as needed */
+    width: 400px;
   }
   
   .signup-title {
@@ -52,7 +52,7 @@
     padding: 0;
     line-height: 25px; /*Align text vertically*/
     font-size: 0.75em; 
-    background-color: #bada55;
+    background-color: #5D5A88;
     border: 1px solid #ccc; 
     border-radius: 4px; 
     color: white;
@@ -62,11 +62,20 @@
   .toggle-password:focus {
     outline: none;
   }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
   .signup-form button:not(.toggle-password-button)  {
+    display:flex;
+    align-items: center;
+    justify-content: center;
     width: 80px;
     height:40px;
     padding: 10px;
-    background-color: #007bff;
+    background-color: #5D5A88;
     color: white;
     border: none;
     border-radius: 5px;
@@ -74,7 +83,7 @@
   }
   
   .signup-form button:hover {
-    background-color: #0056b3;
+    background-color: #34334f;
   }
   
   .login-redirect {
