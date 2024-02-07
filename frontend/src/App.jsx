@@ -1,18 +1,14 @@
-import {useState} from "react"
-import "./App.css"
 import {BrowserRouter, Routes, Route} from "react-router-dom"
-import Signup from "./pages/Signup"
-import Login from "./pages/Login"
-import ProtectedRoute from "./pages/ProtectedRoute"
-// import {useState} from "react"
-import reactLogo from "./assets/react.svg"
-import viteLogo from "/vite.svg"
+import Signup from "./routes/Signup"
+import Login from "./routes/Login"
+import ProtectedRoute from "./routes/ProtectedRoute"
 import "./App.css"
+import {CookiesProvider, useCookies} from "react-cookie"
 import NavigationBar from "./components/NavigationBar"
 import Homepage from "./components/Homepage"
 import "./styles/Homepage.css"
-import { CookiesProvider, useCookies } from "react-cookie";
 import { useNavigate } from 'react-router-dom';
+import "./styles/NavigationBar.css"
 
 const RedirectTo =() =>{
   const navigate = useNavigate();
@@ -27,7 +23,6 @@ function App() {
     setCookie("user", emailAndAuthToken, { path: "/" });
     console.log("After login: emailAndAuthToken = ", emailAndAuthToken)
   }
-  
 
   return (
     <>

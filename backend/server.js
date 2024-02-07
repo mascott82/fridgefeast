@@ -69,7 +69,7 @@ app.use('/ingredients', ingredientRoute);
 
 app.get('/', (req, res) => {
   //res.redirect('/');
-  res.send("Hello World!")
+  res.send("Hello - World!")
 });
 
 

@@ -25,7 +25,7 @@ const loginUser = (email, password) => {
     [email, password])
     .then((data) => {
       console.log('User logon successfully!')
-      return data.rows
+      return data.rows[0]
     })
     .catch(error => {
       console.error('Error searching user: ', error)
