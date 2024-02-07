@@ -1,34 +1,56 @@
+// NavigationBar.jsx
+
+import React, {useState} from "react"
 import Container from "react-bootstrap/Container"
 import Nav from "react-bootstrap/Nav"
 import Navbar from "react-bootstrap/Navbar"
 import NavDropdown from "react-bootstrap/NavDropdown"
 import {CgSearch} from "react-icons/cg"
+import SearchModal from "./SearchModal"
 
 const NavigationBar = () => {
-  return (
-    <Navbar expand="lg" className="bg-body-tertiary">
-      <Container>
-        <Navbar.Brand href="#home">Fridge Feast</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link href="#signup">Sign Up</Nav.Link>
-            <Nav.Link href="#login">Login</Nav.Link>
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
-            {/* TO DO: UPDATE to only show Users drop down when logged in */}
-            <NavDropdown title="User" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Favourites</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">Pantry</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">Logout</NavDropdown.Item>
-            </NavDropdown>
-            <Nav.Link>
-              <CgSearch />
-            </Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+  const handleCloseModal = () => {
+    setIsModalOpen(false)
+  }
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true)
+  }
+
+  return (
+    <div>
+      <Navbar expand="lg" className="bg-body-tertiary">
+        <Container>
+          <Navbar.Brand href="#home">Fridge Feast</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              <Nav.Link href="/signup">Sign Up</Nav.Link>
+              <Nav.Link href="/login">Login</Nav.Link>
+
+              <NavDropdown title="User" id="basic-nav-dropdown">
+                <NavDropdown.Item href="#action/3.1">
+                  Favourites
+                </NavDropdown.Item>
+                <NavDropdown.Item href="/pantry">Pantry</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="/logout">Logout</NavDropdown.Item>
+              </NavDropdown>
+              <Nav.Link onClick={handleOpenModal}>
+                <CgSearch />
+              </Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+      {isModalOpen && (
+        <div className="search-modal-overlay">
+          <SearchModal onClose={handleCloseModal} />
+        </div>
+      )}
+    </div>
   )
 }
 
