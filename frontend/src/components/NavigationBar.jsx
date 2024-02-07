@@ -29,7 +29,6 @@ const NavigationBar = () => {
             <Nav className="me-auto">
               <Nav.Link href="/signup">Sign Up</Nav.Link>
               <Nav.Link href="/login">Login</Nav.Link>
-
               <NavDropdown title="User" id="basic-nav-dropdown">
                 <NavDropdown.Item href="/favourites">
                   Favourites
