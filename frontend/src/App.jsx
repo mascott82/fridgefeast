@@ -8,6 +8,7 @@ import Homepage from "./components/Homepage"
 import "./App.css"
 import "./styles/Homepage.css"
 import "./styles/NavigationBar.css"
+import SearchResults from "./routes/SearchResults"
 
 function App() {
   const [cookies, setCookie] = useCookies(["user"])
@@ -26,6 +27,7 @@ function App() {
             <Route path="/" element={<Homepage />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
+            <Route path="/searchResults" element={<SearchResults />} />
           </Routes>
         </BrowserRouter>
       </CookiesProvider>
