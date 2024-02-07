@@ -1,33 +1,42 @@
-import {useState} from "react"
 import {BrowserRouter, Routes, Route} from "react-router-dom"
-import {CookiesProvider, useCookies} from "react-cookie"
 import Signup from "./routes/Signup"
 import Login from "./routes/Login"
+import ProtectedRoute from "./routes/ProtectedRoute"
+import "./App.css"
+import {CookiesProvider, useCookies} from "react-cookie"
 import NavigationBar from "./components/NavigationBar"
 import Homepage from "./components/Homepage"
-import "./App.css"
 import "./styles/Homepage.css"
+import { useNavigate } from 'react-router-dom';
 import "./styles/NavigationBar.css"
 
-function App() {
-  const [cookies, setCookie] = useCookies(["user"])
+const RedirectTo =() =>{
+  const navigate = useNavigate();
+  navigate('/');
+  return (<></>);
+}
 
-  function handleLogin(user) {
-    setCookie("user", user, {path: "/"})
-    console.log("user after login", user)
+function App() {
+  const [cookies, setCookie] = useCookies(["user"]);
+
+  function handleLogin(emailAndAuthToken) {
+    setCookie("user", emailAndAuthToken, { path: "/" });
+    console.log("After login: emailAndAuthToken = ", emailAndAuthToken)
   }
 
   return (
     <>
       <NavigationBar />
       <CookiesProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Homepage />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/login" element={<Login onLogin={handleLogin} />} />
-          </Routes>
-        </BrowserRouter>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Homepage />} /> 
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={cookies.user == null ? <Login onLogin={handleLogin}/> : <RedirectTo />} />
+          <Route element={<ProtectedRoute currentUser={cookies.user}/>}>
+          </Route>
+        </Routes>
+      </BrowserRouter>
       </CookiesProvider>
     </>
   )
