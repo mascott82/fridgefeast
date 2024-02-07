@@ -3,7 +3,6 @@ import "./App.css"
 import {BrowserRouter, Routes, Route} from "react-router-dom"
 import Signup from "./pages/Signup"
 import Login from "./pages/Login"
-// import {useState} from "react"
 import reactLogo from "./assets/react.svg"
 import viteLogo from "/vite.svg"
 import "./App.css"
@@ -12,29 +11,27 @@ import Homepage from "./components/Homepage"
 import "./styles/Homepage.css"
 import searchModal from "./components/SearchModal"
 import "./styles/NavigationBar.css"
-import { CookiesProvider, useCookies } from "react-cookie";
+import {CookiesProvider, useCookies} from "react-cookie"
 
 function App() {
-  
-  const [cookies, setCookie] = useCookies(["user"]);
+  const [cookies, setCookie] = useCookies(["user"])
 
   function handleLogin(user) {
-    setCookie("user", user, { path: "/" });
+    setCookie("user", user, {path: "/"})
     console.log("user after login", user)
   }
-  
 
   return (
     <>
       <NavigationBar />
       <CookiesProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Homepage />} /> 
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login onLogin={handleLogin}/>} />
-        </Routes>
-      </BrowserRouter>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Homepage />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login onLogin={handleLogin} />} />
+          </Routes>
+        </BrowserRouter>
       </CookiesProvider>
     </>
   )
