@@ -1,14 +1,20 @@
-import {BrowserRouter, Routes, Route} from "react-router-dom"
+import {BrowserRouter, Routes, Route, useNavigate} from "react-router-dom"
 import Signup from "./routes/Signup"
 import Login from "./routes/Login"
+import SearchResults from "./routes/SearchResults"
 import ProtectedRoute from "./routes/ProtectedRoute"
 import "./App.css"
 import {CookiesProvider, useCookies} from "react-cookie"
 import NavigationBar from "./components/NavigationBar"
 import Homepage from "./components/Homepage"
 import "./styles/Homepage.css"
-import {useNavigate} from "react-router-dom"
 import "./styles/NavigationBar.css"
+
+const RedirectTo =() =>{
+  const navigate = useNavigate();
+  setTimeout(() =>{navigate('/')}, 100);
+  return (<></>);
+}
 
 function App() {
   const [cookies, setCookie] = useCookies(["user"])
