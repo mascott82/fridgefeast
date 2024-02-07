@@ -80,12 +80,18 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-top: 20px;
   }
   
   .login-form button:hover {
     background-color: #34334f;
   }
-  
+  .signup-redirect-container {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    margin-top:20px;
+  }
   .login-redirect {
     text-align: center;
     margin-top: 10px;
@@ -99,7 +105,3 @@
     text-decoration: underline;
   }
 
-  .password-warning {
-    color: red; 
-    margin-top: 5px; 
-  }

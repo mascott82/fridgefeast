@@ -37,13 +37,13 @@ const Login = ({onLogin}) => {
             <input
               id="password"
               type={showPassword ? 'text' : 'password'}
-              placeholder="enter your password"
+              placeholder="Enter your password"
               value={password}
               onChange={handlePasswordChange}
               required
             />
             <button
-              type="button" // Set type as button to prevent form submission
+              type="button" 
               onClick={() => setShowPassword(!showPassword)}
               className="toggle-password-button"
             >
@@ -52,9 +52,13 @@ const Login = ({onLogin}) => {
           </div>
           <div className="button-container"><button type="submit" className="login-form-button">Login</button></div>
           </form>
-          <p className="signup-redirect">
-            No account ? <a href="/signup">Sign Up</a>
-          </p>
+
+          <div className="signup-redirect-container">
+            <p className="signup-redirect">
+            Don't have an account? <a href="/signup">Sign Up</a>
+            </p>
+          </div>
+          
         </div>
       </div>
     );
