@@ -11,8 +11,8 @@ const NavigationBar = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#home">Sign Up</Nav.Link>
-            <Nav.Link href="#link">Login</Nav.Link>
+            <Nav.Link href="#signup">Sign Up</Nav.Link>
+            <Nav.Link href="#login">Login</Nav.Link>
 
             {/* UPDATE to only show Users drop down when logged in */}
             <NavDropdown title="User" id="basic-nav-dropdown">
