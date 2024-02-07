@@ -1,6 +1,7 @@
 import {BrowserRouter, Routes, Route, useNavigate} from "react-router-dom"
 import Signup from "./routes/Signup"
 import Login from "./routes/Login"
+import SearchResults from "./routes/SearchResults"
 import ProtectedRoute from "./routes/ProtectedRoute"
 import "./App.css"
 import {CookiesProvider, useCookies} from "react-cookie"
@@ -16,10 +17,10 @@ const RedirectTo =() =>{
 }
 
 function App() {
-  const [cookies, setCookie] = useCookies(["user"]);
+  const [cookies, setCookie] = useCookies(["user"])
 
   function handleLogin(emailAndAuthToken) {
-    setCookie("user", emailAndAuthToken, { path: "/" });
+    setCookie("user", emailAndAuthToken, {path: "/"})
     console.log("After login: emailAndAuthToken = ", emailAndAuthToken)
   }
 
@@ -27,15 +28,25 @@ function App() {
     <>
       <NavigationBar />
       <CookiesProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Homepage />} /> 
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={cookies.user == null ? <Login onLogin={handleLogin}/> : <RedirectTo/>} />
-          <Route element={<ProtectedRoute currentUser={cookies.user}/>}>
-          </Route>
-        </Routes>
-      </BrowserRouter>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Homepage />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route
+              path="/login"
+              element={
+                cookies.user == null ? (
+                  <Login onLogin={handleLogin} />
+                ) : (
+                  <RedirectTo />
+                )
+              }
+            />
+            <Route element={<ProtectedRoute currentUser={cookies.user} />}>
+              <Route path="/searchResults" element={<SearchResults />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
       </CookiesProvider>
     </>
   )
