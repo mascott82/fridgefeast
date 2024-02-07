@@ -1,6 +1,6 @@
 import { useState } from "react";
 import '../styles/Signup.css';
-
+// TODO : Setup : Once user login, redirect to homepage (not showing signup page)
 const Signup = () => {
 
     const [firstName, setFirstName] = useState('');
@@ -14,7 +14,7 @@ const Signup = () => {
     // Handle form submission
     const handleSubmit = (event) => {
       event.preventDefault();
-      console.log(firstName, lastName, email, password, confirmPassword);
+      // TODO: implement POST against Backend Endpoint
     };
     
     const handlePasswordChange = (e) => {
