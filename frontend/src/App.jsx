@@ -1,17 +1,13 @@
 import {useState} from "react"
-import "./App.css"
 import {BrowserRouter, Routes, Route} from "react-router-dom"
-import Signup from "./pages/Signup"
-import Login from "./pages/Login"
-import reactLogo from "./assets/react.svg"
-import viteLogo from "/vite.svg"
-import "./App.css"
+import {CookiesProvider, useCookies} from "react-cookie"
+import Signup from "./routes/Signup"
+import Login from "./routes/Login"
 import NavigationBar from "./components/NavigationBar"
 import Homepage from "./components/Homepage"
+import "./App.css"
 import "./styles/Homepage.css"
-import searchModal from "./components/SearchModal"
 import "./styles/NavigationBar.css"
-import {CookiesProvider, useCookies} from "react-cookie"
 
 function App() {
   const [cookies, setCookie] = useCookies(["user"])
