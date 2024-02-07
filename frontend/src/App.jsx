@@ -1,4 +1,4 @@
-import {BrowserRouter, Routes, Route} from "react-router-dom"
+import {BrowserRouter, Routes, Route, useNavigate} from "react-router-dom"
 import Signup from "./routes/Signup"
 import Login from "./routes/Login"
 import ProtectedRoute from "./routes/ProtectedRoute"
@@ -7,12 +7,11 @@ import {CookiesProvider, useCookies} from "react-cookie"
 import NavigationBar from "./components/NavigationBar"
 import Homepage from "./components/Homepage"
 import "./styles/Homepage.css"
-import { useNavigate } from 'react-router-dom';
 import "./styles/NavigationBar.css"
 
 const RedirectTo =() =>{
   const navigate = useNavigate();
-  navigate('/');
+  setTimeout(() =>{navigate('/')}, 100);
   return (<></>);
 }
 
@@ -32,7 +31,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Homepage />} /> 
           <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={cookies.user == null ? <Login onLogin={handleLogin}/> : <RedirectTo />} />
+          <Route path="/login" element={cookies.user == null ? <Login onLogin={handleLogin}/> : <RedirectTo/>} />
           <Route element={<ProtectedRoute currentUser={cookies.user}/>}>
           </Route>
         </Routes>
