@@ -18,11 +18,16 @@
 
 ### Find Recipes
 
+#### Parameters
+> Comma seperated, max 5 ingredients
+
 ```
    http://localhost:3000/s/ingredient1[,ingredient2,ingredient3,ingredient4,ingredient5]
 ```
 
 ### Display a recipe
+#### Parameters
+>  Recipe id
 
 ```
    http://localhost:3000/recipes/:recipeId
@@ -35,6 +40,12 @@
 ```
 
 ### To save a review
+#### Parameters
+>  Method:  **POST**
+> - user_id
+> - recipe_id
+> - rating
+> - comment
 
 ```
    http://localhost:3000/reviews/save
@@ -44,4 +55,42 @@
 
 ```
    http://localhost:3000/reviews/
+```
+
+### User login
+#### Parameters
+> Method:   **POST**
+> - first_name
+> - last_name
+> - email
+> - password
+
+```
+   http://localhost:3000/users/auth
+```
+
+### User signup
+#### Parameters
+> Method:   **POST**
+> - email
+> - password
+
+```
+   http://localhost:3000/users/save
+```
+
+### List favorites
+
+```
+   http://localhost:3000/favorites/
+```
+
+### To mark as favorited
+#### Parameters
+> Method:   **POST**
+> - user_id
+> - recipe_id
+
+```
+   http://localhost:3000/favorites/save
 ```

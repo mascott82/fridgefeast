@@ -11,22 +11,38 @@ const router = express.Router()
 const { getIngredients, addIngredient } = require('../db/queries/ingredient')
 
 router.get('/', (req, res) => {
-  const userId = req.session.userId ? req.session.userId : 1
   const results = []
   getIngredients()
     .then(ingredients => {
-      ingredients.forEach(element => {
-        console.log("===", element)
-      });
+      ingredients.forEach(ingredient => {
+        results.push(ingredient)
+      })
+      res.send(results)
+    })
+})
 
-      const templateVars = { username: req.session.username, userId: req.session.userId, results }
-      res.render('feeds', templateVars)
+router.post('/save', (req, res) => {
+  const ingredient = {
+    name: req.body.name,
+    description:  req.body.description,
+    quantity: req.body.quantity,
+    image:  req.body.image,
+    expiry_date:  req.body.expiryDate
+  }
+
+  addIngredient(ingredient)
+    .then(() => {
+      console.log("Ingredient added successfully!")
+      res.send({ msg: 1 })
+    })
+    .catch((err) => {
+      console.error("Error adding new ingredient.", err)
+      throw err
     })
 })
 
 router.get('/new', (req, res) => {
-  const templateVars = { username: req.session.username, userId: req.session.userId }
-  res.render('newFeed', templateVars)
+  res.render('newIngredient')
 })
 
 module.exports = router
