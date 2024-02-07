@@ -31,7 +31,7 @@ const NavigationBar = () => {
               <Nav.Link href="/login">Login</Nav.Link>
 
               <NavDropdown title="User" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">
+                <NavDropdown.Item href="/favourites">
                   Favourites
                 </NavDropdown.Item>
                 <NavDropdown.Item href="/pantry">Pantry</NavDropdown.Item>
