@@ -1,0 +1,13 @@
+.recipe-card {
+  width: 20rem;
+  margin: 0;
+  padding: 0;
+}
+
+.recipe-card-img {
+  padding: 0;
+}
+
+.featured-title {
+  padding-bottom: 1rem;
+}
