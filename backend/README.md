@@ -94,3 +94,20 @@
 ```
    http://localhost:3000/favorites/save
 ```
+
+### Similar Recipes
+#### Parameters
+> Method:   **GET**
+> - recipeId
+
+```
+   http://localhost:3000/s/:id/similar
+```
+
+### Get Random Recipes
+#### Parameter
+> Method:   **GET**
+
+```
+   http://localhost:3000/s/random
+```
