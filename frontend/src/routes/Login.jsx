@@ -8,16 +8,14 @@ const Login = ({onLogin}) => {
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [authToken, setAuthToken] = useState(null);
-    const APIURL = 'http://0.0.0.0:3000/login' //TODO replace this with actual backend url, this one is Mock API url
+    const APIURL = 'http://0.0.0.0:3000/users/auth'
     const navigate = useNavigate();
 
     // Handle form submission
     const handleSubmit = (event) => {
       event.preventDefault();
-      console.log(email, password);  //TODO: this is for debug, SHOULD be removed
       axios.post(APIURL, {email:email, password:password}).then((response)=>{
-        const returnAuthToken = response.data.authToken; //TODO backend will determine this name - authToken, in here use authToken
-        console.log("returnAuthToken", returnAuthToken) // TODO remove later
+        const returnAuthToken = response.data.authToken;
         setAuthToken(returnAuthToken);
         onLogin({authToken:returnAuthToken, email:email});
         navigate('/')

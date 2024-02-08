@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom"
+import { useEffect } from "react"
 import Signup from "./routes/Signup"
 import Login from "./routes/Login"
 import Favourites from "./routes/Favourites"
@@ -13,9 +14,13 @@ import "./styles/NavigationBar.css"
 
 const RedirectTo = () => {
   const navigate = useNavigate()
-  setTimeout(() => {
-    navigate("/")
-  }, 100)
+  useEffect(()=>{    
+    const makeDelay = setTimeout(() => {
+      navigate("/")
+    }, 100);
+    return () => clearTimeout(makeDelay);
+  },[navigate])
+  
   return <></>
 }
 
@@ -23,8 +28,7 @@ function App() {
   const [cookies, setCookie] = useCookies(["user"])
 
   function handleLogin(emailAndAuthToken) {
-    setCookie("user", emailAndAuthToken, { path: "/" })
-    console.log("After login: emailAndAuthToken = ", emailAndAuthToken)
+    setCookie("user", emailAndAuthToken, { path: "/" , maxAge: 24*60*60})
   }
 
   return (
