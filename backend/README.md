@@ -111,3 +111,30 @@
 ```
    http://localhost:3000/s/random
 ```
+
+### Display a recipe
+#### Parameters
+> Method:  **GET**
+> - recipeId
+
+```
+   http://localhost:3000/recipes/:id/information
+```
+
+### Display ingredients of a recipe
+#### Parameters
+> Method:   **GET**
+> - recipeId
+
+```
+   http://localhost:3000/recipes/:id/ingredients
+```
+
+### Display instructions of a recipe
+#### Parameters
+> Method:   **GET**
+> - recipeId
+
+```
+   http://localhost:3000/recipes/:id/instructions
+```
