@@ -61,7 +61,7 @@ app.use('/s', searchRoute);
 app.use('/register', registerRoute);
 app.use('/reviews', reviewRoute);
 app.use('/ingredients', ingredientRoute);
-app.use('/', homepageRoute);
+app.use('/home', homepageRoute);
 
 // Note: mount other resources here, using the same pattern above
 

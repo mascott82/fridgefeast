@@ -1,6 +1,6 @@
 /*
  * All routes for searching are defined here
- * Since this file is loaded in homepage.js into /,
+ * Since this file is loaded in homepage.js into /home,
  *   these routes are mounted onto /home
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
@@ -11,7 +11,7 @@ const axios = require('axios')
 
 router.get('/random', (req, res) => {
   const apiEndpoint = `https://api.spoonacular.com/recipes/random`
-
+  
   const options = {
     params: {
       'include-tags': 'meal, cuisine, vegetarian, dessert',
@@ -20,42 +20,42 @@ router.get('/random', (req, res) => {
 
     headers: {
       'Content-Type': 'application/json',
-      'x-api-key': 'd244d7df0bca4e509d34d9496190e714'
+      'x-api-key':  'd244d7df0bca4e509d34d9496190e714'
     }
   }
 
-  const express = require('express')
-  const router = express.Router()
-  const axios = require('axios')
+const express = require('express')
+const router = express.Router()
+const axios = require('axios')
 
-  router.get('/random', (req, res) => {
-    const apiEndpoint = `https://api.spoonacular.com/recipes/random`
+router.get('/random', (req, res) => {
+  const apiEndpoint = `https://api.spoonacular.com/recipes/random`
+  
+  const options = {
+    params: {
+      'include-tags': 'meal, cuisine, vegetarian, dessert',
+      number: 10
+    },
 
-    const options = {
-      params: {
-        'include-tags': 'meal, cuisine, vegetarian, dessert',
-        number: 10
-      },
-
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': 'd244d7df0bca4e509d34d9496190e714'
-      }
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key':  'd244d7df0bca4e509d34d9496190e714'
     }
+  }
 
-    axios
-      .get(apiEndpoint, options)
-      .then((response) => {
-        console.log(response.data)
-        res.send(response.data)
-      })
-      .catch((err) => {
-        console.error("====", err)
-        res.status(500).send('Error occurred')
-      })
-  })
+  axios
+    .get(apiEndpoint, options)
+    .then((response) => {
+      console.log(response.data)
+      res.send(response.data)
+    })
+    .catch((err) => {
+      console.error("====", err)
+      res.status(500).send('Error occurred')
+    })
+})
 
-  module.exports = router
+module.exports = router
 
 })
 
@@ -172,7 +172,7 @@ module.exports = router
 //       "sourceUrl": "https://www.foodista.com/recipe/48JPTJ2N/peruvian-roast-chicken",
 //       "image": "https://spoonacular.com/recipeImages/655793-556x370.jpg",
 //       "imageType": "jpg",
-// }
+    // }
 
-// ]
+  // ]
 // }

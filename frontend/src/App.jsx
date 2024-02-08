@@ -1,26 +1,28 @@
-import {BrowserRouter, Routes, Route, useNavigate} from "react-router-dom"
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom"
 import Signup from "./routes/Signup"
 import Login from "./routes/Login"
 import SearchResults from "./routes/SearchResults"
 import ProtectedRoute from "./routes/ProtectedRoute"
 import "./App.css"
-import {CookiesProvider, useCookies} from "react-cookie"
+import { CookiesProvider, useCookies } from "react-cookie"
 import NavigationBar from "./components/NavigationBar"
 import Homepage from "./components/Homepage"
 import "./styles/Homepage.css"
 import "./styles/NavigationBar.css"
 
-const RedirectTo =() =>{
-  const navigate = useNavigate();
-  setTimeout(() =>{navigate('/')}, 100);
-  return (<></>);
+const RedirectTo = () => {
+  const navigate = useNavigate()
+  setTimeout(() => {
+    navigate("/")
+  }, 100)
+  return <></>
 }
 
 function App() {
   const [cookies, setCookie] = useCookies(["user"])
 
   function handleLogin(emailAndAuthToken) {
-    setCookie("user", emailAndAuthToken, {path: "/"})
+    setCookie("user", emailAndAuthToken, { path: "/" })
     console.log("After login: emailAndAuthToken = ", emailAndAuthToken)
   }
 
@@ -45,6 +47,7 @@ function App() {
             <Route element={<ProtectedRoute currentUser={cookies.user} />}>
               <Route path="/searchResults" element={<SearchResults />} />
             </Route>
+            <Route path="/home" element={<Homepage />} />
           </Routes>
         </BrowserRouter>
       </CookiesProvider>

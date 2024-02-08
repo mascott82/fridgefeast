@@ -8,27 +8,32 @@ import axios from "axios"
 const Homepage = () => {
   const [randomRecipes, setRandomRecipes] = useState([])
 
-  useEffect(() => {
-    const fetchRandomRecipes = async () => {
-      try {
-        // Make a GET request to your backend route to fetch random recipes
-        const response = await axios.get("/random")
-        console.log("🚀 ~ fetchRecipes ~ response:", response)
+  const getRandomRecipes = async () => {
+    try {
+      // Make a GET request to your backend route to fetch random recipes
+      // const response = await axios.get("/random")
+      // console.log("🚀 ~ fetchRecipes ~ RESPONSE:", response.data)
 
-        // Extract recipe data from the response
-        const randomRecipeData = response.data.recipes
-        console.log("🚀 ~ fetchRecipes ~ recipeData:", randomRecipeData)
+      const response = await axios.get(
+        `https://api.spoonacular.com/recipes/random?apiKey=d244d7df0bca4e509d34d9496190e714`
+      )
+      console.log("🚀 ~ fetchRecipes ~ RESPONSE:", response.data)
 
-        // Update state with the fetched recipes
-        setRandomRecipes(randomRecipeData)
-      } catch (error) {
-        console.error("Error fetching recipes:", error)
-      }
+      // Extract recipe data from the response
+      const randomRecipeData = response.data.recipes[0]
+      console.log("🚀 ~ fetchRecipes ~ RESPONSE DATA:", randomRecipeData)
+
+      // Update state with the fetched recipes
+      setRandomRecipes(randomRecipeData)
+    } catch (error) {
+      console.error("Error fetching recipes:", error)
     }
+  }
 
-    // Call the fetchRecipes function when the component mounts
-    fetchRandomRecipes()
-  }, []) 
+  // Call the fetchRecipes function when the component mounts
+  useEffect(() => {
+    getRandomRecipes()
+  }, [])
 
   return (
     <div>
