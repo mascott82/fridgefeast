@@ -1,4 +1,5 @@
 .recipe-card {
+<<<<<<< HEAD
   width: 20rem;
   margin: 0;
   padding: 0;
@@ -10,4 +11,8 @@
 
 .featured-title {
   padding-bottom: 1rem;
+=======
+  padding: 0;
+  width: 100%;
+>>>>>>> main
 }
