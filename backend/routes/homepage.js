@@ -14,7 +14,7 @@ router.get('/random', (req, res) => {
 
   const options = {
     params: {
-      'include-tags': 'meal, cuisine, vegetarian, dessert',
+      // 'include-tags': 'meal, cuisine, vegetarian, dessert',
       number: 3
     },
 
@@ -24,6 +24,18 @@ router.get('/random', (req, res) => {
     }
   }
 
+  axios
+    .get(apiEndpoint, options)
+    .then((response) => {
+      console.log(response.data)
+      res.send(response.data)
+    })
+    .catch((err) => {
+      console.error("====", err)
+    })
+    .finally(() => {
+      console.log("--End--")
+    })
 })
 
 module.exports = router

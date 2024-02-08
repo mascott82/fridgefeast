@@ -9,6 +9,7 @@ const express = require('express');
 const morgan = require('morgan');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const cors = require("cors");
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -39,6 +40,8 @@ app.use('/uploads', express.static('uploads'));
 // Use body-parser middleware to parse JSON and URL-encoded data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(cors());
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
