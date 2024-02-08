@@ -15,7 +15,7 @@ router.get('/random', (req, res) => {
   const options = {
     params: {
       'include-tags': 'meal, cuisine, vegetarian, dessert',
-      number: 10
+      number: 3
     },
 
     headers: {
@@ -23,35 +23,6 @@ router.get('/random', (req, res) => {
       'x-api-key': 'd244d7df0bca4e509d34d9496190e714'
     }
   }
-
-  router.get('/random', (req, res) => {
-    const apiEndpoint = `https://api.spoonacular.com/recipes/random`
-
-    const options = {
-      params: {
-        'include-tags': 'meal, cuisine, vegetarian, dessert',
-        number: 3,
-      },
-
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': 'd244d7df0bca4e509d34d9496190e714'
-      }
-    }
-
-    axios
-      .get(apiEndpoint, options)
-      .then((response) => {
-        console.log(response.data)
-        res.send(response.data)
-      })
-      .catch((err) => {
-        console.error("====", err)
-        res.status(500).send('Error occurred')
-      })
-  })
-
-  module.exports = router
 
 })
 
