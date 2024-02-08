@@ -7,7 +7,7 @@ import ProtectedRoute from "./routes/ProtectedRoute"
 import "./App.css"
 import { CookiesProvider, useCookies } from "react-cookie"
 import NavigationBar from "./components/NavigationBar"
-import Homepage from "./components/Homepage"
+import Homepage from "./routes/Homepage"
 import "./styles/Homepage.css"
 import "./styles/NavigationBar.css"
 
