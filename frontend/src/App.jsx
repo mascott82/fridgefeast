@@ -1,25 +1,13 @@
-<<<<<<< HEAD
-// import {useState} from "react"
-import reactLogo from "./assets/react.svg"
-import viteLogo from "/vite.svg"
-=======
 import {BrowserRouter, Routes, Route, useNavigate} from "react-router-dom"
 import Signup from "./routes/Signup"
 import Login from "./routes/Login"
 import SearchResults from "./routes/SearchResults"
 import ProtectedRoute from "./routes/ProtectedRoute"
->>>>>>> main
 import "./App.css"
 import {CookiesProvider, useCookies} from "react-cookie"
 import NavigationBar from "./components/NavigationBar"
 import Homepage from "./components/Homepage"
 import "./styles/Homepage.css"
-<<<<<<< HEAD
-
-
-function App() {
-  // const [count, setCount] = useState(0)
-=======
 import "./styles/NavigationBar.css"
 
 const RedirectTo =() =>{
@@ -35,14 +23,10 @@ function App() {
     setCookie("user", emailAndAuthToken, {path: "/"})
     console.log("After login: emailAndAuthToken = ", emailAndAuthToken)
   }
->>>>>>> main
 
   return (
     <>
       <NavigationBar />
-<<<<<<< HEAD
-      <Homepage />
-=======
       <CookiesProvider>
         <BrowserRouter>
           <Routes>
@@ -64,7 +48,6 @@ function App() {
           </Routes>
         </BrowserRouter>
       </CookiesProvider>
->>>>>>> main
     </>
   )
 }
