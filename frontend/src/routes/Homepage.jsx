@@ -11,19 +11,10 @@ const Homepage = () => {
   const getRandomRecipes = async () => {
     try {
       // Make a GET request to your backend route to fetch random recipes
-
-      /* TO DO: update API route to backend instead of to API directly */
       const response = await axios.get("http://localhost:3000/home/random")
-
-      // const response = await axios.get(
-      //   "https://api.spoonacular.com/recipes/random?number=3&apiKey=d244d7df0bca4e509d34d9496190e714"
-      // )
-
-      console.log("🚀 ~ fetchRecipes ~ RESPOSNE DATA:", response.data)
 
       // Extract recipe data from the response
       const randomRecipeData = response.data.recipes
-      console.log("🚀 ~ fetchRecipes ~ RANDOM RECIPE DATA", randomRecipeData)
 
       // Update state with the fetched recipes
       setRandomRecipes(randomRecipeData)
