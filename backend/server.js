@@ -9,6 +9,7 @@ const express = require('express');
 const morgan = require('morgan');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const cors = require("cors");
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -40,6 +41,8 @@ app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(cors());
+
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
 const userRoute = require('./routes/users');
@@ -49,6 +52,7 @@ const searchRoute = require('./routes/search');
 const registerRoute = require('./routes/register');
 const reviewRoute = require('./routes/reviews');
 const ingredientRoute = require('./routes/ingredients');
+const homepageRoute = require('./routes/homepage');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -60,6 +64,7 @@ app.use('/s', searchRoute);
 app.use('/register', registerRoute);
 app.use('/reviews', reviewRoute);
 app.use('/ingredients', ingredientRoute);
+app.use('/home', homepageRoute);
 
 // Note: mount other resources here, using the same pattern above
 
