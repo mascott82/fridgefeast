@@ -1,6 +1,7 @@
 import {BrowserRouter, Routes, Route, useNavigate} from "react-router-dom"
 import Signup from "./routes/Signup"
 import Login from "./routes/Login"
+import Favourites from "./routes/Favourites"
 import SearchResults from "./routes/SearchResults"
 import ProtectedRoute from "./routes/ProtectedRoute"
 import "./App.css"
@@ -45,6 +46,7 @@ function App() {
             <Route element={<ProtectedRoute currentUser={cookies.user} />}>
               <Route path="/searchResults" element={<SearchResults />} />
             </Route>
+            <Route path="/favourites" element={<Favourites />} />
           </Routes>
         </BrowserRouter>
       </CookiesProvider>
