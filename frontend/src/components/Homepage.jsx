@@ -17,7 +17,7 @@ const Homepage = () => {
       
 
       const response = await axios.get(
-        "https://api.spoonacular.com/recipes/random?number=5&apiKey=d244d7df0bca4e509d34d9496190e714"
+        "https://api.spoonacular.com/recipes/random?number=3&apiKey=d244d7df0bca4e509d34d9496190e714"
       )
       console.log("🚀 ~ fetchRecipes ~ RESPONSE:", response.data)
 
@@ -70,9 +70,8 @@ const Homepage = () => {
                 />
                 <Card.Body>
                   <Card.Title>{randomRecipe.title}</Card.Title>
-                  <Card.Text>{randomRecipe.summary}</Card.Text>
                   <Card.Text>
-                    Ready in {randomRecipe.readyInMinutes} minutes
+                    {randomRecipe.readyInMinutes} minutes | Serving Size: {randomRecipe.servings}
                   </Card.Text>
                 </Card.Body>
               </Card>
