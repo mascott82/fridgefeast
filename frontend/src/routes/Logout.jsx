@@ -8,7 +8,7 @@ const Logout = ({onLogout}) => {
     const navigate = useNavigate()
     useEffect(()=>{    
       const makeDelay = setTimeout(() => {
-        navigate("/")
+        navigate("/home")
       }, 100);
       return () => clearTimeout(makeDelay);
     },[navigate])
