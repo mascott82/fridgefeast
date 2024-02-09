@@ -8,6 +8,7 @@ import Favourites from "./routes/Favourites"
 import SearchResults from "./routes/SearchResults"
 import ProtectedRoute from "./routes/ProtectedRoute"
 import Homepage from "./routes/Homepage"
+import RecipePage from "./routes/RecipePage"
 import NavigationBar from "./components/NavigationBar"
 import "./App.css"
 import "./styles/Homepage.css"
@@ -60,6 +61,7 @@ function App() {
             </Route>            
             <Route path="/home" element={<Homepage />} />
             <Route path="/logout" element={<Logout onLogout={handleLogout} />} />
+            <Route path="/recipes" element={<RecipePage />} />
           </Routes>
         </BrowserRouter>
       </CookiesProvider>
