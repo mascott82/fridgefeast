@@ -16,8 +16,9 @@ const Login = ({onLogin}) => {
       event.preventDefault();
       axios.post(APIURL, {email:email, password:password}).then((response)=>{
         const returnAuthToken = response.data.authToken;
+        console.log("login response.data", response.data)
         setAuthToken(returnAuthToken);
-        onLogin({authToken:returnAuthToken, email:email});
+        onLogin({authToken:returnAuthToken, userid:response.data.userid});
         navigate('/')
       }).catch((error)=>{
         console.error('Error logging in:', error);

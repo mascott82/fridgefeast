@@ -44,7 +44,7 @@ router.post('/auth', (req, res) => {
         const randomTokenLength = 5;
         randomToken = (Math.random() + 1).toString(36).substring(2,2+randomTokenLength);
       }
-      res.send({ authToken: randomToken })
+      res.send({ authToken: randomToken, userid: result.id })
     })
     .catch((err) => {
       console.error("Logon error!", err)

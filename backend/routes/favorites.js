@@ -9,42 +9,21 @@ const express = require('express');
 const router = express.Router();
 const favQry = require('../db/queries/favorites');
 
-// router.get('/list', (req, res) => {
-//   // userid =1, john.doe@email.com, $2a$12$XpHkSnm4Tf/jZS38tYNpVu1P9B27TPs5f.yhvXCBdHkk3mCZCRVTu
-//   // userid =2, jane.smith@email.com, $2a$12$XpHkSnm4Tf/jZS38tYNpVu1P9B27TPs5f.yhvXCBdHkk3mCZCRVTu
-//   if (req.session.username || req.session.userId) {
-//     // request user's favorites information against database via query
-//     favQry.getFavourites(req.session.userId).then(favs => {
-//       const _sortedResult = _customSortQryResult(favs, req.query.sortby);
-//       // username, userId in templateVars -> goes to views/partials/_header.ejs
-//       // favorites in templateVars -> goes to views/favorties.ejs
-//       const templateVars = { username: req.session.username, userId: req.session.userId, favorites: _sortedResult };
-//       res.render('favorites', templateVars);
-//     });
-//   } else {
-//     // redirect to login page
-//     res.redirect("/login/");
-//   }
-// });
+router.get("/show", (req, res)=>{
+    const testuserid=1
+    favQry.getFavorites(testuserid).then(favs => {       
+        res.send({ favs: favs })  
+    }).catch((error) =>{console.error("user's fav query has error: ",error)});
+})
 
-
-// router.get('/favorites/:userid/:rowlimit', (req, res) => {
-//   if (req.session.username || req.session.userId) {
-//     const userId = req.params.userid;
-//     // follow request rowLimit
-//     const rowLimit = req.params.rowlimit;
-//     favQry.getFavourites(userId, rowLimit).then(favs => {
-
-//       const _sortedResult = _customSortQryResult(favs, req.query.sortby);
-//       const templateVars = { username: req.session.username, userId: req.session.userId, favorites: _sortedResult, rowLimit: req.params.rowLimit };
-
-//       res.render('favorites', templateVars);
-//     });
-
-//   } else {
-//     // redirect to login page
-//     res.redirect("/login/");
-//   }
-// });
+router.post('/list', (req, res) => {
+    // favorites is located within ProtectedRoute, without login, cannot be accessible.
+    // no pagination at qry level, qry all recipes of the given user -> apply checkbox condition, sorting order at the client side -> run pagination with javascript
+    // pros: no repetitive qry
+    // cons: additional storage space at client level, at the worst case, user's favorites result is greater than client's memery buffer. (but very low chance...)
+    favQry.getFavorites(req.body.userid).then(favs => {     
+        res.send({ favs: favs })  // favs = Array[Object,..]
+    }).catch((error) =>{console.error("user's fav query has error: ",error)});
+});
 
 module.exports = router;
