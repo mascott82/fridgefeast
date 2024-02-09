@@ -11,7 +11,7 @@ const Homepage = () => {
   const getRandomRecipes = async () => {
     try {
       // Make a GET request to your backend route to fetch random recipes
-      const response = await axios.get("http://localhost:3000/s/random")
+      const response = await axios.get("http://localhost:3000/home/random")
       console.log("🚀 ~ getRandomRecipes ~ response:", response)
 
       // Extract recipe data from the response
