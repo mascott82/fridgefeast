@@ -27,7 +27,7 @@ router.get('/random', (req, res) => {
   axios
     .get(apiEndpoint, options)
     .then((response) => {
-      console.log(response.data)
+      // console.log(response.data)
       res.send(response.data)
     })
     .catch((err) => {

@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 import Signup from "./routes/Signup"
 import Login from "./routes/Login"
+import Logout from "./routes/Logout"
 import Favourites from "./routes/Favourites"
 import SearchResults from "./routes/SearchResults"
 import ProtectedRoute from "./routes/ProtectedRoute"
@@ -27,8 +28,13 @@ const RedirectTo = () => {
 function App() {
   const [cookies, setCookie] = useCookies(["user"])
 
-  function handleLogin(emailAndAuthToken) {
-    setCookie("user", emailAndAuthToken, { path: "/" , maxAge: 24*60*60})
+  function handleLogin(userIdAndAuthToken) {
+    console.log("userIdAndAuthToken", userIdAndAuthToken)
+    setCookie("user", userIdAndAuthToken, { path: "/" , maxAge: 24*60*60})
+  }
+
+  function handleLogout() {
+    setCookie("user", null, { path: "/"})
   }
 
   return (
@@ -51,9 +57,10 @@ function App() {
             />
             <Route element={<ProtectedRoute currentUser={cookies.user} />}>
               <Route path="/searchResults" element={<SearchResults />} />
-              <Route path="/favourites" element={<Favourites />} />
+              <Route path="/favourites" element={<Favourites userIdInfo={cookies.user}/>} />
             </Route>            
             <Route path="/home" element={<Homepage />} />
+            <Route path="/logout" element={<Logout onLogout={handleLogout} />} />
           </Routes>
         </BrowserRouter>
       </CookiesProvider>
