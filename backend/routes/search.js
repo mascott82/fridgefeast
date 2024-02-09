@@ -15,13 +15,12 @@ router.get('/:i', (req, res) => {
 
   // const ingredients = params.split(",")
 
-  // const ingredients = req.params.i
-
   const apiEndpoint = 'https://api.spoonacular.com/recipes/findByIngredients'
 
   const options = {
     params: {
-      ingredients: req.params.i
+      ingredients: req.params.i,
+      number: 12
     },
     headers: {
       'Content-Type': 'application/json',

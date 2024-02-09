@@ -36,7 +36,7 @@ function SearchResults() {
                     type="text"
                     className="form-control"
                     required
-                    placeholder="Enter ingredients (up to 5)"
+                    placeholder="Enter ingredients (separate by comma)"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
