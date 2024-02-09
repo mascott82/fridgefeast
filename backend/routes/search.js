@@ -80,7 +80,7 @@ router.get('/random', (req, res) => {
   const options = {
     params: {
       'include-tags': 'meal, cuisine, vegetarian, dessert',
-      number: 10
+      number: 3
     },
 
     headers: {
