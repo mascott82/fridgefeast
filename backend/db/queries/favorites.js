@@ -1,9 +1,11 @@
 const { dbPool } = require('../connection')
 
-const getFavorites = () => {
-  return dbPool.query('SELECT * FROM favorites')
+const getFavorites = (user_id) => {
+  const _qry = `SELECT * from recipes where id in (SELECT DISTINCT recipe_id FROM favorites where user_id = ${user_id})`
+  console.log(_qry)
+  return dbPool.query(_qry)
     .then(data => {
-      return data.rows
+      return data.rows  // data.rows from recipes table with tags, tags will be used post-filtering based on user's checkbox
     })
 }
 

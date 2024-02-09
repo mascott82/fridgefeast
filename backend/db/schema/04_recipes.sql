@@ -8,5 +8,6 @@ CREATE TABLE recipes (
   image VARCHAR(255) NOT NULL,
   serving_size  INTEGER DEFAULT 0,
   directions  VARCHAR(255)  NOT NULL,
+  tags TEXT[],
   created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
