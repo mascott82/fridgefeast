@@ -43,7 +43,7 @@ function App() {
       <CookiesProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Homepage />} />
+            {/* <Route path="/" element={<Homepage />} /> */}
             <Route path="/signup" element={<Signup />} />
             <Route
               path="/login"
