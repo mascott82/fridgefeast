@@ -16,13 +16,13 @@ import "./styles/NavigationBar.css"
 
 const RedirectTo = () => {
   const navigate = useNavigate()
-  useEffect(()=>{    
+  useEffect(() => {
     const makeDelay = setTimeout(() => {
       navigate("/")
-    }, 100);
-    return () => clearTimeout(makeDelay);
-  },[navigate])
-  
+    }, 100)
+    return () => clearTimeout(makeDelay)
+  }, [navigate])
+
   return <></>
 }
 
@@ -31,11 +31,11 @@ function App() {
 
   function handleLogin(userIdAndAuthToken) {
     console.log("userIdAndAuthToken", userIdAndAuthToken)
-    setCookie("user", userIdAndAuthToken, { path: "/" , maxAge: 24*60*60})
+    setCookie("user", userIdAndAuthToken, { path: "/", maxAge: 24 * 60 * 60 })
   }
 
   function handleLogout() {
-    setCookie("user", null, { path: "/"})
+    setCookie("user", null, { path: "/" })
   }
 
   return (
@@ -55,12 +55,18 @@ function App() {
                 )
               }
             />
+            <Route path="/searchResults" element={<SearchResults />} />
             <Route element={<ProtectedRoute currentUser={cookies.user} />}>
-              <Route path="/searchResults" element={<SearchResults />} />
-              <Route path="/favourites" element={<Favourites userIdInfo={cookies.user}/>} />
-            </Route>            
+              <Route
+                path="/favourites"
+                element={<Favourites userIdInfo={cookies.user} />}
+              />
+            </Route>
             <Route path="/home" element={<Homepage />} />
-            <Route path="/logout" element={<Logout onLogout={handleLogout} />} />
+            <Route
+              path="/logout"
+              element={<Logout onLogout={handleLogout} />}
+            />
             <Route path="/recipes" element={<RecipePage />} />
           </Routes>
         </BrowserRouter>

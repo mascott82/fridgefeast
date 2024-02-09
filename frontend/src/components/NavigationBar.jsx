@@ -44,11 +44,11 @@ const NavigationBar = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      {isModalOpen && (
+      {/* {isModalOpen && (
         <div className="search-modal-overlay">
           <SearchModal onClose={handleCloseModal} />
         </div>
-      )}
+      )} */}
     </div>
   )
 }
