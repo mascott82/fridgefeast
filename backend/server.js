@@ -63,6 +63,7 @@ app.use('/register', registerRoute);
 app.use('/reviews', reviewRoute);
 app.use('/ingredients', ingredientRoute);
 app.use('/home', searchRoute);
+app.use('/seachResults', searchRoute);
 
 // Note: mount other resources here, using the same pattern above
 
