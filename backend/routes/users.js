@@ -39,7 +39,12 @@ router.post('/auth', (req, res) => {
         isAuth = false
         console.log("Login failed!")
       }
-      res.send({ msg: isAuth })
+      let randomToken = null;
+      if(isAuth){
+        const randomTokenLength = 5;
+        randomToken = (Math.random() + 1).toString(36).substring(2,2+randomTokenLength);
+      }
+      res.send({ authToken: randomToken })
     })
     .catch((err) => {
       console.error("Logon error!", err)
@@ -54,10 +59,11 @@ router.post('/save', (req, res) => {
     email:  req.body.email,
     password: req.body.password
   }
-
+  let added = false;
   addUser(user)
     .then(() => {
-      res.send({ message: 1 })
+      added = true;
+      res.send({ result: added })
     })
     .catch((err) => {
       console.error("Error creating the user. ", err)
