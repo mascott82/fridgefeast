@@ -1,7 +1,7 @@
 const { dbPool } = require('../connection')
 
-const getFavorites = () => {
-  return dbPool.query('SELECT * FROM favorites')
+const getFavorites = (user_id) => {
+  return dbPool.query('SELECT * FROM favorites where user_id = $1', [user_id])
     .then(data => {
       return data.rows
     })

@@ -5,8 +5,19 @@ import Button from "react-bootstrap/Button"
 import Card from "react-bootstrap/Card"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
+import CheckBox from './checkBoxFav';
+
+/*
+checkbox(selected items at form) -> Apply Filters (button) -> shoot query -> [Backend]
+[Backend] -> query result -> render Favorites items 
+*/
 
 const FiltersMenu = () => {
+  const dietaryConcerns = ["Vegetarian", "Vegan", "Dairy-Free", "Gluten-Free", "Keto" , "Paleo"];
+  const dietaryConcernCheckbox = dietaryConcerns.map((_text)=>{return (<CheckBox key={_text} boxName={_text}/>)});
+  const cookTimes = ['< 15 minutes','15 - 30 minutes', '30 - 45 minutes', '1 - 2 hours', '> 2 hours'];
+  const cookTimesCheckbox = cookTimes.map((_time)=>{return (<CheckBox key={_time} boxName={_time}/>)})
+
   return (
     <form className="filter-menu">
       <div><h4>Filters</h4></div>
@@ -15,24 +26,7 @@ const FiltersMenu = () => {
       </div>
       <div className="filter-group">
         <h4>Dietary Concern</h4>
-        <label className="filter-label">
-          <input type="checkbox" /> Vegetarian
-        </label>
-        <label className="filter-label">
-          <input type="checkbox" /> Vegan
-        </label>
-        <label className="filter-label">
-          <input type="checkbox" /> Dairy-Free
-        </label>
-        <label className="filter-label">
-          <input type="checkbox" /> Gluten-Free
-        </label>
-        <label className="filter-label">
-          <input type="checkbox" /> Keto
-        </label>
-        <label className="filter-label">
-          <input type="checkbox" /> Paleo
-        </label>
+        {dietaryConcernCheckbox}
       </div>
       <div className="filter-group">
         <h4>Cuisine</h4>
@@ -40,21 +34,7 @@ const FiltersMenu = () => {
       </div>
       <div className="filter-group">
         <h4>Time</h4>
-        <label className="filter-label">
-          <input type="checkbox" /> {'< 15 minutes'}
-        </label>
-        <label className="filter-label">
-          <input type="checkbox" /> {'15 - 30 minutes'}
-        </label>
-        <label className="filter-label">
-          <input type="checkbox" /> {'30 - 45 minutes'}
-        </label>
-        <label className="filter-label">
-          <input type="checkbox" /> {'1 - 2 hours'}
-        </label>
-        <label className="filter-label">
-          <input type="checkbox" /> {'> 2 hours'}
-        </label>
+        {cookTimesCheckbox}
       </div>
       <button type="submit" className="apply-filters">Apply Filters</button>
     </form>

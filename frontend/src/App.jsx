@@ -47,8 +47,8 @@ function App() {
             />
             <Route element={<ProtectedRoute currentUser={cookies.user} />}>
               <Route path="/searchResults" element={<SearchResults />} />
-            </Route>
-            <Route path="/favourites" element={<Favourites />} />
+              <Route path="/favourites" element={<Favourites />} />
+            </Route>            
             <Route path="/home" element={<Homepage />} />
           </Routes>
         </BrowserRouter>
