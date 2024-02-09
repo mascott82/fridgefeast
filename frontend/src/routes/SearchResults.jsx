@@ -11,7 +11,7 @@ function SearchResults() {
     e.preventDefault()
     
     try {
-      const response = await axios.get(`http://localhost:3000/s/chocolate`)
+      const response = await axios.get(`http://localhost:3000/s/${searchTerm}`)
       console.log("🚀 ~ handleSearchSubmit ~ response:", response)
 
       const recipeData = response.data
