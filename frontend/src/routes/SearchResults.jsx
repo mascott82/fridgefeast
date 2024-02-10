@@ -1,85 +1,60 @@
-import React from "react"
-import {Container, Row, Col, Card} from "react-bootstrap"
+import { Container, Row, Col, Card, Button } from "react-bootstrap"
+import { useState} from "react"
+import axios from "axios"
+import RecipeCard from "../components/RecipeCard"
 
-const SearchResults = () => {
-  // Mock Sample Data (DELETE LATER)
-  const results = [
-    {
-      title: "Result 1",
-      description: "Description of result 1.",
-      time: "45 Minutes",
-      serves: 3,
-    },
-    {
-      title: "Result 2",
-      description: "Description of result 2.",
-      time: "60 Minutes",
-      serves: 4,
-    },
-    {
-      title: "Result 3",
-      description: "Description of result 3.",
-      time: "30 Minutes",
-      serves: 2,
-    },
-    {
-      title: "Result 4",
-      description: "Description of result 4.",
-      time: "75 Minutes",
-      serves: 6,
-    },
-  ]
+function SearchResults() {
+  const [searchTerm, setSearchTerm] = useState("")
+  const [recipes, setRecipes] = useState([])
+
+  const handleSearchSubmit = async (e) => {
+    e.preventDefault()
+    
+    try {
+      const response = await axios.get(`http://localhost:3000/s/${searchTerm}`)
+      console.log("🚀 ~ handleSearchSubmit ~ response:", response)
+
+      const recipeData = response.data
+      console.log("🚀 ~ handleSearchSubmit ~ recipeData :", recipeData )
+      
+      setRecipes(response.data)
+    } catch (error) {
+      console.error("Error fetching recipes with ingredient:", error)
+    }
+  }
 
   return (
-    <Container>
-      <Row>
-        {/* Filter By section */}
-        <Col md={3} className="mb-4">
-          <div className="filters">
-            <h3>Filters</h3>
-            <hr />
-            <div>
-              <h5>Filter by:</h5>
-              <ul>
-                <li>
-                  <input type="checkbox" /> Option 1
-                </li>
-                <li>
-                  <input type="checkbox" /> Option 2
-                </li>
-                <li>
-                  <input type="checkbox" /> Option 3
-                </li>
-              </ul>
-            </div>
-          </div>
-        </Col>
-
-        {/* Results section */}
-        <Col md={9}>
-        <h1>Search Results</h1>
-          <Row>
-            {results.map((result, index) => (
-              <Col key={index} md={4} sm={6} xs={12}>
-                <Card className="recipe-card">
-                  <Card.Img
-                    variant="top"
-                    className="recipe-card-img"
-                    src="src/assets/placeholder-img.jpg"
-                    alt="Title"
+    <Container className="mt-5">
+      <Row className="justify-content-center">
+        <Col md={8}>
+          <Card>
+            <Card.Body>
+              <h2 className="mb-4">Find Recipes</h2>
+              <form onSubmit={handleSearchSubmit}>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    className="form-control"
+                    required
+                    placeholder="Enter ingredients (separate by comma)"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                   />
-                  <Card.Body>
-                    <Card.Title>{result.title}</Card.Title>
-                    <Card.Text>{result.description}</Card.Text>
-                    <Card.Text>
-                      {result.time} | Serves: {result.serves}
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
-              </Col>
-            ))}
-          </Row>
+                </div>
+                <Button variant="primary" type="submit">
+                  Submit
+                </Button>
+              </form>
+            </Card.Body>
+          </Card>
         </Col>
+      </Row>
+      <Row className="mt-5 justify-content-center">
+        {recipes.map((recipe) => (
+          <Col key={recipe.id} md={4} className="mb-4">
+            <RecipeCard recipe={recipe} />
+          </Col>
+        ))}
       </Row>
     </Container>
   )

@@ -12,11 +12,9 @@ const Homepage = () => {
     try {
       // Make a GET request to your backend route to fetch random recipes
       const response = await axios.get("http://localhost:3000/home/random")
-      console.log("🚀 ~ getRandomRecipes ~ response:", response)
 
       // Extract recipe data from the response
-      const randomRecipeData = response.data
-      console.log("🚀 ~ getRandomRecipes ~ randomRecipeData:", randomRecipeData)
+      const randomRecipeData = response.data.recipes
 
       // Update state with the fetched recipes
       setRandomRecipes(randomRecipeData)
