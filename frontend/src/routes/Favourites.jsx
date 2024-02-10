@@ -12,13 +12,12 @@ const sortOptions = [
   { value: 'time_desc', text: 'Cook Time (Long to Short)' },
 ];
 
-
-// number of recipes shown per single load-more
-const loadMoreCount = 1
+const loadMoreCount = 5
 
 const dietaryConcerns = ["Vegetarian", "Vegan", "Dairy-Free", "Gluten-Free", "Keto", "Paleo"];
 const cookTimes = ["< 15 minutes", "15 - 30 minutes", "30 - 45 minutes", "1 - 2 hours", "> 2 hours"];
 const APIURL = 'http://0.0.0.0:3000/fav/list'
+const APIURL_DELETE = 'http://0.0.0.0:3000/fav/delete'
 
 const FiltersMenu = ({ setQryFavs, userId, initShowIndex }) => {
   const [selectedItems, setSelectedItems] = useState([]);
@@ -107,7 +106,7 @@ const Favourites = ({ userIdInfo, selectRecipe }) => {
 
 
   const RunInitShow = () => {
-    console.log("initShow", initShow)
+    // console.log("initShow", initShow)
     if (initShow) {
       axios.post(APIURL, { userid: userIdInfo.userid }).then((response) => {
         const returnedFavs = response.data.favs;
@@ -121,6 +120,17 @@ const Favourites = ({ userIdInfo, selectRecipe }) => {
     return (<>
     </>
     )
+  };
+
+  const DeleteFav = (recipeId) =>{
+    console.log("DeleteFav called: userid, recipeid", userIdInfo.userid, recipeId)
+    axios.post(APIURL_DELETE, { userid: userIdInfo.userid, recipeid: recipeId }).then((response) => {
+      const removedFavQty = response.data.removed_fav_qty;
+      console.log("removedFavQty", removedFavQty)
+    }).catch((error) => {
+      console.error('Error fav recipe query:', error);
+    })
+    return (<></>)
   }
 
   const selectFavToRemove = (recipeId) => {
@@ -199,23 +209,26 @@ const Favourites = ({ userIdInfo, selectRecipe }) => {
         <br></br>
         <div className="favourites-grid">
           {sortedFavs(qryFavs, sortCriteria).slice(0, showIndex).map((recipe) => (
-            <div key={recipe.id} className="recipe-card" onClick={()=>handleItemClick(recipe)}>
+            <div key={recipe.id} className="recipe-card">
               <div className="fav-button-container"><FavouriteButton
                 addNew={null}
                 onClick={() => {
+                  DeleteFav(recipe.id);
                   selectFavToRemove(recipe.id);
                   console.log("should be removed from DB")
                   // remove it from table in DB
                 }
                 } />
               </div>
-              <div className="recipe-image">
-                <img src={recipe.image} alt='recipe image' />
+              <div className='recipe-image-text' onClick={() => handleItemClick(recipe)}>
+                <div className="recipe-image">
+                  <img src={recipe.image} alt='recipe image' />
+                </div>
+                <h3 className="recipe-name">{recipe.name}</h3>
+                <p className="recipe-description">{recipe.description}</p>
+                <p className="recipe-serving_size">serving for: {recipe.serving_size}</p>
+                <p className="recipe-cook_time">cook time: {selectTimeFromTags(recipe.tags)}</p>
               </div>
-              <h3 className="recipe-name">{recipe.name}</h3>
-              <p className="recipe-description">{recipe.description}</p>
-              <p className="recipe-serving_size">serving for: {recipe.serving_size}</p>
-              <p className="recipe-cook_time">cook time: {selectTimeFromTags(recipe.tags)}</p>
             </div>
           ))}
         </div>

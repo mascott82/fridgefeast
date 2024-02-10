@@ -20,13 +20,14 @@ router.post("/list", (req, res) => {
     });
 });
 
-router.post("/delete", (res, req) => {
+router.post("/delete", (req, res) => {
   favQry
     .removeFavorites({ user_id: req.body.userid, recipe_id: req.body.recipeid })
     .then((result) => {
-      res.send({ removed_fav_qty: result.removed_fav_qty }).catch((error) => {
-        console.error("user's remove fav query has error: ", error);
-      });
+      res.send({ removed_fav_qty: result.removed_fav_qty });
+    })
+    .catch((error) => {
+      console.error("user's remove fav query has error: ", error);
     });
 });
 module.exports = router;
