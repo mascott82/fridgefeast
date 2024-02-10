@@ -5,7 +5,7 @@
   
   .filter-section {
     flex: 1;
-    /* Add styles for your filter section */
+    
   }
   
   .favourites-section {
@@ -46,6 +46,13 @@
     margin-bottom: 10px;
   }
   
+  .load-more-container {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    margin-top:20px;
+  }
+
   .load-more {
     background-color:#5D5A88;
     color: white;
@@ -94,22 +101,22 @@
 
   .favourites-container {
     display: flex;
-    max-height: 100vh; /* Adjust the height as needed */
-    overflow: hidden; /* This will hide any overflow outside the main container */
+    max-height: 100vh; 
+    overflow: hidden; 
   }
   
   .filter-section {
-    flex: 0 0 250px; /* Adjust width as needed, 0 0 means it won't grow or shrink */
-    background-color: #f8f9fa; /* Example background color */
+    flex: 0 0 250px; 
+    background-color: #f8f9fa; 
     padding: 20px;
-    height: 100vh; /* Set the height to the viewable area */
-    overflow-y: auto; /* Add scroll to the y-axis when content overflows */
-    border-right: 2px solid #dee2e6; /* This creates the vertical stick/line */
+    height: 100vh; 
+    overflow-y: auto; 
+    border-right: 2px solid #dee2e6; 
   }
   
   .favourites-section {
-    flex-grow: 1; /* Allow this section to fill up the remaining space */
-    overflow-y: auto; /* Add scroll to the y-axis when content overflows */
+    flex-grow: 1; 
+    overflow-y: auto; 
     padding-left: 20px;
   }
 
@@ -117,3 +124,25 @@
     padding: 0;
     width: 100%;
   }
+  
+
+  .fav-button-container {
+    display: flex;
+  }
+  
+  .fav-button-container > * {
+    margin-left: auto; 
+  }
+
+  .sortby-container {
+    display: flex;
+  }
+
+  .sortby-container > * {
+    margin-left: auto; 
+  }
+
+  .sort-by-dropdown label {
+    margin-right: 10px; 
+  }
+  

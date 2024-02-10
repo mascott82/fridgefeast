@@ -1,12 +1,9 @@
 import React from 'react';
 import '../styles/favourites.css';
 import axios from 'axios';
-import Button from "react-bootstrap/Button"
-import Card from "react-bootstrap/Card"
-import Row from "react-bootstrap/Row"
-import Col from "react-bootstrap/Col"
 import CheckBox from './checkBoxFav';
 import { useState } from "react";
+import FavouriteButton from '../components/FavouriteButton';
 
 /*
 checkbox(selected items at form) -> 
@@ -16,6 +13,15 @@ shoot query ->
 query result -> 
 render Favorites items 
 */
+
+
+const sortOptions = [
+  { value: 'name_asc', text: 'Name (A to Z)' },
+  { value: 'name_desc', text: 'Name (Z to A)' },
+  { value: 'time_asc', text: 'Cook Time (Short to Long)' },
+  { value: 'time_desc', text: 'Cook Time (Long to Short)' },
+];
+
 
 const loadMoreCount = 1
 
@@ -73,17 +79,10 @@ const FiltersMenu = ({setQryFavs, userId, initShowIndex}) => {
 
   return (
     <form className="filter-menu" onSubmit={handleSubmit}>
-      <div><h4>Filters</h4></div>
-      <div className="filter-group">
-        <input type="text" placeholder="Search" className="filter-search"/>
-      </div>
+      <div><h4>Filters</h4></div> <br></br>
       <div className="filter-group">
         <h4>Dietary Concern</h4>
         {dietaryConcernsCheckbox}
-      </div>
-      <div className="filter-group">
-        <h4>Cuisine</h4>
-        {/* TODO : Add cuisine options here (If we have the data)*/}
       </div>
       <div className="filter-group">
         <h4>Time</h4>
@@ -94,14 +93,41 @@ const FiltersMenu = ({setQryFavs, userId, initShowIndex}) => {
   );
 };
 
-// TODO : Add scroll bar vertically (when its content is too long for the current viewable height)
-// TODO : SORT BY function for the stored favourited items. 
-// TODO : Update the style of recipe cards
-
 
 const Favourites = ({userIdInfo}) => {
+
+  const [sortCriteria, setSortCriteria] = useState('name_asc');
+
+  const [favourites, setFavourites] = useState([]);
+  const toggleFavourite = (recipeId) => {
+    if (favourites.includes(recipeId)) {
+      setFavourites(favourites.filter(id => id !== recipeId));
+    } else {
+      setFavourites([...favourites, recipeId]);
+    }
+  };
+
   const [qryFavs, setQryFavs] = useState([]);
   const [showIndex, setShowIndex] = useState(loadMoreCount);
+
+  const handleSortChange = (event) => {
+    setSortCriteria(event.target.value);
+  };
+  const sortedFavs = qryFavs.slice().sort((a, b) => {
+    switch (sortCriteria) {
+      case 'name_asc':
+        return a.name.localeCompare(b.name);
+      case 'name_desc':
+        return b.name.localeCompare(a.name);
+      case 'time_asc':
+        return a.cookTime - b.cookTime;
+      case 'time_desc':
+        return b.cookTime - a.cookTime;
+      default:
+        return 0;
+    }
+  });
+
   const handleClickLoadMore = () =>{    
     const newIndexEnd = showIndex + loadMoreCount;
     setShowIndex(newIndexEnd)
@@ -115,9 +141,26 @@ const Favourites = ({userIdInfo}) => {
       </div>
       <div className="favourites-section">
         <h2>FAVOURITES</h2>
+        <div className="sortby-container">
+          <div className="sort-by-dropdown">
+          <label htmlFor="sortby">Sort By:</label>
+          <select id="sortby" onChange={handleSortChange} value={sortCriteria}>
+            {sortOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.text}
+              </option>
+            ))}
+          </select>
+          </div>
+        </div>
+        <br></br>      
         <div className="favourites-grid">
           {qryFavs.slice(0, showIndex).map((recipe) => (
             <div key={recipe.id} className="recipe-card">
+              <div className="fav-button-container"><FavouriteButton
+                isFavourite={favourites.includes(recipe.id)}
+                onClick={() => toggleFavourite(recipe.id)}/>
+              </div>  
               <div className="recipe-image">
                 <img src={recipe.image} alt='recipe image'/>
               </div>
@@ -127,51 +170,11 @@ const Favourites = ({userIdInfo}) => {
             </div>
           ))}
         </div>
-        <button className="load-more" onClick={()=>handleClickLoadMore()}>Load More</button>
+        <div className="load-more-container"><button className="load-more" onClick={()=>handleClickLoadMore()}>Load More</button></div>
+        
       </div>
     </div>
   );
 };
-
-// TODO : Update the recipe card style with the HOMEPAGE. 
-
-
-// const Favourites = () => {
-//   const favoriteRecipes = new Array(6).fill(null).map((_, index) => ({
-//     id: index,
-//     title: "Loren Ipsum",
-//     duration: "45 MIN",
-//     servings: "SERVES 3"
-//   }));
-
-//   return (
-//     <div className="favourites-container">
-//       <div className="filter-section">
-//         <FiltersMenu />
-//       </div>
-//       <div className="favourites-section">
-//         <h2>FAVOURITES</h2>
-//         <div className="favourites-grid">
-//         <Col md={3}>
-//             <Card className="recipe-card">
-//               <Card.Img
-//                 variant="top"
-//                 className="recipe-card-img"
-//                 src="src/assets/placeholder-img.jpg"
-//                 alt="Title"
-//               />
-//               <Card.Body>
-//                 <Card.Title>Recipe Name</Card.Title>
-//                 <Card.Text>Short description of the recipe.</Card.Text>
-//                 <Card.Text>45 Minutes | Serves: 3</Card.Text>
-//               </Card.Body>
-//             </Card>
-//           </Col>
-//         </div>
-//         <button className="load-more">Load More</button>
-//       </div>
-//     </div>
-//   );
-// };
 
 export default Favourites;
