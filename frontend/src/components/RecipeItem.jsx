@@ -3,9 +3,9 @@ import { Container, Row, Col, Image, ListGroup } from "react-bootstrap"
 import axios from "axios"
 
 
-const RecipeItem = () => {
+const RecipeItem = ({recipe}) => {
   // Hardcoded recipe data
-  const recipe = {
+  const dummy_recipe = {
     name: "Delicious Pasta",
     image: "https://via.placeholder.com/400x300",
     servingSize: "4 servings",
@@ -25,6 +25,8 @@ const RecipeItem = () => {
       "Season with salt and pepper to taste. Serve hot.",
     ],
   }
+
+  recipe = (recipe !== null ? recipe : dummy_recipe)
 
   const [recipeById, setRecipeById] = useState([])
 
@@ -64,7 +66,7 @@ const RecipeItem = () => {
             <strong>Serving Size:</strong> {recipe.servingSize}
           </p>
           <p>
-            <strong>Time to Make:</strong> {recipe.timeToMake}
+            <strong>Time to Make:</strong> {recipe.timeToMake == null ? "" : recipe.timeToMake}
           </p>
         </Col>
       </Row>
@@ -72,7 +74,7 @@ const RecipeItem = () => {
         <Col>
           <h3>Ingredients</h3>
           <ListGroup>
-            {recipe.ingredients.map((ingredient, index) => (
+            {recipe.ingredients == null ? "" : recipe.ingredients.map((ingredient, index) => (
               <ListGroup.Item key={index}>{ingredient}</ListGroup.Item>
             ))}
           </ListGroup>
@@ -80,7 +82,7 @@ const RecipeItem = () => {
         <Col>
           <h3>Directions</h3>
           <ol>
-            {recipe.directions.map((step, index) => (
+            {!Array.isArray(recipe.directions) ? <li>recipe.directions</li> : recipe.directions.map((step, index) => (
               <li key={index}>{step}</li>
             ))}
           </ol>
