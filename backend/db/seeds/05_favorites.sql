@@ -9,4 +9,6 @@ INSERT INTO favorites (user_id, recipe_id) VALUES
 (3, 1),
 (4, 6),
 (1, 8),
-(2, 4);
+(2, 4),
+(1, 3),
+(1, 6);
