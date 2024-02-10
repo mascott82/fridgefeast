@@ -1,70 +1,50 @@
 import { useState, useEffect } from "react"
 import { Container, Row, Col, Image, ListGroup } from "react-bootstrap"
 import axios from "axios"
-
+import { useLocation } from "react-router-dom"
 
 const RecipeItem = () => {
-  // Hardcoded recipe data
-  const recipe = {
-    name: "Delicious Pasta",
-    image: "https://via.placeholder.com/400x300",
-    servingSize: "4 servings",
-    timeToMake: "30 minutes",
-    ingredients: [
-      "1 pound pasta",
-      "2 cups marinara sauce",
-      "1/2 cup grated parmesan cheese",
-      "1/4 cup chopped fresh basil",
-      "Salt and pepper to taste",
-    ],
-    directions: [
-      "Cook pasta according to package instructions. Drain and set aside.",
-      "In a large skillet, heat marinara sauce over medium heat.",
-      "Add cooked pasta to the skillet and toss until well coated with sauce.",
-      "Remove from heat and sprinkle with parmesan cheese and fresh basil.",
-      "Season with salt and pepper to taste. Serve hot.",
-    ],
-  }
+  const [recipeById, setRecipeById] = useState(null)
+  // const [recipeId, setRecipeId] = useState('')
+  const location = useLocation().pathname
+  const recipeId = location.replace("/recipes/","")
+  console.log("🚀 ~ RecipeItem ~ recipeId:", recipeId)
 
-  const [recipeById, setRecipeById] = useState([])
-
-  const getRecipeById = async () => {
-    try {
-      // Make a GET request to your backend route to fetch random recipes
-      const response = await axios.get(
-        "http://localhost:3000/recipes/:id/information"
-      )
-      console.log("🚀 ~ getRecipeId ~ response:", response)
-      
-
-      // Extract recipe data from the response
-      const recipeByIdData = response.data
-      console.log("🚀 ~ getRecipeId ~ recipeIdData:", recipeByIdData)
-      
-
-      // Update state with the fetched recipes
-      setRecipeById(recipeByIdData)
-    } catch (error) {
-      console.error("Error fetching recipe Id:", error)
-    }
-  }
-
-  // Call the fetchRecipes function when the component mounts
   useEffect(() => {
+    const getRecipeById = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3000/recipes/${recipeId}/information`
+        )
+        setRecipeById(response.data)
+      } catch (error) {
+        console.error("Error fetching recipe:", error)
+      }
+    }
+
     getRecipeById()
   }, [])
+
+  if (!recipeById) {
+    return <div>Loading...</div>
+  }
 
   return (
     <Container className="my-5">
       <Row>
         <Col>
-          <h2>{recipe.name}</h2>
-          <Image src={recipe.image} alt={recipe.name} fluid className="mb-3" />
+          <h2>{recipeById.title}</h2>
+          <Image
+            src={recipeById.image}
+            alt={recipeById.title}
+            fluid
+            className="mb-3"
+          />
           <p>
-            <strong>Serving Size:</strong> {recipe.servingSize}
+            <strong>Serving Size:</strong> {recipeById.servings}
           </p>
           <p>
-            <strong>Time to Make:</strong> {recipe.timeToMake}
+            <strong>Time to Make:</strong> {recipeById.readyInMinutes} minutes
           </p>
         </Col>
       </Row>
@@ -72,16 +52,16 @@ const RecipeItem = () => {
         <Col>
           <h3>Ingredients</h3>
           <ListGroup>
-            {recipe.ingredients.map((ingredient, index) => (
-              <ListGroup.Item key={index}>{ingredient}</ListGroup.Item>
+            {recipeById.extendedIngredients.map((ingredient, index) => (
+              <ListGroup.Item key={index}>{ingredient.original}</ListGroup.Item>
             ))}
           </ListGroup>
         </Col>
         <Col>
           <h3>Directions</h3>
           <ol>
-            {recipe.directions.map((step, index) => (
-              <li key={index}>{step}</li>
+            {recipeById.analyzedInstructions[0].steps.map((step, index) => (
+              <li key={index}>{step.step}</li>
             ))}
           </ol>
         </Col>

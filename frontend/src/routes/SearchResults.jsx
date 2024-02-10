@@ -1,5 +1,5 @@
 import { Container, Row, Col, Card, Button } from "react-bootstrap"
-import { useState} from "react"
+import { useState } from "react"
 import axios from "axios"
 import RecipeCard from "../components/RecipeCard"
 
@@ -9,18 +9,22 @@ function SearchResults() {
 
   const handleSearchSubmit = async (e) => {
     e.preventDefault()
-    
+
     try {
       const response = await axios.get(`http://localhost:3000/s/${searchTerm}`)
       console.log("🚀 ~ handleSearchSubmit ~ response:", response)
 
       const recipeData = response.data
-      console.log("🚀 ~ handleSearchSubmit ~ recipeData :", recipeData )
-      
+      console.log("🚀 ~ handleSearchSubmit ~ recipeData :", recipeData)
+
       setRecipes(response.data)
     } catch (error) {
       console.error("Error fetching recipes with ingredient:", error)
     }
+  }
+
+  const handleRecipeClick = (recipeId) => {
+    setSelectedRecipeId(recipeId)
   }
 
   return (
@@ -51,9 +55,11 @@ function SearchResults() {
       </Row>
       <Row className="mt-5 justify-content-center">
         {recipes.map((recipe) => (
-          <Col key={recipe.id} md={4} className="mb-4">
-            <RecipeCard recipe={recipe} />
-          </Col>
+          <a href={`/recipes/${recipe.id}`}>
+            <Col key={recipe.id} md={4} className="mb-4">
+              <RecipeCard recipe={recipe} onClick={handleRecipeClick} />
+            </Col>
+          </a>
         ))}
       </Row>
     </Container>
