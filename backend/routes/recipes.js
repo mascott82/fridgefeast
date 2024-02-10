@@ -16,7 +16,6 @@ router.get('/', (req, res) => {
   getRecipes()
     .then(recipes => {
       recipes.forEach(element => {
-       
         results.push(element)
       })
       res.json(results)
@@ -34,12 +33,13 @@ router.get('/:id', (req, res) => {
 })
 
 router.get('/:id/information', (req, res) => {
-  const recipeId = req.params.id
+  // const recipeId = req.params.id
 
   const apiEndpoint = `https://api.spoonacular.com/recipes/${recipeId}/information`
   
   const options = {
     params: {
+      id: req.params.id,
       includeNutrition: false
     },
     headers: {

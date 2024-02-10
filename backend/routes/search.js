@@ -11,8 +11,6 @@ const axios = require('axios')
 
 // Route for searching recipes by ingredients
 router.get('/:i', (req, res) => {
-  // const params = req.params.i
-  // const ingredients = params.split(",")
 
   const apiEndpoint = 'https://api.spoonacular.com/recipes/findByIngredients'
 
