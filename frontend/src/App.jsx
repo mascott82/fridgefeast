@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { CookiesProvider, useCookies } from "react-cookie"
 import Signup from "./routes/Signup"
 import Login from "./routes/Login"
@@ -28,6 +28,7 @@ const RedirectTo = () => {
 
 function App() {
   const [cookies, setCookie] = useCookies(["user"])
+  const [singleRecipe, setSingleRecipe] = useState(null)
 
   function handleLogin(userIdAndAuthToken) {
     console.log("userIdAndAuthToken", userIdAndAuthToken)
@@ -59,8 +60,9 @@ function App() {
             <Route element={<ProtectedRoute currentUser={cookies.user} />}>
               <Route
                 path="/favourites"
-                element={<Favourites userIdInfo={cookies.user} />}
+                element={<Favourites userIdInfo={cookies.user} selectRecipe={setSingleRecipe}/>}
               />
+              <Route path="/single_recipe" element={<RecipePage recipes={[singleRecipe]}/>} />
             </Route>
             <Route path="/home" element={<Homepage />} />
             <Route

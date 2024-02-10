@@ -1,5 +1,5 @@
 INSERT INTO users (first_name, last_name, email, password) VALUES
-('John', 'Doe', 'john.doe@email.com', 'password123'),
+('John', 'Doe', 'john.doe@email.com', '1'),
 ('Alice', 'Smith', 'alice.smith@email.com', 'securepass456'),
 ('Bob', 'Johnson', 'bob.johnson@email.com', 'userpass789'),
 ('Emma', 'Clark', 'emma.clark@email.com', 'password456'),
