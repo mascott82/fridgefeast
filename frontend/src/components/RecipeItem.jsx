@@ -82,7 +82,7 @@ const RecipeItem = ({recipe}) => {
         <Col>
           <h3>Directions</h3>
           <ol>
-            {!Array.isArray(recipe.directions) ? <li>recipe.directions</li> : recipe.directions.map((step, index) => (
+            {!Array.isArray(recipe.directions) ? <li> {recipe.directions} </li> : recipe.directions.map((step, index) => (
               <li key={index}>{step}</li>
             ))}
           </ol>
