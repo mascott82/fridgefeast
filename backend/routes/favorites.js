@@ -9,7 +9,7 @@ const express = require("express");
 const router = express.Router();
 const favQry = require("../db/queries/favorites");
 
-router.post("/list", (req, res) => {
+router.get("/list", (req, res) => {
   favQry
     .getFavorites(req.body.userid)
     .then((favs) => {
@@ -30,4 +30,24 @@ router.post("/delete", (req, res) => {
       console.error("user's remove fav query has error: ", error);
     });
 });
+
+router.post("/save", (req, res) => {
+  const userId = req.params.userId
+  const recipeId = req.params.recipeId
+
+  const favorite = {
+    user_id: userId,
+    recipe_id:  recipeId
+  }
+
+  favQry
+    .addFavorites(favorite)
+    .then(() => {
+      console.log("Marked as favorite successfully!")
+    })
+    .catch((err) => {
+      console.error("Error occured while adding.", err)
+    })
+})
+
 module.exports = router;
