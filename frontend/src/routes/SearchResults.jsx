@@ -34,7 +34,7 @@ function SearchResults() {
   return (
     <Container className="mt-5">
       <Row className="justify-content-center">
-        <Col md={8}>
+        <Col>
           <Card>
             <Card.Body>
               <h2 className="mb-4">Find Recipes</h2>

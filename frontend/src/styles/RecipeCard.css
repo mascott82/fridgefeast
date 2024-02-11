@@ -6,6 +6,5 @@
 
 .recipe-img {
   object-fit: cover;
-  /* Change to cover */
   height: 20rem;
 }
