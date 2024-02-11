@@ -13,6 +13,7 @@ import NavigationBar from "./components/NavigationBar"
 import "./App.css"
 import "./styles/Homepage.css"
 import "./styles/NavigationBar.css"
+import "./styles/RecipeCard.css"
 
 const RedirectTo = () => {
   const navigate = useNavigate()

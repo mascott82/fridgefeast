@@ -3,6 +3,14 @@ import { useState } from "react"
 import axios from "axios"
 import RecipeCard from "../components/RecipeCard"
 
+function chunkArray(array, chunkSize) {
+  const chunks = []
+  for (let i = 0; i < array.length; i += chunkSize) {
+    chunks.push(array.slice(i, i + chunkSize))
+  }
+  return chunks
+}
+
 function SearchResults() {
   const [searchTerm, setSearchTerm] = useState("")
   const [recipes, setRecipes] = useState([])
@@ -21,10 +29,6 @@ function SearchResults() {
     } catch (error) {
       console.error("Error fetching recipes with ingredient:", error)
     }
-  }
-
-  const handleRecipeClick = (recipeId) => {
-    setSelectedRecipeId(recipeId)
   }
 
   return (
@@ -54,12 +58,14 @@ function SearchResults() {
         </Col>
       </Row>
       <Row className="mt-5 justify-content-center">
-        {recipes.map((recipe) => (
-          <a href={`/recipes/${recipe.id}`}>
-            <Col key={recipe.id} md={4} className="mb-4">
-              <RecipeCard recipe={recipe} onClick={handleRecipeClick} />
-            </Col>
-          </a>
+        {chunkArray(recipes, 3).map((row, index) => (
+          <Row key={index} className="mb-4">
+            {row.map((recipe) => (
+              <Col key={recipe.id} md={4}>
+                <RecipeCard recipe={recipe} />
+              </Col>
+            ))}
+          </Row>
         ))}
       </Row>
     </Container>

@@ -1,0 +1,11 @@
+.recipe-card {
+  padding: 0;
+  width: 100%;
+  height: 50rem;
+}
+
+.recipe-img {
+  object-fit: cover;
+  /* Change to cover */
+  height: 20rem;
+}

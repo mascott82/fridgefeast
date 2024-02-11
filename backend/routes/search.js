@@ -17,7 +17,7 @@ router.get('/:i', (req, res) => {
   const options = {
     params: {
       ingredients: req.params.i,
-      number: 12
+      number: 30
     },
     headers: {
       'Content-Type': 'application/json',
