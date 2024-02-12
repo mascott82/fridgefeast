@@ -36,10 +36,10 @@ const Homepage = ({ sessionCookie }) => {
       {/* Header Section */}
       <div className="p-5 bg-secondary header-image">
         <Container>
-          <h1 className="display-5 fw-bold header-text mb-4 p-1">
+          <h1 className="display-5 fw-bold header-title mb-4 p-1">
             The Ultimate Cooking Companion
           </h1>
-          <p className="col-md-8 fs-4 lead header-text mb-4 p-1">
+          <p className="col-md-8 fs-4 header-text mb-4 p-1">
             Fridge Feast allows you to effortlessly create delicious meals from
             what you already have in your fridge. Simply input your ingredients,
             and let the app generate a variety of mouthwatering recipes tailored

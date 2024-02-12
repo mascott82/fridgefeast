@@ -57,7 +57,7 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
+    color: #3a3755;
     background-color: #ffffff;
   }
   a:hover {
@@ -83,4 +83,8 @@ button:focus-visible {
   --bs-btn-disabled-color: #fff;
   --bs-btn-disabled-bg: #5D5A88 !important;
   --bs-btn-disabled-border-color: #5D5A88 !important;
+}
+
+.card {
+  color: #3a3755 !important;
 }
