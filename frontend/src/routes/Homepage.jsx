@@ -31,18 +31,20 @@ const Homepage = () => {
   return (
     <div>
       {/* Header Section */}
-      <div className="p-5 bg-secondary">
-        <h1 className="display-5 fw-bold">Fridge Feast</h1>
-        <p className="col-md-8 fs-4 lead">
+      <div className="p-5 bg-secondary header-section">
+        <h1 className="display-5 fw-bold header-text">Fridge Feast</h1>
+        <p className="col-md-8 fs-4 lead header-text">
           Your ultimate cooking companion! Fridge Feast allows you to
           effortlessly create delicious meals from what you already have in your
           fridge. Simply input your ingredients, and let the app generate a
           variety of mouthwatering recipes tailored to your ingredients.
         </p>
         <hr className="my-4" />
-        <Button className="btn btn-primary btn-lg" type="button">
-          Explore Recipes
-        </Button>
+        <a href="/searchResults">
+          <Button className="btn btn-primary btn-lg" type="button">
+            Explore Recipes
+          </Button>
+        </a>
       </div>
 
       {/* Featured Recipes Card Section */}
