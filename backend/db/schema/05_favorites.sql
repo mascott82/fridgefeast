@@ -1,4 +1,4 @@
--- Drop and recreate Users table
+-- Drop and recreate favorites table
 
 DROP TABLE IF EXISTS favorites CASCADE;
 CREATE TABLE favorites (
