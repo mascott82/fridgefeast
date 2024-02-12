@@ -1,7 +1,7 @@
 const { dbPool } = require("../connection");
 
 const getFavorites = (user_id) => {
-  const _qry = `SELECT * from recipes where id in (SELECT DISTINCT recipe_id FROM favorites where user_id = ${user_id})`;
+  const _qry = `SELECT DISTINCT recipe_id FROM favorites where user_id = ${user_id}`;
   console.log(_qry);
   return dbPool
     .query(_qry)
@@ -23,6 +23,7 @@ const addFavorites = (favorite) => {
     )
     .then(() => {
       console.log("Favorite added successfully!");
+      return {added_fav_qty:1}
     })
     .catch((error) => {
       console.error("Error adding favorite: ", error);

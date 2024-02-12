@@ -4,8 +4,10 @@ import Card from "react-bootstrap/Card"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import axios from "axios"
+import FavouriteButton from '../components/FavouriteButton';
 
-const Homepage = () => {
+const Homepage = ({sessionCookie}) => {
+  console.log("sessionCookie at homepage", sessionCookie)
   const [randomRecipes, setRandomRecipes] = useState([])
 
   const getRandomRecipes = async () => {
@@ -53,6 +55,10 @@ const Homepage = () => {
           {randomRecipes.map((randomRecipe) => (
             <Col md={4} key={randomRecipe.id}>
               <Card className="recipe-card">
+                {sessionCookie == null ? <></> : <div className="fav-button-container"><FavouriteButton
+                  addNew={true} userid={sessionCookie.userid} recipeid={randomRecipe.id}
+                  />
+                </div>}
                 <Card.Img
                   variant="top"
                   className="recipe-card-img"

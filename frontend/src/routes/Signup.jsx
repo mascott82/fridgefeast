@@ -1,5 +1,8 @@
 import { useState } from "react";
 import '../styles/Signup.css';
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
+
 // TODO : Setup : Once user login, redirect to homepage (not showing signup page)
 const Signup = () => {
 
@@ -11,12 +14,19 @@ const Signup = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [passwordWarning, setPasswordWarning] = useState('');
+    const APIURL = 'http://0.0.0.0:3000/users/save'
+    const navigate = useNavigate();
+
     // Handle form submission
     const handleSubmit = (event) => {
       event.preventDefault();
-      // TODO: implement POST against Backend Endpoint
+      axios.post(APIURL, {firstName:firstName, lastName:lastName, email:email, password:password}).then((response)=>{
+        navigate('/login')
+      }).catch((error)=>{
+        console.error('Error signup', error);
+      })
     };
-    
+
     const handlePasswordChange = (e) => {
         if (e.target.value.length < 8) {
           setPasswordWarning('Password cannot be more than 8 characters.');

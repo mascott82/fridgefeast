@@ -24,10 +24,21 @@ router.post("/delete", (req, res) => {
   favQry
     .removeFavorites({ user_id: req.body.userid, recipe_id: req.body.recipeid })
     .then((result) => {
-      res.send({ removed_fav_qty: result.removed_fav_qty });
+      res.send({ qty: result.removed_fav_qty });
     })
     .catch((error) => {
       console.error("user's remove fav query has error: ", error);
+    });
+});
+
+router.post("/add", (req, res) => {
+  favQry
+    .addFavorites({ user_id: req.body.userid, recipe_id: req.body.recipeid })
+    .then((result) => {
+      res.send({ qty: result.add_fav_qty });
+    })
+    .catch((error) => {
+      console.error("user's added fav query has error: ", error);
     });
 });
 module.exports = router;

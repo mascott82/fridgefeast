@@ -2,9 +2,11 @@ import React from 'react';
 import '../styles/favourites.css';
 import axios from 'axios';
 import CheckBox from './checkBoxFav';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FavouriteButton from '../components/FavouriteButton';
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
+import RecipeCard from '../components/RecipeCard';
+import { Container, Row, Col, Card, Button } from "react-bootstrap"
 
 
 const sortOptions = [
@@ -12,61 +14,72 @@ const sortOptions = [
   { value: 'time_desc', text: 'Cook Time (Long to Short)' },
 ];
 
-const loadMoreCount = 5
+const loadMoreCount = 3
 
-const dietaryConcerns = ["Vegetarian", "Vegan", "Dairy-Free", "Gluten-Free", "Keto", "Paleo"];
-const cookTimes = ["< 15 minutes", "15 - 30 minutes", "30 - 45 minutes", "1 - 2 hours", "> 2 hours"];
-const APIURL = 'http://0.0.0.0:3000/fav/list'
-const APIURL_DELETE = 'http://0.0.0.0:3000/fav/delete'
+const dietaryConcerns = {
+  "Vegetarian": { "path": ["vegatarian"], "check_type": "field", "check_value": "" },
+  "Vegan": { "path": ["vegan"], "check_type": "field", "check_value": "" },
+  "Dairy-Free": { "path": ["dairyFree"], "check_type": "field", "check_value": "" },
+  "Gluten-Free": { "path": ["glutenFree"], "check_type": "field", "check_value": "" },
+  "Keto": { "path": ["diets"], "check_type": "array", "check_value": "ketogenic" },
+  "Paleo": { "path": ["diets"], "check_type": "array", "check_value": "paleolithic" }
+};
+const cookTimes = {
+  "< 15 minutes": [0, 15],
+  "15 - 30 minutes": [15, 30],
+  "30 - 60 minutes": [30, 60],
+  "1 - 2 hours": [60, 120],
+  "> 2 hours": [120, 864000]
+};
+const backend_endpoint_user_fav = 'http://0.0.0.0:3000/fav/list'
+const backend_endpoint_user_fav_delete = 'http://0.0.0.0:3000/fav/delete'
 
-const FiltersMenu = ({ setQryFavs, userId, initShowIndex }) => {
-  const [selectedItems, setSelectedItems] = useState([]);
-  console.log("selectedItems ", selectedItems)
-  const handleCheckboxChange = (event) => {
+
+
+const FiltersMenu = ({ setFilterConditionsTimes }) => {
+  // collect user condition seletction
+  // click submit -> update the condition to some state in the Favourites
+  const [selectedConditions, setSelectedConditions] = useState({});
+  const [selectedTimes, setSelectedTimes] = useState({});
+
+  const handleCheckboxChangeCondition = (event) => {
     const { value, checked } = event.target;
-    setSelectedItems(prev => {
+    setSelectedConditions(prev => {
       if (checked) {
-        return [...prev, value];
+        return { ...prev, [value]: dietaryConcerns[value] };
       } else {
-        return prev.filter(item => item !== value);
+        const { [value]: _, ...rest } = prev;
+        return rest
+      }
+    });
+  };
+  const handleCheckboxChangeTime = (event) => {
+    const { value, checked } = event.target;
+    setSelectedTimes(prev => {
+      if (checked) {
+        return { ...prev, [value]: cookTimes[value] };
+      } else {
+        const { [value]: _, ...rest } = prev;
+        return rest
       }
     });
   };
 
-  const dietaryConcernsCheckbox = dietaryConcerns.map((_text) => {
+  const dietaryConcernsCheckbox = Object.keys(dietaryConcerns).map((_text) => {
     return (
-      <CheckBox key={_text} boxName={_text} handleCheckboxChange={handleCheckboxChange} selectedItems={selectedItems} />
+      <CheckBox key={_text} boxName={_text} handleCheckboxChange={handleCheckboxChangeCondition} selected={selectedConditions} />
     )
   });
-  const cookTimesCheckbox = cookTimes.map((_time) => {
+  const cookTimesCheckbox = Object.keys(cookTimes).map((_time) => {
     return (
-      <CheckBox key={_time} boxName={_time} handleCheckboxChange={handleCheckboxChange} selectedItems={selectedItems} />
+      <CheckBox key={_time} boxName={_time} handleCheckboxChange={handleCheckboxChangeTime} selected={selectedTimes} />
     )
   })
-
-
-
-
-  // shoot query to DB
   const handleSubmit = (event) => {
-    console.log("userId", userId)
     event.preventDefault();
-    initShowIndex(loadMoreCount);
-    axios.post(APIURL, { userid: userId }).then((response) => {
-      const returnedFavs = response.data.favs;
-      // all favs as long as they have at least one of selectedItems in their tags
-      let reducedFavs = [];
-      if (selectedItems.length > 0) {
-        reducedFavs = returnedFavs.filter((_fav) => _fav.tags.some(tag => selectedItems.includes(tag)));
-      } else {
-        reducedFavs = returnedFavs; // no filter -> select all
-      }
-      setQryFavs(reducedFavs);
-    }).catch((error) => {
-      console.error('Error fav recipe query:', error);
-    })
-  };
-
+    // selected conditions and times to state
+    setFilterConditionsTimes({ "conditions": Object.values(selectedConditions), "times": Object.values(selectedTimes) })
+  }
   return (
     <form className="filter-menu" onSubmit={handleSubmit}>
       <div><h4>Filters</h4></div> <br></br>
@@ -84,58 +97,124 @@ const FiltersMenu = ({ setQryFavs, userId, initShowIndex }) => {
 };
 
 
-const Favourites = ({ userIdInfo, selectRecipe }) => {
-  const timeStringToNumericMap = Object.fromEntries(cookTimes.map((value, index) => [value, index]));
+const LoadingRecipes = ({ userid, userFavRecipes, setUserFavRecipes, setRecipesFromApi }) => {
+  const [isLoading, setIsLoading] = useState(true);
+  // download all recipe ids of current user from favorites table in DB
+  useEffect(() => {
+    const getUserFavs = async () => {
+      try {
+        const response = await axios.post(backend_endpoint_user_fav, { userid: userid })
+        setUserFavRecipes(response.data.favs)
+      } catch (error) {
+        console.error("Error fetching fav:", error)
+      }
+    }
+    getUserFavs()
+  }, [])
+
+  // download all recipe info 
+  useEffect(() => {
+    const fetchAllRecipes = async () => {
+      if (userFavRecipes.length === 0) return;
+
+      setIsLoading(true);
+      const fetchPromises = userFavRecipes.map(async (fav, index) => {
+        try {
+          const response = await axios.get(`http://localhost:3000/recipes/${fav.recipe_id}/information`);
+          return { id: fav.recipe_id, data: response.data };
+        } catch (error) {
+          console.error("Error fetching recipe:", error);
+          return null;
+        }
+      });
+
+      // Wait for all fetches to complete
+      const results = await Promise.allSettled(fetchPromises);
+      results.forEach(result => {
+        if (result) {
+          setRecipesFromApi(prev => ({ ...prev, [result.value.id]: result.value.data }));
+        }
+      });
+      setIsLoading(false); // End loading after all requests
+    };
+
+    fetchAllRecipes();
+  }, [userFavRecipes]); // Dependency on userFavRecipes ensures this runs after they're set
+  return (<></>)
+}
+
+const Favourites = ({ userIdAuthToken }) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [userFavRecipes, setUserFavRecipes] = useState([])
+  const [recipesFromApi, setRecipesFromApi] = useState({})
+  const [filterConditionsTimes, setFilterConditionsTime] = useState({ "conditions": [], "times": [] })
+
+  // apply user's conditions
+  const filterRecipes = (_recipes, _conditions, _times) => {
+    const _recipesFilteredCondition = _recipes.filter((_recipe) => {
+      if (_conditions.length == 0) {
+        return true;
+      }
+      let selected = false;
+      for (const [key, value] of Object.entries(_conditions)) {
+        const _queryCondition = value["path"].reduce((acc, key) => acc[key], _recipe)
+        if (value["check_type"] == "array") {
+          if (_queryCondition.includes(value["check_value"])) {
+            selected = true;
+            break;
+          }
+        } else {
+          if (_queryCondition) {
+            selected = true;
+            break;
+          }
+        }
+      }
+      return selected;
+    })
+    const _recipesFilteredTime = _recipesFilteredCondition.filter((_recipe) => {
+      if (_times.length == 0) {
+        return true;
+      }
+      let selected = false;
+      for (const [key, value] of Object.entries(_times)) {
+        const minTimeMinute = value[0];
+        const maxTimeMinute = value[1];
+        console.log("time check", minTimeMinute, _recipe["readyInMinutes"], maxTimeMinute)
+        if (minTimeMinute < _recipe["readyInMinutes"] && _recipe["readyInMinutes"] <= maxTimeMinute) {
+          selected = true;
+          break;
+        }
+      }
+      return selected;
+    })
+    return _recipesFilteredTime;
+  }
+
   const [sortCriteria, setSortCriteria] = useState('time_asc');
 
   // qryFavs = Array[{recipe object},...]
   const [qryFavs, setQryFavs] = useState([]);
   const [showIndex, setShowIndex] = useState(loadMoreCount);
-  // initShow == true, show all user's fav recipe
-  // any checkBox click -> set initShow to false
-  const [initShow, setInitShow] = useState(true);
-
-
   const navigate = useNavigate()
 
-  const goToSingleRecipe = () => {
+  const goToSingleRecipe = (recipeId) => {
     setTimeout(() => {
-      navigate("/single_recipe")
-    }, 500)
+      navigate(`/recipes/${recipeId}`)
+    }, 100)
   };
 
-
-  const RunInitShow = () => {
-    // console.log("initShow", initShow)
-    if (initShow) {
-      axios.post(APIURL, { userid: userIdInfo.userid }).then((response) => {
-        const returnedFavs = response.data.favs;
-        // all fav recipes loaded
-        setQryFavs(returnedFavs);
-        setInitShow(false);
-      }).catch((error) => {
-        console.error('Error fav recipe query:', error);
-      })
-    }
-    return (<>
-    </>
-    )
-  };
-
-  const DeleteFav = (recipeId) =>{
-    console.log("DeleteFav called: userid, recipeid", userIdInfo.userid, recipeId)
-    axios.post(APIURL_DELETE, { userid: userIdInfo.userid, recipeid: recipeId }).then((response) => {
-      const removedFavQty = response.data.removed_fav_qty;
-      console.log("removedFavQty", removedFavQty)
-    }).catch((error) => {
-      console.error('Error fav recipe query:', error);
-    })
-    return (<></>)
-  }
-
-  const selectFavToRemove = (recipeId) => {
-    setQryFavs(qryFavs.filter(_recipe => _recipe.id !== recipeId));
-  };
+  // const DeleteFav = (recipeId) => {
+  //   const deleteTarget = { userid: userIdAuthToken.userid, recipeid: recipeId };
+  //   axios.post(backend_endpoint_user_fav_delete, deleteTarget).then((response) => {
+  //     const removedFavQty = response.data.removed_fav_qty;
+  //     console.log("removedFavQty", removedFavQty)
+  //   }).catch((error) => {
+  //     console.error('Error fav recipe query:', error);
+  //   })
+  //   window.location.reload();
+  //   return (<></>)
+  // }
 
   const handleSortChange = (event) => {
     setSortCriteria(event.target.value);
@@ -145,52 +224,27 @@ const Favourites = ({ userIdInfo, selectRecipe }) => {
     const _sortedResult = _favs.sort((a, b) => {
       switch (_sortCodition) {
         case 'time_asc':
-          return timeStringToNumericMap[selectTimeFromTags(a.tags)] - timeStringToNumericMap[selectTimeFromTags(b.tags)]
+          return a.readyInMinutes - b.readyInMinutes;
         case 'time_desc':
-          return timeStringToNumericMap[selectTimeFromTags(b.tags)] - timeStringToNumericMap[selectTimeFromTags(a.tags)];
+          return b.readyInMinutes - a.readyInMinutes;
         default:
           return 0;
       }
     });
     return _sortedResult;
   };
-  const selectTimeFromTags = (_tags) => {
-    const result = _tags.filter(_e => _e.includes("hour") || _e.includes("minute"));
-    if (result.length > 0) {
-      return result[0];
-    }
-    return [];
-  }
+
   const handleClickLoadMore = () => {
     const newIndexEnd = showIndex + loadMoreCount;
     setShowIndex(newIndexEnd)
-  };
-  console.log("showIndex", showIndex)
 
-  const handleItemClick = (recipeInfo) => {
-    // update select recipe to state
-    const reMapRecipeInfo = {
-      id: recipeInfo.id,
-      name: recipeInfo.name,
-      image: recipeInfo.image,
-      servingSize: `${recipeInfo.serving_size} servings`,
-      timeToMake: selectTimeFromTags(recipeInfo.tags),
-      ingredients: recipeInfo.ingredients,
-      directions: recipeInfo.directions,
-    }
-    selectRecipe(reMapRecipeInfo)
-    // redirect
-    goToSingleRecipe()
   };
 
-  // 1. user's fav recipes download from qry
-  // 2. by changing sort or filtering condition via checkbox, the conditions would be stored at state
-  // 3. at rendering moment, it applies the sorte sort/filtering state to downloaded fav recipes
   return (
     <div className="favourites-container">
-      <RunInitShow />
+      <LoadingRecipes userid={userIdAuthToken.userid} userFavRecipes={userFavRecipes} setUserFavRecipes={setUserFavRecipes} setRecipesFromApi={setRecipesFromApi} />
       <div className="filter-section">
-        <FiltersMenu setQryFavs={setQryFavs} userId={userIdInfo.userid} initShowIndex={setShowIndex} />
+        <FiltersMenu setFilterConditionsTimes={setFilterConditionsTime} />
       </div>
       <div className="favourites-section">
         <h2>FAVOURITES</h2>
@@ -208,29 +262,33 @@ const Favourites = ({ userIdInfo, selectRecipe }) => {
         </div>
         <br></br>
         <div className="favourites-grid">
-          {sortedFavs(qryFavs, sortCriteria).slice(0, showIndex).map((recipe) => (
-            <div key={recipe.id} className="recipe-card">
-              <div className="fav-button-container"><FavouriteButton
-                addNew={null}
-                onClick={() => {
-                  DeleteFav(recipe.id);
-                  selectFavToRemove(recipe.id);
-                  console.log("should be removed from DB")
-                  // remove it from table in DB
-                }
-                } />
-              </div>
-              <div className='recipe-image-text' onClick={() => handleItemClick(recipe)}>
-                <div className="recipe-image">
-                  <img src={recipe.image} alt='recipe image' />
-                </div>
-                <h3 className="recipe-name">{recipe.name}</h3>
-                <p className="recipe-description">{recipe.description}</p>
-                <p className="recipe-serving_size">serving for: {recipe.serving_size}</p>
-                <p className="recipe-cook_time">cook time: {selectTimeFromTags(recipe.tags)}</p>
-              </div>
-            </div>
-          ))}
+          <Row>
+            {sortedFavs(filterRecipes(Object.values(recipesFromApi), filterConditionsTimes["conditions"], filterConditionsTimes["times"]), sortCriteria).slice(0, showIndex).map((recipe) => (
+              <Col md={4} key={recipe.id}>
+                <Card className="recipe-card-fav">
+                <div className="fav-button-container"><FavouriteButton
+                    addNew={false} userid={userIdAuthToken.userid} recipeid={recipe.id}
+                    />
+                  </div>
+                  <div onClick={() => goToSingleRecipe(recipe.id)}>                  
+                    <Card.Img
+                      variant="top"
+                      className="recipe-card-img"
+                      src={recipe.image}
+                      alt={recipe.title}
+                    />
+                    <Card.Body>
+                      <Card.Title>{recipe.title}</Card.Title>
+                      <Card.Text>
+                        {recipe.readyInMinutes} minutes | Serving Size:{" "}
+                        {recipe.servings}
+                      </Card.Text>
+                    </Card.Body>
+                  </div>
+                </Card>
+              </Col>
+            ))}
+          </Row>
         </div>
         <div className="load-more-container"><button className="load-more" onClick={() => handleClickLoadMore()}>Load More</button></div>
 
@@ -240,3 +298,29 @@ const Favourites = ({ userIdInfo, selectRecipe }) => {
 };
 
 export default Favourites;
+
+{/* <div className="favourites-grid">
+{sortedFavs(qryFavs, sortCriteria).slice(0, showIndex).map((recipe) => (
+  <div key={recipe.id} className="recipe-card">
+    <div className="fav-button-container"><FavouriteButton
+      addNew={null}
+      onClick={() => {
+        DeleteFav(recipe.id);
+        selectFavToRemove(recipe.id);
+        console.log("should be removed from DB")
+        // remove it from table in DB
+      }
+      } />
+    </div>
+    <div className='recipe-image-text' onClick={() => handleItemClick(recipe)}>
+      <div className="recipe-image">
+        <img src={recipe.image} alt='recipe image' />
+      </div>
+      <h3 className="recipe-name">{recipe.name}</h3>
+      <p className="recipe-description">{recipe.description}</p>
+      <p className="recipe-serving_size">serving for: {recipe.serving_size}</p>
+      <p className="recipe-cook_time">cook time: {selectTimeFromTags(recipe.tags)}</p>
+    </div>
+  </div>
+))}
+</div> */}

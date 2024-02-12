@@ -19,7 +19,7 @@ const RedirectTo = () => {
   const navigate = useNavigate()
   useEffect(() => {
     const makeDelay = setTimeout(() => {
-      navigate("/")
+      navigate("/home")
     }, 100)
     return () => clearTimeout(makeDelay)
   }, [navigate])
@@ -28,16 +28,17 @@ const RedirectTo = () => {
 }
 
 function App() {
-  const [cookies, setCookie] = useCookies(["user"])
-  const [singleRecipe, setSingleRecipe] = useState(null)
+  const [cookies, setCookie, removeCookie] = useCookies(["user"])
 
   function handleLogin(userIdAndAuthToken) {
-    console.log("userIdAndAuthToken", userIdAndAuthToken)
+    // console.log("userIdAndAuthToken", userIdAndAuthToken)
     setCookie("user", userIdAndAuthToken, { path: "/", maxAge: 24 * 60 * 60 })
   }
 
   function handleLogout() {
     setCookie("user", null, { path: "/" })
+    removeCookie("user", {"path":"/"})
+    console.log('setCookie("user", null, { path: "/" })')
   }
 
   return (
@@ -46,7 +47,13 @@ function App() {
       <CookiesProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/signup" element={<Signup />} />
+            <Route path="/signup" element={
+                cookies.user == null ? (
+                  <Signup />
+                ) : (
+                  <RedirectTo />
+                )
+              } />
             <Route
               path="/login"
               element={
@@ -61,11 +68,10 @@ function App() {
             <Route element={<ProtectedRoute currentUser={cookies.user} />}>
               <Route
                 path="/favourites"
-                element={<Favourites userIdInfo={cookies.user} selectRecipe={setSingleRecipe}/>}
+                element={<Favourites userIdAuthToken={cookies.user}/>}
               />
-              <Route path="/single_recipe" element={<RecipePage recipes={[singleRecipe]}/>} />
             </Route>
-            <Route path="/home" element={<Homepage />} />
+            <Route path="/home" element={<Homepage sessionCookie={cookies.user}/>} />
             <Route
               path="/logout"
               element={<Logout onLogout={handleLogout} />}
