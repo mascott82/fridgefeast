@@ -19,7 +19,7 @@ const Login = ({onLogin}) => {
         console.log("login response.data", response.data)
         setAuthToken(returnAuthToken);
         onLogin({authToken:returnAuthToken, userid:response.data.userid});
-        navigate('/')
+        navigate('/home')
       }).catch((error)=>{
         console.error('Error logging in:', error);
       })      

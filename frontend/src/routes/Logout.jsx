@@ -2,17 +2,14 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from "react"
 
 const Logout = ({onLogout}) => {
-    // clear session cookie to null
-    onLogout();
-    // redirect to home
-    const navigate = useNavigate()
-    useEffect(()=>{    
-      const makeDelay = setTimeout(() => {
-        navigate("/home")
-      }, 100);
-      return () => clearTimeout(makeDelay);
-    },[navigate])
-    
-    return <></>
+    const navigate = useNavigate();
+    useEffect(() => {
+      const performLogout = async () => {
+        await onLogout();
+        navigate("/home");
+      };
+      performLogout();
+    }, [navigate, onLogout]); 
+    return null;
 };
 export default Logout

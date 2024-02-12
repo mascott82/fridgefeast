@@ -43,12 +43,16 @@ router.post('/auth', (req, res) => {
       if(isAuth){
         const randomTokenLength = 5;
         randomToken = (Math.random() + 1).toString(36).substring(2,2+randomTokenLength);
-      }
-      res.send({ authToken: randomToken, userid: result.id })
+        console.log("result at login", result)
+        res.send({ authToken: randomToken, userid: result.id })
+      }else{
+        console.log("Login failed!");
+        res.status(401).send({ error: "Authentication failed" });
+      }      
     })
     .catch((err) => {
-      console.error("Logon error!", err)
-      throw err
+      console.error("Login error!", err);
+      res.status(500).send({ error: "An unexpected error occurred" });
     })
 })
 
@@ -59,11 +63,10 @@ router.post('/save', (req, res) => {
     email:  req.body.email,
     password: req.body.password
   }
-  let added = false;
   addUser(user)
-    .then(() => {
-      added = true;
-      res.send({ result: added })
+    .then((result) => {
+      console.log("Signup successfully")
+      res.send(result)
     })
     .catch((err) => {
       console.error("Error creating the user. ", err)
