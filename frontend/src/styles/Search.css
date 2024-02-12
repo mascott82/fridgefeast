@@ -5,3 +5,10 @@ div.mb-4.row {
 .search-card {
   padding: 2rem;
 }
+
+.load-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}

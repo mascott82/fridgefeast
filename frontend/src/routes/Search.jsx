@@ -4,6 +4,8 @@ import axios from "axios"
 import RecipeCard from "../components/RecipeCard"
 import "../styles/Search.css"
 
+const loadMoreCount = 6
+
 function chunkArray(array, chunkSize) {
   const chunks = []
   for (let i = 0; i < array.length; i += chunkSize) {
@@ -15,17 +17,18 @@ function chunkArray(array, chunkSize) {
 function SearchResults() {
   const [searchTerm, setSearchTerm] = useState("")
   const [recipes, setRecipes] = useState([])
+  const [showIndex, setShowIndex] = useState(loadMoreCount)
+
+  const handleClickLoadMore = () => {
+    const newIndexEnd = showIndex + loadMoreCount
+    setShowIndex(newIndexEnd)
+  }
 
   const handleSearchSubmit = async (e) => {
     e.preventDefault()
 
     try {
       const response = await axios.get(`http://localhost:3000/s/${searchTerm}`)
-      console.log("🚀 ~ handleSearchSubmit ~ response:", response)
-
-      const recipeData = response.data
-      console.log("🚀 ~ handleSearchSubmit ~ recipeData :", recipeData)
-
       setRecipes(response.data)
     } catch (error) {
       console.error("Error fetching recipes with ingredient:", error)
@@ -60,20 +63,31 @@ function SearchResults() {
           </Col>
         </Row>
       </Container>
-      
-      <Container>
-        <Row className="mt-5 justify-content-center">
-          {chunkArray(recipes, 3).map((row, index) => (
-            <Row key={index} className="mb-4">
-              {row.map((recipe) => (
-                <Col key={recipe.id}>
-                  <RecipeCard recipe={recipe} />
-                </Col>
-              ))}
-            </Row>
-          ))}
-        </Row>
-      </Container>
+
+      {recipes.length > 0 && (
+        <Container>
+          <Row className="mt-5 justify-content-center">
+            {chunkArray(recipes.slice(0, showIndex), 3).map((row, index) => (
+              <Row key={index} className="mb-4">
+                {row.map((recipe) => (
+                  <Col key={recipe.id}>
+                    <RecipeCard recipe={recipe} />
+                  </Col>
+                ))}
+              </Row>
+            ))}
+            {showIndex < 30 && (
+              <div className="load-container">
+                <button
+                  className="btn btn-primary mb-4"
+                  onClick={() => handleClickLoadMore()}>
+                  Load More
+                </button>
+              </div>
+            )}
+          </Row>
+        </Container>
+      )}
     </div>
   )
 }
