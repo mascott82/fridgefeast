@@ -10,8 +10,8 @@
 
 .header-image {
   background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.1),
-      rgba(255, 255, 255, 0.2)),
+    /* linear-gradient(to right, rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.2)), */
     url("../assets/brooke-lark-08bOYnH_r_E-unsplash.jpg");
   background-size: 120%;
   background-position: 90% 10%;
