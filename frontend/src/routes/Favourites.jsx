@@ -103,7 +103,12 @@ const LoadingRecipes = ({ userid, userFavRecipes, setUserFavRecipes, setRecipesF
   useEffect(() => {
     const getUserFavs = async () => {
       try {
-        const response = await axios.post(backend_endpoint_user_fav, { userid: userid })
+        const qry = { userid: userid }
+        console.log(
+          "qry", qry
+        )
+        const response = await axios.post(backend_endpoint_user_fav, qry)
+        console.log("response", response)
         setUserFavRecipes(response.data.favs)
       } catch (error) {
         console.error("Error fetching fav:", error)
@@ -111,7 +116,7 @@ const LoadingRecipes = ({ userid, userFavRecipes, setUserFavRecipes, setRecipesF
     }
     getUserFavs()
   }, [])
-
+  
   // download all recipe info 
   useEffect(() => {
     const fetchAllRecipes = async () => {
@@ -203,18 +208,6 @@ const Favourites = ({ userIdAuthToken }) => {
       navigate(`/recipes/${recipeId}`)
     }, 100)
   };
-
-  // const DeleteFav = (recipeId) => {
-  //   const deleteTarget = { userid: userIdAuthToken.userid, recipeid: recipeId };
-  //   axios.post(backend_endpoint_user_fav_delete, deleteTarget).then((response) => {
-  //     const removedFavQty = response.data.removed_fav_qty;
-  //     console.log("removedFavQty", removedFavQty)
-  //   }).catch((error) => {
-  //     console.error('Error fav recipe query:', error);
-  //   })
-  //   window.location.reload();
-  //   return (<></>)
-  // }
 
   const handleSortChange = (event) => {
     setSortCriteria(event.target.value);
