@@ -1,11 +1,17 @@
 .card {
   height: 50rem;
   --bs-card-height: 27rem !important;
+  /* box-shadow: 0 0 5px !important; */
 }
 
-.header-section {
+.card:hover {
+  cursor: pointer;
+  box-shadow: 0 0 5px !important;
+}
+
+.header-image {
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.3),
+    linear-gradient(to right, rgba(0, 0, 0, 0.6),
       rgba(255, 255, 255, 0.3)),
     url("../assets/brooke-lark-W9OKrxBqiZA-unsplash.jpg");
   background-size: cover;
@@ -13,7 +19,8 @@
 }
 
 .header-text {
-  background-color: rgba(255, 255, 255, .9);
+  /* background-color: rgba(255, 255, 255, .7); */
   width: fit-content;
+  color: white;
 }
 

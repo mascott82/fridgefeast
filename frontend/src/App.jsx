@@ -29,7 +29,7 @@ const RedirectTo = () => {
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(["user"])
-
+ 
   function handleLogin(userIdAndAuthToken) {
     // console.log("userIdAndAuthToken", userIdAndAuthToken)
     setCookie("user", userIdAndAuthToken, { path: "/", maxAge: 24 * 60 * 60 })
@@ -37,23 +37,20 @@ function App() {
 
   function handleLogout() {
     setCookie("user", null, { path: "/" })
-    removeCookie("user", {"path":"/"})
+    removeCookie("user", { path: "/" })
     console.log('setCookie("user", null, { path: "/" })')
   }
 
   return (
     <>
-      <NavigationBar />
+      <NavigationBar sessionCookie={cookies.user} />
       <CookiesProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/signup" element={
-                cookies.user == null ? (
-                  <Signup />
-                ) : (
-                  <RedirectTo />
-                )
-              } />
+            <Route
+              path="/signup"
+              element={cookies.user == null ? <Signup /> : <RedirectTo />}
+            />
             <Route
               path="/login"
               element={
@@ -68,10 +65,13 @@ function App() {
             <Route element={<ProtectedRoute currentUser={cookies.user} />}>
               <Route
                 path="/favourites"
-                element={<Favourites userIdAuthToken={cookies.user}/>}
+                element={<Favourites userIdAuthToken={cookies.user} />}
               />
             </Route>
-            <Route path="/home" element={<Homepage sessionCookie={cookies.user}/>} />
+            <Route
+              path="/home"
+              element={<Homepage sessionCookie={cookies.user} />}
+            />
             <Route
               path="/logout"
               element={<Logout onLogout={handleLogout} />}
