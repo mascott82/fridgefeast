@@ -9,7 +9,8 @@ const express = require("express");
 const router = express.Router();
 const favQry = require("../db/queries/favorites");
 
-router.get("/list", (req, res) => {
+router.post("/list", (req, res) => {
+  console.log(req.body)
   favQry
     .getFavorites(req.body.userid)
     .then((favs) => {
