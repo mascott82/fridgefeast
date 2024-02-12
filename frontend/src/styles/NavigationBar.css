@@ -18,17 +18,11 @@ a.nav-link:hover {
   color: #bfbed6;
 }
 
-.navbar-text {
+.logo-text {
   font-family: "Protest Riot", sans-serif;
   font-size: 2rem !important;
   letter-spacing: 0.1rem;
   color: #FFFFFF !important;
   text-shadow: 0 0 10px #5D5A88;
   margin: auto;
-
-
-  /* text-shadow: -1px 1px 0 #5D5A88,
-    1px 1px 0 #c63d2b,
-    1px -1px 0 #42afac,
-    -1px -1px 0 #c6c23f; */
 }

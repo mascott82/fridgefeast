@@ -13,9 +13,9 @@ const NavigationBar = ({ sessionCookie }) => {
     <div className="nav-bar-container">
       <Navbar expand="lg">
         <Container>
-          <Navbar.Text href="/home">
+          <Navbar.Brand href="/home" className="logo-text">
             Fridge Feast
-          </Navbar.Text>
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse
             id="basic-navbar-nav"
