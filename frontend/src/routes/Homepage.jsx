@@ -6,6 +6,7 @@ import Col from "react-bootstrap/Col"
 import { Container } from "react-bootstrap"
 import axios from "axios"
 import FavouriteButton from "../components/FavouriteButton"
+import "../styles/Homepage.css"
 
 const Homepage = ({ sessionCookie }) => {
   console.log("sessionCookie at homepage", sessionCookie)

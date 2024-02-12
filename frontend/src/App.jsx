@@ -5,15 +5,12 @@ import Signup from "./routes/Signup"
 import Login from "./routes/Login"
 import Logout from "./routes/Logout"
 import Favourites from "./routes/Favourites"
-import SearchResults from "./routes/SearchResults"
+import SearchResults from "./routes/Search"
 import ProtectedRoute from "./routes/ProtectedRoute"
 import Homepage from "./routes/Homepage"
 import RecipePage from "./routes/RecipePage"
 import NavigationBar from "./components/NavigationBar"
 import "./App.css"
-import "./styles/Homepage.css"
-import "./styles/NavigationBar.css"
-import "./styles/RecipeCard.css"
 
 const RedirectTo = () => {
   const navigate = useNavigate()
@@ -61,7 +58,7 @@ function App() {
                 )
               }
             />
-            <Route path="/searchResults" element={<SearchResults />} />
+            <Route path="/search" element={<SearchResults />} />
             <Route element={<ProtectedRoute currentUser={cookies.user} />}>
               <Route
                 path="/favourites"

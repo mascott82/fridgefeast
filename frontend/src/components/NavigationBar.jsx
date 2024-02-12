@@ -4,7 +4,7 @@ import Nav from "react-bootstrap/Nav"
 import Navbar from "react-bootstrap/Navbar"
 import NavDropdown from "react-bootstrap/NavDropdown"
 import { CgSearch } from "react-icons/cg"
-import { FaCircleUser } from "react-icons/fa6"
+import "../styles/NavigationBar.css"
 
 const NavigationBar = ({ sessionCookie }) => {
   const userImage = <i class="fa-solid fa-user"></i>
@@ -42,7 +42,7 @@ const NavigationBar = ({ sessionCookie }) => {
                   <Nav.Link href="/login">Login</Nav.Link>
                 </>
               )}
-              <Nav.Link href="/searchResults">
+              <Nav.Link href="/search">
                 <CgSearch />
               </Nav.Link>
             </Nav>

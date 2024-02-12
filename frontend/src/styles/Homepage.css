@@ -1,11 +1,11 @@
-.card {
+.recipe-card {
   height: 50rem;
   --bs-card-height: 27rem !important;
 }
 
-.card:hover {
+.recipe-card:hover {
   cursor: pointer;
-  box-shadow: 0 0 3px #3a3755 !important;
+  box-shadow: 0 0 2px #3a3755 !important;
 }
 
 .header-image {
