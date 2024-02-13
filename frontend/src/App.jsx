@@ -76,7 +76,10 @@ function App() {
               path="/logout"
               element={<Logout onLogout={handleLogout} />}
             />
-            <Route path="/recipes/:id" element={<RecipePage />} />
+            <Route
+              path="/recipes/:id"
+              element={<RecipePage sessionCookie={cookies.user} />}
+            />
           </Routes>
         </BrowserRouter>
       </CookiesProvider>

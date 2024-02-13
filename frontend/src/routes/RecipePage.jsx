@@ -2,12 +2,11 @@ import React from "react"
 import RecipeItem from "../components/RecipeItem"
 import SimilarRecipes from "../components/SimilarRecipes"
 
-const RecipePage = () => {
+const RecipePage = ({sessionCookie}) => {
   return (
     <>
-      <RecipeItem />
+      <RecipeItem sessionCookie={sessionCookie} />
       {/* <SimilarRecipes /> */}
-
     </>
   )
 }

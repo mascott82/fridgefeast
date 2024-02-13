@@ -3,8 +3,9 @@ import { Container, Row, Col, Image, ListGroup, Card } from "react-bootstrap"
 import axios from "axios"
 import { useLocation } from "react-router-dom"
 import "../styles/RecipePage.css"
+import FavouriteButton from "../components/FavouriteButton"
 
-const RecipeItem = () => {
+const RecipeItem = ({ sessionCookie }) => {
   const [recipeById, setRecipeById] = useState(null)
   const location = useLocation().pathname
   const recipeId = location.replace("/recipes/", "")
@@ -33,7 +34,20 @@ const RecipeItem = () => {
       <Card className="p-5">
         <Row>
           <Col>
-            <h2>{recipeById.title}</h2>
+            <div className="recipe-title-container">
+              <h2>{recipeById.title}</h2>
+              {sessionCookie == null ? (
+                <></>
+              ) : (
+                <div className="fav-button-container">
+                  <FavouriteButton
+                    addNew={true}
+                    userid={sessionCookie.userid}
+                    recipeid={recipeById.id}
+                  />
+                </div>
+              )}
+            </div>
             <p>
               <strong>Time:</strong> {recipeById.readyInMinutes} minutes |{" "}
               <strong>Serving Size:</strong> {recipeById.servings}
