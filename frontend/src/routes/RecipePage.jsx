@@ -1,11 +1,13 @@
 import React from "react"
-import { Container, Row, Col } from "react-bootstrap"
 import RecipeItem from "../components/RecipeItem"
+import SimilarRecipes from "../components/SimilarRecipes"
 
 const RecipePage = () => {
   return (
     <>
       <RecipeItem />
+      {/* <SimilarRecipes /> */}
+
     </>
   )
 }

@@ -8,3 +8,7 @@
   object-fit: cover;
   height: 20rem;
 }
+
+.recipe-page-img {
+  border-radius: 0.375rem;
+}

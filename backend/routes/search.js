@@ -39,34 +39,4 @@ router.get('/:i', (req, res) => {
     })
 })
 
-// Route for finding similar recipes by recipe ID
-router.get('/:id/similar', (req, res) => {
-  const recipeId = req.params.id
-
-  const apiEndpoint = `https://api.spoonacular.com/recipes/${ recipeId }/similar`
-
-  const options = {
-    params: {
-      number: 5
-    },
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': 'd244d7df0bca4e509d34d9496190e714'
-    }
-  }
-
-  axios
-    .get(apiEndpoint, options)
-    .then((response) => {
-      console.log(response.data)
-      res.send(response.data)
-    })
-    .catch((err) => {
-      console.error("====", err)
-    })
-    .finally(() => {
-      console.log("--End--")
-    })
-})
-
 module.exports = router
