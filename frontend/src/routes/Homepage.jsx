@@ -64,34 +64,34 @@ const Homepage = ({ sessionCookie }) => {
           <Row>
             {randomRecipes.map((randomRecipe) => (
               <Col md={4} key={randomRecipe.id}>
-                <a href={`/recipes/${randomRecipe.id}`}>
-                  <Card className="recipe-card">
+                <Card className="recipe-card">
+                  <a href={`/recipes/${randomRecipe.id}`}>
                     <Card.Img
                       variant="top"
                       className="recipe-card-img"
                       src={randomRecipe.image}
                       alt={randomRecipe.title}
                     />
-                    {sessionCookie == null ? (
-                      <></>
-                    ) : (
-                      <div className="fav-button-container">
-                        <FavouriteButton
-                          addNew={true}
-                          userid={sessionCookie.userid}
-                          recipeid={randomRecipe.id}
-                        />
-                      </div>
-                    )}
-                    <Card.Body>
-                      <Card.Title>{randomRecipe.title}</Card.Title>
-                      <Card.Text>
-                        {randomRecipe.readyInMinutes} minutes | Serving Size:{" "}
-                        {randomRecipe.servings}
-                      </Card.Text>
-                    </Card.Body>
-                  </Card>
-                </a>
+                  </a>
+                  {sessionCookie == null ? (
+                    <></>
+                  ) : (
+                    <div className="fav-button-container">
+                      <FavouriteButton
+                        addNew={true}
+                        userid={sessionCookie.userid}
+                        recipeid={randomRecipe.id}
+                      />
+                    </div>
+                  )}
+                  <Card.Body>
+                    <Card.Title>{randomRecipe.title}</Card.Title>
+                    <Card.Text>
+                      {randomRecipe.readyInMinutes} minutes | Serving Size:{" "}
+                      {randomRecipe.servings}
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
               </Col>
             ))}
           </Row>
