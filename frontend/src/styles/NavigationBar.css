@@ -2,20 +2,27 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: #fff;
+  background: #3a3755;
 }
 
-.search-modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  /* semi-transparent black background */
-  z-index: 1000;
-  /* Ensure it's above other content */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.dropdown-text {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+a.nav-link {
+  color: #f7f7ff;
+  font-size: 1.2rem;
+}
+
+a.nav-link:hover {
+  color: #bfbed6;
+}
+
+.logo-text {
+  font-family: "Protest Riot", sans-serif;
+  font-size: 2rem !important;
+  letter-spacing: 0.1rem;
+  color: #FFFFFF !important;
+  /* text-shadow: 0 0 2px #5D5A88; */
+  margin: auto;
 }

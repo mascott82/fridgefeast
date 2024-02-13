@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import { Container, Row, Col, Image, ListGroup } from "react-bootstrap"
 import axios from "axios"
 import { useLocation } from "react-router-dom"
+import "../styles/RecipePage.css"
 
 const RecipeItem = () => {
   const [recipeById, setRecipeById] = useState(null)
