@@ -69,7 +69,7 @@ function App() {
               />
             </Route>
             <Route
-              path="/home"
+              path="/"
               element={<Homepage sessionCookie={cookies.user} />}
             />
             <Route
