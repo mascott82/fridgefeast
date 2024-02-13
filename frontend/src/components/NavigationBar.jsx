@@ -7,7 +7,7 @@ import { CgSearch } from "react-icons/cg"
 import "../styles/NavigationBar.css"
 
 const NavigationBar = ({ sessionCookie }) => {
-  const userImage = <i class="fa-solid fa-user"></i>
+  const userImage = <i className="fa-solid fa-user"></i>
 
   return (
     <div className="nav-bar-container">

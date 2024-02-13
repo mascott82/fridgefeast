@@ -6,10 +6,8 @@ import "../styles/RecipePage.css"
 
 const RecipeItem = () => {
   const [recipeById, setRecipeById] = useState(null)
-  // const [recipeId, setRecipeId] = useState('')
   const location = useLocation().pathname
-  const recipeId = location.replace("/recipes/","")
-  console.log("🚀 ~ RecipeItem ~ recipeId:", recipeId)
+  const recipeId = location.replace("/recipes/", "")
 
   useEffect(() => {
     const getRecipeById = async () => {
@@ -59,12 +57,19 @@ const RecipeItem = () => {
           </ListGroup>
         </Col>
         <Col>
-          <h3>Directions</h3>
-          <ol>
-            {recipeById.analyzedInstructions[0].steps.map((step, index) => (
-              <li key={index}>{step.step}</li>
-            ))}
-          </ol>
+          {recipeById.analyzedInstructions &&
+            recipeById.analyzedInstructions.length > 0 && (
+              <>
+                <h3>Directions</h3>
+                <ol>
+                  {recipeById.analyzedInstructions[0].steps.map(
+                    (step, index) => (
+                      <li key={index}>{step.step}</li>
+                    )
+                  )}
+                </ol>
+              </>
+            )}
         </Col>
       </Row>
     </Container>
