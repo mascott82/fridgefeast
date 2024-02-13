@@ -12,3 +12,9 @@ div.mb-4.row {
   align-items: center;
   justify-content: center;
 }
+
+.sort-by-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+}
