@@ -97,13 +97,62 @@ const FiltersMenu = ({ setFilterConditionsTimes }) => {
 };
 
 
+const LoadingRecipes = ({ userid, userFavRecipes, setUserFavRecipes, setRecipesFromApi }) => {
+  const [isLoading, setIsLoading] = useState(true);
+  // download all recipe ids of current user from favorites table in DB
+  useEffect(() => {
+    const getUserFavs = async () => {
+      try {
+        const qry = { userid: userid }
+        console.log(
+          "qry", qry
+        )
+        const response = await axios.post(backend_endpoint_user_fav, qry)
+        console.log("response", response)
+        setUserFavRecipes(response.data.favs)
+      } catch (error) {
+        console.error("Error fetching fav:", error)
+      }
+    }
+    getUserFavs()
+  }, [])
+  
+  // download all recipe info 
+  useEffect(() => {
+    const fetchAllRecipes = async () => {
+      if (userFavRecipes.length === 0) return;
+
+      setIsLoading(true);
+      const fetchPromises = userFavRecipes.map(async (fav, index) => {
+        try {
+          const response = await axios.get(`http://localhost:3000/recipes/${fav.recipe_id}/information`);
+          return { id: fav.recipe_id, data: response.data };
+        } catch (error) {
+          console.error("Error fetching recipe:", error);
+          return null;
+        }
+      });
+
+      // Wait for all fetches to complete
+      const results = await Promise.allSettled(fetchPromises);
+      results.forEach(result => {
+        if (result) {
+          setRecipesFromApi(prev => ({ ...prev, [result.value.id]: result.value.data }));
+        }
+      });
+      setIsLoading(false); // End loading after all requests
+    };
+
+    fetchAllRecipes();
+  }, [userFavRecipes]); // Dependency on userFavRecipes ensures this runs after they're set
+  return (<></>)
+}
+
 const Favourites = ({ userIdAuthToken }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [userFavRecipes, setUserFavRecipes] = useState([])
   const [recipesFromApi, setRecipesFromApi] = useState({})
   const [filterConditionsTimes, setFilterConditionsTime] = useState({ "conditions": [], "times": [] })
-  const [deletedRecipe, setDeletedRecipe] = useState(null)
-  const [currentRecipes, setCurrentRecipes] = useState([])
 
   // apply user's conditions
   const filterRecipes = (_recipes, _conditions, _times) => {
@@ -184,75 +233,9 @@ const Favourites = ({ userIdAuthToken }) => {
 
   };
 
-
-  useEffect(() => {
-    const getUserFavs = async () => {
-      try {
-        const qry = { userid: userIdAuthToken.userid }
-        console.log(
-          "qry", qry
-        )
-        const response = await axios.post(backend_endpoint_user_fav, qry)
-        console.log("response", response)
-        setUserFavRecipes(response.data.favs)
-      } catch (error) {
-        console.error("Error fetching fav:", error)
-      }
-    }
-    getUserFavs()
-  }, [])
-
-  // download all recipe info 
-  useEffect(() => {
-    const fetchAllRecipes = async () => {
-      if (userFavRecipes.length === 0) return;
-
-      setIsLoading(true);
-      const fetchPromises = userFavRecipes.map(async (fav, index) => {
-        try {
-          const response = await axios.get(`http://localhost:3000/recipes/${fav.recipe_id}/information`);
-          return { id: fav.recipe_id, data: response.data };
-        } catch (error) {
-          console.error("Error fetching recipe:", error);
-          return null;
-        }
-      });
-
-      // Wait for all fetches to complete
-      const results = await Promise.allSettled(fetchPromises);
-      results.forEach(result => {
-        if (result.status ==='fulfilled') {
-          setRecipesFromApi(prev => ({ ...prev, [result.value.id]: result.value.data }));
-          setCurrentRecipes(prev =>{
-            const isExisting = prev.some(recipe => recipe.id === result.value.data.id);
-            return isExisting ? prev : [...prev, result.value.data];
-          });
-        }
-      });
-      setIsLoading(false); // End loading after all requests
-    };
-
-    fetchAllRecipes();
-  }, [userFavRecipes]); // Dependency on userFavRecipes ensures this runs after they're set
-
-  useEffect(() => {
-    if (deletedRecipe) {
-      console.log(`Recipe with id ${deletedRecipe} has been deleted.`);
-      const updatedRecipes = sortedFavs(filterRecipes(currentRecipes,
-        filterConditionsTimes["conditions"],
-        filterConditionsTimes["times"]), sortCriteria).slice(0, showIndex).filter(recipe => recipe.id !== deletedRecipe)
-      console.log("updatedRecipes, showIndex", updatedRecipes, showIndex)
-      setCurrentRecipes(updatedRecipes);
-      setDeletedRecipe(null);
-    }
-  }, [deletedRecipe, currentRecipes, showIndex, filterConditionsTimes, sortCriteria]);
-
-  useEffect(()=>{
-    console.log("currentRecipes", currentRecipes)
-  })
-
   return (
     <div className="favourites-container">
+      <LoadingRecipes userid={userIdAuthToken.userid} userFavRecipes={userFavRecipes} setUserFavRecipes={setUserFavRecipes} setRecipesFromApi={setRecipesFromApi} />
       <div className="filter-section">
         <FiltersMenu setFilterConditionsTimes={setFilterConditionsTime} />
       </div>
@@ -273,14 +256,14 @@ const Favourites = ({ userIdAuthToken }) => {
         <br></br>
         <div className="favourites-grid">
           <Row>
-            {currentRecipes.map((recipe) => (
+            {sortedFavs(filterRecipes(Object.values(recipesFromApi), filterConditionsTimes["conditions"], filterConditionsTimes["times"]), sortCriteria).slice(0, showIndex).map((recipe) => (
               <Col md={4} key={recipe.id}>
                 <Card className="recipe-card-fav">
-                  <div className="fav-button-container"><FavouriteButton
-                    addNew={false} userid={userIdAuthToken.userid} recipeid={recipe.id} setDeletedRecipe={setDeletedRecipe}
-                  />
+                <div className="fav-button-container"><FavouriteButton
+                    addNew={false} userid={userIdAuthToken.userid} recipeid={recipe.id}
+                    />
                   </div>
-                  <div onClick={() => goToSingleRecipe(recipe.id)}>
+                  <div onClick={() => goToSingleRecipe(recipe.id)}>                  
                     <Card.Img
                       variant="top"
                       className="recipe-card-img"
@@ -308,3 +291,29 @@ const Favourites = ({ userIdAuthToken }) => {
 };
 
 export default Favourites;
+
+{/* <div className="favourites-grid">
+{sortedFavs(qryFavs, sortCriteria).slice(0, showIndex).map((recipe) => (
+  <div key={recipe.id} className="recipe-card">
+    <div className="fav-button-container"><FavouriteButton
+      addNew={null}
+      onClick={() => {
+        DeleteFav(recipe.id);
+        selectFavToRemove(recipe.id);
+        console.log("should be removed from DB")
+        // remove it from table in DB
+      }
+      } />
+    </div>
+    <div className='recipe-image-text' onClick={() => handleItemClick(recipe)}>
+      <div className="recipe-image">
+        <img src={recipe.image} alt='recipe image' />
+      </div>
+      <h3 className="recipe-name">{recipe.name}</h3>
+      <p className="recipe-description">{recipe.description}</p>
+      <p className="recipe-serving_size">serving for: {recipe.serving_size}</p>
+      <p className="recipe-cook_time">cook time: {selectTimeFromTags(recipe.tags)}</p>
+    </div>
+  </div>
+))}
+</div> */}

@@ -16,12 +16,12 @@
   .favourites-grid {
     display: flex;
     flex-wrap: wrap; /* Allows items to wrap to the next line */
-    justify-content: flex-start; /* Align items to the start of the container */
+    justify-content: start; /* Align items to the start of the container */
     gap: 20px; /* Space between items */
   }
   
   .recipe-card-fav {
-    flex: 0 0 31%; 
+    flex: 1; 
     min-width: 250px; /* Minimum width of each card */
     text-align: center;
     font-size: 1.1em;
@@ -148,3 +148,4 @@
   .sort-by-dropdown label {
     margin-right: 10px; 
   }
+  
