@@ -7,6 +7,7 @@
 
 const express = require("express");
 const router = express.Router();
+const axios = require('axios')
 const favQry = require("../db/queries/favorites");
 
 router.post("/list", (req, res) => {
@@ -25,11 +26,11 @@ router.post("/delete", (req, res) => {
   favQry
     .removeFavorites({ user_id: req.body.userid, recipe_id: req.body.recipeid })
     .then((result) => {
-      res.send({ qty: result.removed_fav_qty });
+      res.send({ qty: result.removed_fav_qty })
     })
     .catch((error) => {
-      console.error("user's remove fav query has error: ", error);
-    });
+      console.error("user's remove fav query has error: ", error)
+    })
 });
 
 router.post("/add", (req, res) => {
@@ -43,15 +44,49 @@ router.post("/add", (req, res) => {
     });
 });
 
-router.get("/isFav", (req, res) => {
-  const recipeid = req.params.recipeid
-  favQry.isFavorited(recipeid)
+router.get('/isFav/', (req, res) => {
+  const recipeId = req.query.recipeId
+  
+  favQry.isFavorited(recipeId)
     .then((result) => {
       let isFav = false
       if (result !== undefined) {
         isFav = true
       }
-      res.send({ msg: isFav})
+      res.send({ msg: isFav })
+    })
+    .catch((error) => {
+      res.status(500).send({ error: error.message })
+    })
+});
+
+router.get('/bulkrecipes/:id', (req, res) => {
+  const recipeId = req.params.id
+
+  const apiEndpoint = `https://api.spoonacular.com/recipes/informationBulk?ids=${recipeId}`
+
+  const options = {
+    // params: {
+    //   ids: recipeId
+    // },
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': 'd244d7df0bca4e509d34d9496190e714'
+    }
+  }
+
+  axios
+    .get(apiEndpoint, options)
+    .then((response) => {
+      console.log(response.data)
+      res.send(response.data)
+    })
+    .catch((err) => {
+      console.error("====", err)
+    })
+    .finally(() => {
+      console.log("--End--")
     })
 })
+
 module.exports = router;

@@ -3,7 +3,8 @@ import { Container, Row, Col, Image, ListGroup, Card } from "react-bootstrap"
 import axios from "axios"
 import { useLocation } from "react-router-dom"
 import "../styles/RecipePage.css"
-import FavouriteButton from "../components/FavouriteButton"
+// import FavouriteButton from "../components/FavouriteButton"
+import TestFavouriteButton from "./TestFavButton"
 
 const RecipeItem = ({ sessionCookie }) => {
   const [recipeById, setRecipeById] = useState(null)

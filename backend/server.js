@@ -53,6 +53,7 @@ const registerRoute = require('./routes/register');
 const reviewRoute = require('./routes/reviews');
 const ingredientRoute = require('./routes/ingredients');
 const homepageRoute = require('./routes/homepage');
+const testRoute = require('./routes/test');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -65,6 +66,7 @@ app.use('/reviews', reviewRoute);
 app.use('/ingredients', ingredientRoute);
 app.use('/home', homepageRoute);
 app.use('/s', searchRoute);
+app.use('/test', testRoute);
 
 // Note: mount other resources here, using the same pattern above
 

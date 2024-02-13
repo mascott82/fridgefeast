@@ -10,6 +10,9 @@ import ProtectedRoute from "./routes/ProtectedRoute"
 import Homepage from "./routes/Homepage"
 import RecipePage from "./routes/RecipePage"
 import NavigationBar from "./components/NavigationBar"
+import TestFavouritesPage from "./routes/test"
+import { FavouritesProvider } from "./hooks/favContext"
+
 import "./App.css"
 
 const RedirectTo = () => {
@@ -26,62 +29,66 @@ const RedirectTo = () => {
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(["user"])
- 
+
   function handleLogin(userIdAndAuthToken) {
-    // console.log("userIdAndAuthToken", userIdAndAuthToken)
     setCookie("user", userIdAndAuthToken, { path: "/", maxAge: 24 * 60 * 60 })
   }
 
   function handleLogout() {
     setCookie("user", null, { path: "/" })
     removeCookie("user", { path: "/" })
-    console.log('setCookie("user", null, { path: "/" })')
   }
 
   return (
     <>
       <NavigationBar sessionCookie={cookies.user} />
       <CookiesProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route
-              path="/signup"
-              element={cookies.user == null ? <Signup /> : <RedirectTo />}
-            />
-            <Route
-              path="/login"
-              element={
-                cookies.user == null ? (
-                  <Login onLogin={handleLogin} />
-                ) : (
-                  <RedirectTo />
-                )
-              }
-            />
-            <Route
-              path="/search"
-              element={<SearchResults sessionCookie={cookies.user} />}
-            />
-            <Route element={<ProtectedRoute currentUser={cookies.user} />}>
+        <FavouritesProvider>
+          <BrowserRouter>
+            <Routes>
               <Route
-                path="/favourites"
-                element={<Favourites userIdAuthToken={cookies.user} />}
+                path="/signup"
+                element={cookies.user == null ? <Signup /> : <RedirectTo />}
               />
-            </Route>
-            <Route
-              path="/"
-              element={<Homepage sessionCookie={cookies.user} />}
-            />
-            <Route
-              path="/logout"
-              element={<Logout onLogout={handleLogout} />}
-            />
-            <Route
-              path="/recipes/:id"
-              element={<RecipePage sessionCookie={cookies.user} />}
-            />
-          </Routes>
-        </BrowserRouter>
+              <Route
+                path="/login"
+                element={
+                  cookies.user == null ? (
+                    <Login onLogin={handleLogin} />
+                  ) : (
+                    <RedirectTo />
+                  )
+                }
+              />
+              <Route
+                path="/search"
+                element={<SearchResults sessionCookie={cookies.user} />}
+              />
+              <Route element={<ProtectedRoute currentUser={cookies.user} />}>
+                <Route
+                  path="/favourites"
+                  element={<Favourites userIdAuthToken={cookies.user} />}
+                />
+              </Route>
+              <Route
+                path="/"
+                element={<Homepage sessionCookie={cookies.user} />}
+              />
+              <Route
+                path="/logout"
+                element={<Logout onLogout={handleLogout} />}
+              />
+              <Route
+                path="/recipes/:id"
+                element={<RecipePage sessionCookie={cookies.user} />}
+              />
+              <Route
+                path="/test"
+                element={<TestFavouritesPage sessionCookie={cookies.user} />}
+              />
+            </Routes>
+          </BrowserRouter>
+        </FavouritesProvider>
       </CookiesProvider>
     </>
   )

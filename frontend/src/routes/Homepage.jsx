@@ -5,10 +5,12 @@ import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import { Container } from "react-bootstrap"
 import axios from "axios"
-import FavouriteButton from "../components/FavouriteButton"
+import TestFavouriteButton from "../components/TestFavButton"
 import "../styles/Homepage.css"
 
 const Homepage = ({ sessionCookie }) => {
+  console.log("🚀 ~ Homepage ~ sessionCookie:", sessionCookie)
+  
   const [randomRecipes, setRandomRecipes] = useState([])
 
   const getRandomRecipes = async () => {
@@ -77,8 +79,8 @@ const Homepage = ({ sessionCookie }) => {
                     <></>
                   ) : (
                     <div className="fav-button-container">
-                      <FavouriteButton
-                        addNew={true}
+                      <TestFavouriteButton
+                        sessionCookie={sessionCookie}
                         userid={sessionCookie.userid}
                         recipeid={randomRecipe.id}
                       />
