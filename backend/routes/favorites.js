@@ -42,4 +42,16 @@ router.post("/add", (req, res) => {
       console.error("user's added fav query has error: ", error);
     });
 });
+
+router.get("/isFav", (req, res) => {
+  const recipeId = req.params.recipeId
+  favQry.isFavorited(recipeId)
+    .then((result) => {
+      let isFav = false
+      if (result !== undefined) {
+        isFav = true
+      }
+      res.send({ msg: isFav})
+    })
+})
 module.exports = router;

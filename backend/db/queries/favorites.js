@@ -46,4 +46,17 @@ const removeFavorites = (favorite) => {
       throw error;
     });
 };
-module.exports = { getFavorites, addFavorites, removeFavorites };
+
+const isFavorited = (userId, recipeId) => {
+  return dbPool.query(`SELECT * FROM favorites WHERE user_id = $1 AND recipe_id = $2`,
+    [userId, recipeId])
+    .then((data) => {
+      return data.rows[0]
+    })
+    .catch(error => {
+      console.error('Error searching favorites: ', error)
+      throw error
+    })
+}
+
+module.exports = { getFavorites, addFavorites, removeFavorites, isFavorited };
