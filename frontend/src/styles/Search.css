@@ -18,3 +18,7 @@ div.mb-4.row {
   flex-direction: row;
   justify-content: end;
 }
+
+#sortby {
+margin-left: 0.5rem;
+}
