@@ -22,7 +22,7 @@ function chunkArray(array, chunkSize) {
   return chunks
 }
 
-function SearchResults() {
+function SearchResults({ sessionCookie }) {
   const [searchTerm, setSearchTerm] = useState("")
   const [recipes, setRecipes] = useState([])
   const [showIndex, setShowIndex] = useState(loadMoreCount)
@@ -133,7 +133,11 @@ function SearchResults() {
                 {row.map((recipe) => (
                   <Col key={recipe.id} md={4} className="mb-4">
                     <a href={`/recipes/${recipe.id}`}>
-                      <RecipeCard recipe={recipe} onClick={handleRecipeClick} />
+                      <RecipeCard
+                        recipe={recipe}
+                        onClick={handleRecipeClick}
+                        sessionCookie={sessionCookie}
+                      />
                     </a>
                   </Col>
                 ))}

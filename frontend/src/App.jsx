@@ -58,7 +58,10 @@ function App() {
                 )
               }
             />
-            <Route path="/search" element={<SearchResults />} />
+            <Route
+              path="/search"
+              element={<SearchResults sessionCookie={cookies.user} />}
+            />
             <Route element={<ProtectedRoute currentUser={cookies.user} />}>
               <Route
                 path="/favourites"
