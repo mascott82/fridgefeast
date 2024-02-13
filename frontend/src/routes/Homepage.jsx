@@ -9,7 +9,6 @@ import FavouriteButton from "../components/FavouriteButton"
 import "../styles/Homepage.css"
 
 const Homepage = ({ sessionCookie }) => {
-  console.log("sessionCookie at homepage", sessionCookie)
   const [randomRecipes, setRandomRecipes] = useState([])
 
   const getRandomRecipes = async () => {
@@ -46,7 +45,7 @@ const Homepage = ({ sessionCookie }) => {
             and let the app generate a variety of mouthwatering recipes tailored
             to your specific ingredients.
           </p>
-          <a href="/searchResults">
+          <a href="/search">
             <Button
               className="btn btn-primary btn-lg"
               type="button"
@@ -65,32 +64,34 @@ const Homepage = ({ sessionCookie }) => {
           <Row>
             {randomRecipes.map((randomRecipe) => (
               <Col md={4} key={randomRecipe.id}>
-                <Card className="recipe-card">
-                  <Card.Img
-                    variant="top"
-                    className="recipe-card-img"
-                    src={randomRecipe.image}
-                    alt={randomRecipe.title}
-                  />
-                  {sessionCookie == null ? (
-                    <></>
-                  ) : (
-                    <div className="fav-button-container">
-                      <FavouriteButton
-                        addNew={true}
-                        userid={sessionCookie.userid}
-                        recipeid={randomRecipe.id}
-                      />
-                    </div>
-                  )}
-                  <Card.Body>
-                    <Card.Title>{randomRecipe.title}</Card.Title>
-                    <Card.Text>
-                      {randomRecipe.readyInMinutes} minutes | Serving Size:{" "}
-                      {randomRecipe.servings}
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
+                <a href={`/recipes/${randomRecipe.id}`}>
+                  <Card className="recipe-card">
+                    <Card.Img
+                      variant="top"
+                      className="recipe-card-img"
+                      src={randomRecipe.image}
+                      alt={randomRecipe.title}
+                    />
+                    {sessionCookie == null ? (
+                      <></>
+                    ) : (
+                      <div className="fav-button-container">
+                        <FavouriteButton
+                          addNew={true}
+                          userid={sessionCookie.userid}
+                          recipeid={randomRecipe.id}
+                        />
+                      </div>
+                    )}
+                    <Card.Body>
+                      <Card.Title>{randomRecipe.title}</Card.Title>
+                      <Card.Text>
+                        {randomRecipe.readyInMinutes} minutes | Serving Size:{" "}
+                        {randomRecipe.servings}
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </a>
               </Col>
             ))}
           </Row>
