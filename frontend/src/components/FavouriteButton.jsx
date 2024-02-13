@@ -33,7 +33,7 @@ const FavouriteButton = ({ addNew, userid, recipeid, setDeletedRecipe }) => {
   };
 
   return (
-    <button onClick={clickAction} style={{ backgroundColor: 'white' }} disabled={isLoading}>
+    <button onClick={clickAction} style={{ backgroundColor: 'transparent' }} disabled={isLoading}>
       {isLoading ? 'Loading...' : (isFavorited ? <FaHeart color="red" /> : <FaRegHeart />)}
     </button>
   );
