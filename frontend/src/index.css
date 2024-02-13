@@ -17,12 +17,11 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+  text-decoration: none !important;
 }
 
 a:hover {
-  color: #535bf2;
+  opacity: 80%;
 }
 
 body {
@@ -52,7 +51,7 @@ button {
 }
 
 button:hover {
-  border-color: #646cff;
+  opacity: 80%;
 }
 
 button:focus,
@@ -67,7 +66,7 @@ button:focus-visible {
   }
 
   a:hover {
-    color: #747bff;
+    opacity: 80%;
   }
 
   button {
