@@ -101,33 +101,24 @@ function SearchResults({ sessionCookie }) {
         <Container>
           {/* Sortby Dropdown */}
           <Container>
-            <div className="sort-by-btn mt-4">
-              <DropdownButton
-                id="dropdown-basic-button"
-                title="Sort By"
-                variant="secondary">
-                <Dropdown.Item onClick={() => handleSortByChange("likes-desc")}>
-                  Most Popular
-                </Dropdown.Item>
-                <Dropdown.Item onClick={() => handleSortByChange("likes-asc")}>
-                  Least Popular
-                </Dropdown.Item>
-                <Dropdown.Item
-                  onClick={() =>
-                    handleSortByChange("unusedIngredientCount-desc")
-                  }>
+            <div className="sort-by-btn mt-5">
+              <label htmlFor="sortby">Sort By: </label> 
+              <select
+                id="sortby"
+                onChange={(e) => handleSortByChange(e.target.value)}
+                value={`${sortBy}-${sortOrder}`}>
+                <option value="likes-desc">Most Popular</option>
+                <option value="likes-asc">Least Popular</option>
+                <option value="unusedIngredientCount-desc">
                   Most Matching Ingredients
-                </Dropdown.Item>
-                <Dropdown.Item
-                  onClick={() =>
-                    handleSortByChange("unusedIngredientCount-asc")
-                  }>
+                </option>
+                <option value="unusedIngredientCount-asc">
                   Least Matching Ingredients
-                </Dropdown.Item>
-              </DropdownButton>
+                </option>
+              </select>
             </div>
           </Container>
-          <Row className="mt-5 justify-content-center">
+          <Row className="mt-3 justify-content-center">
             {chunkArray(recipes.slice(0, showIndex), 3).map((row, index) => (
               <Row key={index} className="mb-4">
                 {row.map((recipe) => (

@@ -20,9 +20,9 @@ a {
   text-decoration: none !important;
 }
 
-a:hover {
+/* a:hover {
   opacity: 80%;
-}
+} */
 
 body {
   margin: 0;
@@ -65,9 +65,9 @@ button:focus-visible {
     background-color: #ffffff;
   }
 
-  a:hover {
+  /* a:hover {
     opacity: 80%;
-  }
+  } */
 
   button {
     background-color: #f9f9f9;
