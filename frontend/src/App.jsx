@@ -16,7 +16,7 @@ const RedirectTo = () => {
   const navigate = useNavigate()
   useEffect(() => {
     const makeDelay = setTimeout(() => {
-      navigate("/home")
+      navigate("/")
     }, 100)
     return () => clearTimeout(makeDelay)
   }, [navigate])

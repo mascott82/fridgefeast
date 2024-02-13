@@ -6,7 +6,7 @@ const Logout = ({onLogout}) => {
     useEffect(() => {
       const performLogout = async () => {
         await onLogout();
-        navigate("/home");
+        navigate("/");
       };
       performLogout();
     }, [navigate, onLogout]); 
