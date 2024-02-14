@@ -24,7 +24,7 @@ const NavigationBar = ({ sessionCookie }) => {
               {sessionCookie ? (
                 <NavDropdown title={userImage}>
                   <NavDropdown.Item
-                    href="/favourites"
+                    href="/test"
                     className="dropdown-text">
                     Favourites
                   </NavDropdown.Item>

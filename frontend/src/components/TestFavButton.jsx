@@ -43,17 +43,20 @@ import axios from "axios"
 import { useContext } from "react"
 import { FavouritesContext } from "../hooks/favContext"
 
-const TestFavouriteButton = ({ sessionCookie, recipeid, userid }) => {
-  const { isFav, addFavourite, removeFavourite } = useContext(FavouritesContext)
+const TestFavouriteButton = ({ sessionCookie, recipeid }) => {
+  const { isFav, addFavourite, removeFavourite, setIsFav } =
+    useContext(FavouritesContext)
 
-const toggleFavourites = () => {
-  const isFavourite = isFav.includes(recipeid)
-  if (isFavourite) {
-    removeFavourite(recipeid)
-  } else {
-    addFavourite(recipeid)
+  const toggleFavourites = () => {
+    const isFavourite = isFav.includes(recipeid)
+    if (isFavourite) {
+      removeFavourite(recipeid)
+      setIsFav(isFav.filter((id) => id !== recipeid))
+    } else {
+      setIsFav([...isFav, recipeid])
+      addFavourite(recipeid)
+    }
   }
-}
 
   return (
     <button

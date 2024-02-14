@@ -8,9 +8,7 @@ import axios from "axios"
 import TestFavouriteButton from "../components/TestFavButton"
 import "../styles/Homepage.css"
 
-const Homepage = ({ sessionCookie }) => {
-  console.log("🚀 ~ Homepage ~ sessionCookie:", sessionCookie)
-  
+const Homepage = ({ sessionCookie }) => {  
   const [randomRecipes, setRandomRecipes] = useState([])
 
   const getRandomRecipes = async () => {
@@ -32,6 +30,8 @@ const Homepage = ({ sessionCookie }) => {
   useEffect(() => {
     getRandomRecipes()
   }, [])
+  
+  console.log("🚀 ~ Homepage ~ sessionCookie:", sessionCookie)
 
   return (
     <div>

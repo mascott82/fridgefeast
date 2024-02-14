@@ -7,31 +7,37 @@ export const FavouritesProvider = ({ children, sessionCookie }) => {
   const [isFav, setIsFav] = useState([])
 
   useEffect(() => {
-    // Fetch the favourite recipes from the server
-    axios
-      .get("http://localhost:3000/test/isFav", {user_id: sessionCookie.userid})
-      .then((response) => {
-        console.log("🚀 ~ .then ~ response:", response)
+    // Only fetch the favourite recipes if the user is logged in
+    if (sessionCookie) {
+      axios
+        .get("http://localhost:3000/test/isFav", {
+          user_id: sessionCookie.userid,
+        })
+        .then((response) => {
+          console.log("🚀 ~ .then ~ response:", response)
 
-        // Add the IDs of the favourite recipes to the isFav array
-        const favIds = response.data.favRecipeIds.map(
-          (recipe) => recipe.recipe_id
-        )
-        console.log("🚀 ~ .then ~ favIds:", favIds)
-        setIsFav(favIds)
-      })
-      .catch((error) => {
-        console.error("Error fetching favourite recipes: ", error)
-      })
+          // Add the IDs of the favourite recipes to the isFav array
+          const favIds = response.data.favRecipeIds.map(
+            (recipe) => recipe.recipe_id
+          )
+          console.log("🚀 ~ .then ~ favIds:", favIds)
+          
+          setIsFav(favIds)
+        })
+        .catch((error) => {
+          console.error("Error fetching favourite recipes: ", error)
+        })
+    }
   }, [sessionCookie])
-
+  
   const addFavourite = async (recipeid) => {
     try {
       const response = await axios.post(`http://localhost:3000/test/add`, {
         userid: sessionCookie.userid,
         recipeid: recipeid,
       })
-      console.log(`Added fav qty: ${response.data.added_fav_qty}`)
+      console.log("🚀 ~ addFavourite ~ response:", response)
+      
       setIsFav((prevFavs) => [...prevFavs, recipeid])
     } catch (error) {
       console.error("Error adding recipe to user faves:", error)
@@ -44,7 +50,9 @@ export const FavouritesProvider = ({ children, sessionCookie }) => {
         userid: sessionCookie.userid,
         recipeid: recipeid,
       })
-      console.log(`Removed fav qty: ${response.data.removed_fav_qty}`)
+      console.log("🚀 ~ removeFavourite ~ response:", response)
+
+      
       setIsFav((prevFavs) => prevFavs.filter((id) => id !== recipeid))
     } catch (error) {
       console.error("Error deleting recipe from user faves:", error)
@@ -53,7 +61,7 @@ export const FavouritesProvider = ({ children, sessionCookie }) => {
 
   return (
     <FavouritesContext.Provider
-      value={{ isFav, addFavourite, removeFavourite }}>
+      value={{ isFav, setIsFav, addFavourite, removeFavourite }}>
       {children}
     </FavouritesContext.Provider>
   )
