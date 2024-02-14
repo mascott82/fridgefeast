@@ -5,6 +5,11 @@
   justify-content: end;
 }
 
+.filters-container {
+  border-right: 0.18rem solid #dee2e6;
+  height: 100%;
+}
+
 /* .filters-btn {
   display: flex;
   flex-direction: row;
@@ -12,3 +17,13 @@
   justify-content: center;
   width: 100%;
 } */
+
+    /* .apply-filters {
+      background-color: #5D5A88;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+    } */

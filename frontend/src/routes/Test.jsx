@@ -3,33 +3,43 @@ import axios from "axios"
 import { Container, Row, Col, Card } from "react-bootstrap"
 import FiltersMenu from "../components/FiltersMenu"
 import TestFavouriteButton from "../components/TestFavButton"
-import "../styles/test.css"
+import "../styles/Test.css"
 
 const TestFavouritesPage = ({ sessionCookie }) => {
   const [loading, setLoading] = useState(true)
   const [allFavRecipes, setAllFavRecipes] = useState([])
   const [filteredFavRecipes, setFilteredFavRecipes] = useState([]) // State to hold filtered recipes
   const userid = sessionCookie.userid
-  useEffect(() => {
-    const getFavUserRecipes = async () => {
-      try {
-        const response = await axios.post(`http://localhost:3000/test/list`, {
-          userid: userid,
-        })
-        const favUserRecipes = response.data.favs
-        const recipeIds = favUserRecipes.map((fav) => fav.recipe_id).join(",")
-        const responseAll = await axios.get(
-          `http://localhost:3000/test/bulkrecipes/${recipeIds}`
-        )
-        setAllFavRecipes(responseAll.data)
-        setFilteredFavRecipes(responseAll.data) // Set filteredFavRecipes to allFavRecipes
+  
+useEffect(() => {
+  const getFavUserRecipes = async () => {
+    try {
+      const response = await axios.post(`http://localhost:3000/test/list`, {
+        userid: userid,
+      })
+      const favUserRecipes = response.data.favs
+      if (!Array.isArray(favUserRecipes) || favUserRecipes.length === 0) {
         setLoading(false)
-      } catch (error) {
-        console.error("Error fetching user fave recipes:", error)
+        return
       }
+      const recipeIds = favUserRecipes.map((fav) => fav.recipe_id).join(",")
+      const responseAll = await axios.get(
+        `http://localhost:3000/test/bulkrecipes/${recipeIds}`
+      )
+      if (!Array.isArray(responseAll.data) || responseAll.data.length === 0) {
+        setLoading(false)
+        return
+      }
+      setAllFavRecipes(responseAll.data)
+      setFilteredFavRecipes(responseAll.data) // Set filteredFavRecipes to allFavRecipes
+      setLoading(false)
+    } catch (error) {
+      console.error("Error fetching user fave recipes:", error)
+      setLoading(false) // Add this line
     }
-    getFavUserRecipes()
-  }, [userid])
+  }
+  getFavUserRecipes()
+}, [userid])
 
   const handleFilterChange = (conditions, times) => {
     // Check if any filters are checked
@@ -46,12 +56,15 @@ const TestFavouritesPage = ({ sessionCookie }) => {
       if (!noConditionsChecked) {
         conditionsMatch = Object.keys(conditions).every((condition) => {
           const lowerCaseCondition = condition.toLowerCase()
-          console.log("🚀 ~ conditionsMatch ~ lowerCaseCondition:", lowerCaseCondition)
+          console.log(
+            "🚀 ~ conditionsMatch ~ lowerCaseCondition:",
+            lowerCaseCondition
+          )
           return recipe.diets.some((diet) =>
             diet.toLowerCase().includes(lowerCaseCondition)
           )
         })
-          console.log("🚀 ~ conditionsMatchs ~ recipe.diets:", recipe.diets)
+        console.log("🚀 ~ conditionsMatchs ~ recipe.diets:", recipe.diets)
       }
 
       if (!noTimesChecked) {
@@ -61,7 +74,10 @@ const TestFavouritesPage = ({ sessionCookie }) => {
           return min <= readyInMinutes && readyInMinutes <= max
         })
       }
-      console.log("🚀 ~ allFavRecipes.filter ~ conditionsMatch:", conditionsMatch)
+      console.log(
+        "🚀 ~ allFavRecipes.filter ~ conditionsMatch:",
+        conditionsMatch
+      )
       console.log("🚀 ~ allFavRecipes.filter ~ timeMatch:", timeMatch)
       return conditionsMatch && timeMatch
     })
@@ -70,7 +86,7 @@ const TestFavouritesPage = ({ sessionCookie }) => {
   }
 
   return (
-    <Container fluid>
+    <Container className="my-4">
       <Row>
         <Col md={3}>
           <FiltersMenu onFilterChange={handleFilterChange} />
@@ -79,6 +95,8 @@ const TestFavouritesPage = ({ sessionCookie }) => {
           <h1 className="my-4">Favourites</h1>
           {loading ? (
             <div>Loading...</div>
+          ) : filteredFavRecipes.length === 0 ? (
+            <div>You don't have any favourited recipes. Explore recipes <a href='/search'>here</a>!</div>
           ) : (
             <Row>
               {filteredFavRecipes.map((favRecipe) => (
