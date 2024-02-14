@@ -10,7 +10,7 @@ export const FavouritesProvider = ({ children, sessionCookie }) => {
     // Only fetch the favourite recipes if the user is logged in
     if (sessionCookie) {
       axios
-        .get(`http://localhost:3000/test/list/${sessionCookie.userid}`)
+        .get(`http://localhost:3000/fav/list/${sessionCookie.userid}`)
         .then((response) => {
           // console.log("🚀 ~ .then ~ response:", response)
 
@@ -28,7 +28,7 @@ export const FavouritesProvider = ({ children, sessionCookie }) => {
 
   const addFavourite = async (recipeid) => {
     try {
-      const response = await axios.post(`http://localhost:3000/test/add`, {
+      const response = await axios.post(`http://localhost:3000/fav/add`, {
         userid: sessionCookie.userid,
         recipeid: recipeid,
       })
@@ -42,7 +42,7 @@ export const FavouritesProvider = ({ children, sessionCookie }) => {
 
   const removeFavourite = async (recipeid) => {
     try {
-      const response = await axios.post(`http://localhost:3000/test/delete`, {
+      const response = await axios.post(`http://localhost:3000/fav/delete`, {
         userid: sessionCookie.userid,
         recipeid: recipeid,
       })

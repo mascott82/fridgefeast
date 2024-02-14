@@ -4,7 +4,7 @@ import axios from "axios"
 import { useLocation } from "react-router-dom"
 import "../styles/RecipePage.css"
 // import FavouriteButton from "../components/FavouriteButton"
-import TestFavouriteButton from "./TestFavButton"
+import FavButton from "./FavButton"
 
 const RecipeItem = ({ sessionCookie }) => {
   const [recipeById, setRecipeById] = useState(null)
@@ -41,7 +41,7 @@ const RecipeItem = ({ sessionCookie }) => {
                 <></>
               ) : (
                 <div className="fav-button-container">
-                  <TestFavouriteButton
+                  <FavButton
                     addNew={true}
                     userid={sessionCookie.userid}
                     recipeid={recipeById.id}

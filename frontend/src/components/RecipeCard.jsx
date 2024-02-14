@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
 import Card from "react-bootstrap/Card"
 // import FavouriteButton from "../components/FavouriteButton"
-import TestFavouriteButton from "./TestFavButton"
+import FavButton from "./FavButton"
 
 const RecipeCard = ({ recipe, sessionCookie }) => {
   return (
@@ -13,7 +13,7 @@ const RecipeCard = ({ recipe, sessionCookie }) => {
         {sessionCookie == null ? (
           <></>
         ) : (
-            <TestFavouriteButton
+            <FavButton
               sessionCookie={sessionCookie}
               recipeid={recipe.id}
             />

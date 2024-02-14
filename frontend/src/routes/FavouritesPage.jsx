@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react"
 import axios from "axios"
 import { Container, Row, Col, Card } from "react-bootstrap"
 import FiltersMenu from "../components/FiltersMenu"
-import TestFavouriteButton from "../components/TestFavButton"
+import FavButton from "../components/FavButton"
 import "../styles/Test.css"
 
-const TestFavouritesPage = ({ sessionCookie }) => {
+const FavouritesPage = ({ sessionCookie }) => {
   const [loading, setLoading] = useState(true)
   const [allFavRecipes, setAllFavRecipes] = useState([])
   const [filteredFavRecipes, setFilteredFavRecipes] = useState([]) // State to hold filtered recipes
@@ -18,7 +18,7 @@ const TestFavouritesPage = ({ sessionCookie }) => {
   useEffect(() => {
     const getFavUserRecipes = async () => {
       try {
-        const response = await axios.post(`http://localhost:3000/test/list`, {
+        const response = await axios.post(`http://localhost:3000/fav/list`, {
           userid: userid,
         })
         const favUserRecipes = response.data.favs
@@ -28,7 +28,7 @@ const TestFavouritesPage = ({ sessionCookie }) => {
         }
         const recipeIds = favUserRecipes.map((fav) => fav.recipe_id).join(",")
         const responseAll = await axios.get(
-          `http://localhost:3000/test/bulkrecipes/${recipeIds}`
+          `http://localhost:3000/fav/bulkrecipes/${recipeIds}`
         )
         if (!Array.isArray(responseAll.data) || responseAll.data.length === 0) {
           setLoading(false)
@@ -166,7 +166,7 @@ const TestFavouritesPage = ({ sessionCookie }) => {
                         alt={favRecipe.title}
                       />
                     </a>
-                      <TestFavouriteButton
+                      <FavButton
                         sessionCookie={sessionCookie}
                         recipeid={favRecipe.id}
                       />
@@ -188,4 +188,4 @@ const TestFavouritesPage = ({ sessionCookie }) => {
   )
 }
 
-export default TestFavouritesPage
+export default FavouritesPage

@@ -5,7 +5,7 @@ import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import { Container } from "react-bootstrap"
 import axios from "axios"
-import TestFavouriteButton from "../components/TestFavButton"
+import FavButton from "../components/FavButton"
 import "../styles/Homepage.css"
 
 const Homepage = ({ sessionCookie }) => {  
@@ -76,7 +76,7 @@ const Homepage = ({ sessionCookie }) => {
                     <></>
                   ) : (
                     <div className="fav-button-container">
-                      <TestFavouriteButton
+                      <FavButton
                         sessionCookie={sessionCookie}
                         userid={sessionCookie.userid}
                         recipeid={randomRecipe.id}

@@ -3,7 +3,7 @@ import { useContext } from "react"
 import { FavouritesContext } from "../hooks/favContext"
 
 
-const TestFavouriteButton = ({ sessionCookie, recipeid }) => {
+const FavButton = ({ sessionCookie, recipeid }) => {
   const { isFav, addFavourite, removeFavourite, setIsFav } =
     useContext(FavouritesContext)
 
@@ -30,4 +30,4 @@ const TestFavouriteButton = ({ sessionCookie, recipeid }) => {
   )
 }
 
-export default TestFavouriteButton
+export default FavButton

@@ -4,13 +4,12 @@ import { CookiesProvider, useCookies } from "react-cookie"
 import Signup from "./routes/Signup"
 import Login from "./routes/Login"
 import Logout from "./routes/Logout"
-import Favourites from "./routes/Favourites"
 import SearchResults from "./routes/Search"
 import ProtectedRoute from "./routes/ProtectedRoute"
 import Homepage from "./routes/Homepage"
 import RecipePage from "./routes/RecipePage"
 import NavigationBar from "./components/NavigationBar"
-import TestFavouritesPage from "./routes/Test"
+import FavouritesPage from "./routes/FavouritesPage"
 import { FavouritesProvider } from "./hooks/favContext"
 
 import "./styles/App.css"
@@ -67,7 +66,7 @@ function App() {
               <Route element={<ProtectedRoute currentUser={cookies.user} />}>
                 <Route
                   path="/favourites"
-                  element={<Favourites userIdAuthToken={cookies.user} />}
+                  element={<FavouritesPage sessionCookie={cookies.user} />}
                 />
               </Route>
               <Route
@@ -81,10 +80,6 @@ function App() {
               <Route
                 path="/recipes/:id"
                 element={<RecipePage sessionCookie={cookies.user} />}
-              />
-              <Route
-                path="/test"
-                element={<TestFavouritesPage sessionCookie={cookies.user} />}
               />
             </Routes>
           </BrowserRouter>
