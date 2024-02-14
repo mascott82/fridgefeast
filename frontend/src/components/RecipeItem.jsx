@@ -41,7 +41,7 @@ const RecipeItem = ({ sessionCookie }) => {
                 <></>
               ) : (
                 <div className="fav-button-container">
-                  <FavouriteButton
+                  <TestFavouriteButton
                     addNew={true}
                     userid={sessionCookie.userid}
                     recipeid={recipeById.id}
