@@ -44,16 +44,16 @@ router.post("/add", (req, res) => {
     });
 });
 
-router.get('/isFav/', (req, res) => {
-  const recipeId = req.query.recipeId
-  
-  favQry.isFavorited(recipeId)
+router.get('/isFav', (req, res) => {
+  const userid = req.query.user_id
+  const recipeid = req.query.recipe_id
+
+  favQry.isFavorited({ user_id: userid, recipe_id: recipeid })
     .then((result) => {
-      let isFav = false
-      if (result !== undefined) {
-        isFav = true
-      }
-      res.send({ msg: isFav })
+      console.log("🚀 ~ .then ~ result:", result)
+
+      res.send({ isFav: !!result })
+      console.log("🚀 ~ .then ~ isFav:", !!result)
     })
     .catch((error) => {
       res.status(500).send({ error: error.message })
@@ -69,6 +69,35 @@ router.get('/bulkrecipes/:id', (req, res) => {
     // params: {
     //   ids: recipeId
     // },
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': 'd244d7df0bca4e509d34d9496190e714'
+    }
+  }
+
+  axios
+    .get(apiEndpoint, options)
+    .then((response) => {
+      console.log(response.data)
+      res.send(response.data)
+    })
+    .catch((err) => {
+      console.error("====", err)
+    })
+    .finally(() => {
+      console.log("--End--")
+    })
+})
+
+router.get('/:id/information', (req, res) => {
+  const recipeid = req.params.id
+
+  const apiEndpoint = `https://api.spoonacular.com/recipes/${recipeid}/information`
+
+  const options = {
+    params: {
+      id: recipeid
+    },
     headers: {
       'Content-Type': 'application/json',
       'x-api-key': 'd244d7df0bca4e509d34d9496190e714'

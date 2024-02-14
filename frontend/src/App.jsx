@@ -41,9 +41,9 @@ function App() {
 
   return (
     <>
-      <NavigationBar sessionCookie={cookies.user} />
-      <CookiesProvider>
-        <FavouritesProvider>
+      <FavouritesProvider sessionCookie={cookies.user}>
+        <NavigationBar sessionCookie={cookies.user} />
+        <CookiesProvider>
           <BrowserRouter>
             <Routes>
               <Route
@@ -88,8 +88,8 @@ function App() {
               />
             </Routes>
           </BrowserRouter>
-        </FavouritesProvider>
-      </CookiesProvider>
+        </CookiesProvider>
+      </FavouritesProvider>
     </>
   )
 }
