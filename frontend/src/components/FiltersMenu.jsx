@@ -36,7 +36,7 @@ const FiltersMenu = ({ onFilterChange }) => {
   }
 
   return (
-    <Container className="my-4 filters-container">
+    <Container className="my-4">
       <Form className="filter-menu" onSubmit={handleSubmit}>
         <Container>
           <p>Filter By:</p>

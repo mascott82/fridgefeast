@@ -11,7 +11,7 @@ const NavigationBar = ({ sessionCookie }) => {
 
   return (
     <div className="nav-bar-container">
-      <Navbar expand="lg">
+      <Navbar>
         <Container>
           <Navbar.Brand href="/" className="logo-text">
             Fridge Feast

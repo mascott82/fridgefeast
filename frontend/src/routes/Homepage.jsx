@@ -84,11 +84,10 @@ const Homepage = ({ sessionCookie }) => {
                       />
                     </div>
                   )}
-                  <Card.Body>
+                  <Card.Body >
                     <Card.Title>{randomRecipe.title}</Card.Title>
                     <Card.Text>
-                      {randomRecipe.readyInMinutes} minutes | Serving Size:{" "}
-                      {randomRecipe.servings}
+                      {randomRecipe.readyInMinutes} minutes | Serving Size: {randomRecipe.servings}
                     </Card.Text>
                   </Card.Body>
                 </Card>

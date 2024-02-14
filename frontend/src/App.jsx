@@ -10,7 +10,7 @@ import ProtectedRoute from "./routes/ProtectedRoute"
 import Homepage from "./routes/Homepage"
 import RecipePage from "./routes/RecipePage"
 import NavigationBar from "./components/NavigationBar"
-import TestFavouritesPage from "./routes/test"
+import TestFavouritesPage from "./routes/Test"
 import { FavouritesProvider } from "./hooks/favContext"
 
 import "./styles/App.css"

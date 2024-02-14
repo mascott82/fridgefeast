@@ -13,12 +13,12 @@
     /* linear-gradient(to right, rgba(255, 255, 255, 0.1),
       rgba(255, 255, 255, 0.2)), */
     url("../assets/brooke-lark-08bOYnH_r_E-unsplash.jpg");
-  background-size: 120%;
-  background-position: 90% 10%;
+  background-size: cover;
+  background-position: 90% 12%;
+  background-repeat: no-repeat;
 }
 
 .header-text {
-  /* background-color: rgba(255, 255, 255, .7); */
   width: 50% !important;
   color: #3a3755;
   /* text-shadow: 0 0 2px #28263b; */
@@ -26,4 +26,13 @@
 
 .header-title {
   color: #3a3755;
+}
+
+@media (max-width: 1000px) {
+
+  .header-text,
+  .header-title {
+    background-color: rgba(255, 255, 255, .7);
+    width: 50% !important;
+  }
 }

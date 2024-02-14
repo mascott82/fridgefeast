@@ -10,6 +10,15 @@
   height: 100%;
 }
 
+.recipe-card {
+  height: 50rem;
+  --bs-card-height: 27rem !important;
+}
+
+.recipe-card:hover {
+  cursor: pointer;
+  box-shadow: 0 0 2px #3a3755 !important;
+}
 
 /* .filters-btn {
   display: flex;

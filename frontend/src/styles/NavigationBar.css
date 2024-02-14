@@ -1,8 +1,9 @@
 .nav-bar-container {
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 1;
   background: #3a3755;
+  padding: 0 48px;
 }
 
 .dropdown-text {
@@ -18,6 +19,10 @@ a.nav-link:hover {
   color: #bfbed6;
 }
 
+a.nav-link:focus {
+  color: #f7f7ff;
+}
+
 .logo-text {
   font-family: "Protest Riot", sans-serif;
   font-size: 2rem !important;
@@ -28,5 +33,10 @@ a.nav-link:hover {
 }
 
 .dropdown-toggle.show.nav-link {
-  color:#bfbed6 !important;
+  color: #bfbed6 !important;
+}
+
+nav-link {
+  color: #f7f7ff !important;
+  font-size: 1.2rem;
 }
