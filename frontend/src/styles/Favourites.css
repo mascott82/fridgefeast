@@ -1,151 +1,19 @@
-.favourites-container {
-    display: flex;
-    padding: 20px;
-  }
-  
-  .filter-section {
-    flex: 1;
-    
-  }
-  
-  .favourites-section {
-    flex: 3;
-    padding-left: 20px;
-  }
-  
-  .favourites-grid {
-    display: flex;
-    flex-wrap: wrap; /* Allows items to wrap to the next line */
-    justify-content: start; /* Align items to the start of the container */
-    gap: 20px; /* Space between items */
-  }
-  
-  .recipe-card-fav {
-    flex: 1; 
-    min-width: 250px; /* Minimum width of each card */
-    text-align: center;
-    font-size: 1.1em;
-    height: 200px;
-    overflow: auto;
-  }
-  
-  .recipe-image {
-    background-color: #f0f0f0;
-    height: 150px;
-    border-radius: 4px;
-    margin-bottom: 10px;
-  }
-  
-  .recipe-title {
-    color: #333;
-    font-size: 1.1em;
-    margin-bottom: 5px;
-  }
-  
-  .recipe-info {
-    color: #666;
-    font-size: 0.9em;
-    margin-bottom: 10px;
-  }
-  
-  .load-more-container {
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    margin-top:20px;
-  }
+.fav-btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: end;
+  padding-right: 1rem;
+  padding-top: 1rem;
+  cursor: pointer;
+}
 
-  .load-more {
-    margin-top:40px;
-    background-color:#5D5A88;
-    color: white;
-    font-size:larger;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
+.filters-container {
+  border-right: 0.18rem solid #dee2e6;
+  height: 100%;
+}
 
-  .filter-menu {
-    margin-bottom: 20px;
-  }
-  
-  .filter-group {
-    margin-bottom: 15px;
-  }
-  
-  .filter-group h4 {
-    margin-bottom: 10px;
-  }
-  
-  .filter-label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  .filter-search {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .apply-filters {
-    background-color: #5D5A88;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%;
-  }
-
-  .favourites-container {
-    display: flex;
-    max-height: 100vh; 
-    overflow: hidden; 
-  }
-  
-  .filter-section {
-    flex: 0 0 250px; 
-    background-color: #f8f9fa; 
-    padding: 20px;
-    height: 100vh; 
-    overflow-y: auto; 
-    border-right: 2px solid #dee2e6; 
-  }
-  
-  .favourites-section {
-    flex-grow: 1; 
-    overflow-y: auto; 
-    padding-left: 20px;
-  }
-
-  .recipe-card {
-    padding: 0;
-    width: 100%;
-  }
-  
-
-  .fav-button-container {
-    display: flex;
-  }
-  
-  .fav-button-container > * {
-    margin-left: auto; 
-  }
-
-  .sortby-container {
-    display: flex;
-  }
-
-  .sortby-container > * {
-    margin-left: auto; 
-  }
-
-  .sort-by-dropdown label {
-    margin-right: 10px; 
-  }
-  
+.recipe-card {
+  height: 50rem;
+  --bs-card-height: 27rem !important;
+}

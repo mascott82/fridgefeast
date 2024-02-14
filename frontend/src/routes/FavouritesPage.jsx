@@ -3,7 +3,7 @@ import axios from "axios"
 import { Container, Row, Col, Card } from "react-bootstrap"
 import FiltersMenu from "../components/FiltersMenu"
 import FavButton from "../components/FavButton"
-import "../styles/Test.css"
+import "../styles/Favourites.css"
 
 const FavouritesPage = ({ sessionCookie }) => {
   const [loading, setLoading] = useState(true)
