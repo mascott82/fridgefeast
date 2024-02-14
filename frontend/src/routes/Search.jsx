@@ -108,12 +108,11 @@ function SearchResults({ sessionCookie }) {
                 onChange={(e) => handleSortByChange(e.target.value)}
                 value={`${sortBy}-${sortOrder}`}>
                 <option value="likes-desc">Most Popular</option>
-                <option value="likes-asc">Least Popular</option>
                 <option value="unusedIngredientCount-desc">
-                  Most Matching Ingredients
+                  Matching Ingredients (desc)
                 </option>
                 <option value="unusedIngredientCount-asc">
-                  Least Matching Ingredients
+                  Matching Ingredients (asc)
                 </option>
               </select>
             </div>
