@@ -13,7 +13,7 @@ import NavigationBar from "./components/NavigationBar"
 import TestFavouritesPage from "./routes/test"
 import { FavouritesProvider } from "./hooks/favContext"
 
-import "./App.css"
+import "./styles/App.css"
 
 const RedirectTo = () => {
   const navigate = useNavigate()

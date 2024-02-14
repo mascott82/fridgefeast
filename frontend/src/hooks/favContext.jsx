@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, createContext } from "react"
 import axios from "axios"
 
-export const FavouritesContext = React.createContext()
+export const FavouritesContext = createContext()
 
 export const FavouritesProvider = ({ children, sessionCookie }) => {
   const [isFav, setIsFav] = useState([])
@@ -10,18 +10,14 @@ export const FavouritesProvider = ({ children, sessionCookie }) => {
     // Only fetch the favourite recipes if the user is logged in
     if (sessionCookie) {
       axios
-        .get("http://localhost:3000/test/isFav", {
-          user_id: sessionCookie.userid,
-        })
+        .get(`http://localhost:3000/test/list/${sessionCookie.userid}`)
         .then((response) => {
           console.log("🚀 ~ .then ~ response:", response)
 
           // Add the IDs of the favourite recipes to the isFav array
-          const favIds = response.data.favRecipeIds.map(
-            (recipe) => recipe.recipe_id
-          )
+          const favIds = response.data.favs.map((recipe) => recipe.recipe_id)
           console.log("🚀 ~ .then ~ favIds:", favIds)
-          
+
           setIsFav(favIds)
         })
         .catch((error) => {
@@ -29,7 +25,7 @@ export const FavouritesProvider = ({ children, sessionCookie }) => {
         })
     }
   }, [sessionCookie])
-  
+
   const addFavourite = async (recipeid) => {
     try {
       const response = await axios.post(`http://localhost:3000/test/add`, {

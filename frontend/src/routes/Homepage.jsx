@@ -30,8 +30,6 @@ const Homepage = ({ sessionCookie }) => {
   useEffect(() => {
     getRandomRecipes()
   }, [])
-  
-  console.log("🚀 ~ Homepage ~ sessionCookie:", sessionCookie)
 
   return (
     <div>
