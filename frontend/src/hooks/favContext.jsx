@@ -12,11 +12,11 @@ export const FavouritesProvider = ({ children, sessionCookie }) => {
       axios
         .get(`http://localhost:3000/test/list/${sessionCookie.userid}`)
         .then((response) => {
-          console.log("🚀 ~ .then ~ response:", response)
+          // console.log("🚀 ~ .then ~ response:", response)
 
           // Add the IDs of the favourite recipes to the isFav array
           const favIds = response.data.favs.map((recipe) => recipe.recipe_id)
-          console.log("🚀 ~ .then ~ favIds:", favIds)
+          // console.log("🚀 ~ .then ~ favIds:", favIds)∑
 
           setIsFav(favIds)
         })

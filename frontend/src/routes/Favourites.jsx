@@ -24,6 +24,7 @@ const dietaryConcerns = {
   "Keto": { "path": ["diets"], "check_type": "array", "check_value": "ketogenic" },
   "Paleo": { "path": ["diets"], "check_type": "array", "check_value": "paleolithic" }
 };
+
 const cookTimes = {
   "< 15 minutes": [0, 15],
   "15 - 30 minutes": [15, 30],
