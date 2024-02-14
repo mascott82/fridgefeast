@@ -146,11 +146,13 @@ const TestFavouritesPage = ({ sessionCookie }) => {
           </Container>
           {loading ? (
             <div>Loading...</div>
-          ) : filteredFavRecipes.length === 0 ? (
+          ) : allFavRecipes.length === 0 ? (
             <div>
               You don't have any favourited recipes. Explore recipes{" "}
               <a href="/search">here</a>!
             </div>
+          ) : filteredFavRecipes.length === 0 ? (
+            <div>Sorry, no favourite recipes match your filter criteria.</div>
           ) : (
             <Row>
               {filteredFavRecipes.map((favRecipe) => (
