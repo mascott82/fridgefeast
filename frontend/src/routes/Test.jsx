@@ -166,13 +166,11 @@ const TestFavouritesPage = ({ sessionCookie }) => {
                         alt={favRecipe.title}
                       />
                     </a>
+                      <TestFavouriteButton
+                        sessionCookie={sessionCookie}
+                        recipeid={favRecipe.id}
+                      />
                     <Card.Body>
-                      <div className="fav-btn">
-                        <TestFavouriteButton
-                          sessionCookie={sessionCookie}
-                          recipeid={favRecipe.id}
-                        />
-                      </div>
                       <Card.Title>{favRecipe.title}</Card.Title>
                       <Card.Text>
                         {favRecipe.readyInMinutes} minutes | Serving Size:{" "}

@@ -1,12 +1,11 @@
 import React, { useContext } from "react"
 import Card from "react-bootstrap/Card"
-import FavouriteButton from "../components/FavouriteButton"
+// import FavouriteButton from "../components/FavouriteButton"
 import TestFavouriteButton from "./TestFavButton"
-import { FavouritesContext } from "../hooks/favContext"
-const RecipeCard = ({ recipe, sessionCookie }) => {
 
+const RecipeCard = ({ recipe, sessionCookie }) => {
   return (
-    <Card className="recipe-card">
+    <Card className="search-recipe-card">
       <a href={`/recipes/${recipe.id}`}>
         <Card.Img variant="top" className="recipe-img" src={recipe.image} />
       </a>
@@ -14,12 +13,10 @@ const RecipeCard = ({ recipe, sessionCookie }) => {
         {sessionCookie == null ? (
           <></>
         ) : (
-          <div className="fav-button-container">
             <TestFavouriteButton
               sessionCookie={sessionCookie}
               recipeid={recipe.id}
             />
-          </div>
         )}
         <Card.Title>{recipe.title}</Card.Title>
       </Card.Body>

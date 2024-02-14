@@ -1,11 +1,14 @@
 .recipe-card {
-  height: 50rem;
-  --bs-card-height: 27rem !important;
+  /* height: 55rem; */
+  --bs-card-height: 28rem !important;
 }
 
 .recipe-card:hover {
-  cursor: pointer;
   box-shadow: 0 0 2px #3a3755 !important;
+}
+
+.recipe-card-img:hover {
+  cursor: pointer;
 }
 
 .header-image {
@@ -35,4 +38,10 @@
     background-color: rgba(255, 255, 255, .7);
     width: 50% !important;
   }
+}
+
+div.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
 }

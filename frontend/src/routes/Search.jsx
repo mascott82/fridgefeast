@@ -123,13 +123,11 @@ function SearchResults({ sessionCookie }) {
               <Row key={index} className="mb-4">
                 {row.map((recipe) => (
                   <Col key={recipe.id} md={4} className="mb-4">
-
                       <RecipeCard
                         recipe={recipe}
                         onClick={handleRecipeClick}
                         sessionCookie={sessionCookie}
                       />
-
                   </Col>
                 ))}
               </Row>

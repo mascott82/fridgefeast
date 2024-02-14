@@ -1,7 +1,7 @@
 import { FaHeart, FaRegHeart } from "react-icons/fa"
-import axios from "axios"
 import { useContext } from "react"
 import { FavouritesContext } from "../hooks/favContext"
+
 
 const TestFavouriteButton = ({ sessionCookie, recipeid }) => {
   const { isFav, addFavourite, removeFavourite, setIsFav } =
@@ -21,11 +21,12 @@ const TestFavouriteButton = ({ sessionCookie, recipeid }) => {
   }
 
   return (
-    <button
+    <div
       onClick={toggleFavourites}
-      style={{ backgroundColor: "transparent" }}>
+      style={{ backgroundColor: "transparent" }}
+      className="fav-btn">
       {isFav.includes(recipeid) ? <FaHeart color="red" /> : <FaRegHeart />}
-    </button>
+    </div>
   )
 }
 
