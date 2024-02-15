@@ -12,7 +12,7 @@ import axios from "axios"
 import RecipeCard from "../components/RecipeCard"
 import "../styles/Search.css"
 
-const loadMoreCount = 8
+const loadMoreCount = 12
 
 function chunkArray(array, chunkSize) {
   const chunks = []
@@ -120,20 +120,23 @@ function SearchResults({ sessionCookie }) {
             </div>
           </Container>
           <Row className="mt-3 justify-content-center">
-            {chunkArray(recipes.slice(0, showIndex), 4).map((row, index) => (
-              <Row key={index} className="mb-4">
-                {row.map((recipe) => (
-                  <Col key={recipe.id} md={3} className="mb-4">
-                    <RecipeCard
-                      recipe={recipe}
-                      onClick={handleRecipeClick}
-                      sessionCookie={sessionCookie}
-                    />
-                  </Col>
-                ))}
-              </Row>
+            {recipes.slice(0, showIndex).map((recipe) => (
+              <Col
+                key={recipe.id}
+                xs={6}
+                sm={6}
+                md={4}
+                lg={3}
+                xl={3}
+                className="mb-4">
+                <RecipeCard
+                  recipe={recipe}
+                  onClick={handleRecipeClick}
+                  sessionCookie={sessionCookie}
+                />
+              </Col>
             ))}
-            {showIndex < 30 && (
+            {showIndex < 48 && (
               <div className="load-container">
                 <Button
                   className="btn btn-primary mb-4"
