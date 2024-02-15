@@ -14,10 +14,13 @@
 }
 
 .recipe-card {
-  height: 50rem;
-  --bs-card-height: 24rem !important;
+  --bs-card-height: 20rem !important;
 }
 
 .smaller-text {
   font-size: 0.8rem;
+}
+
+.smaller-title {
+  font-size: 1rem !important;
 }
