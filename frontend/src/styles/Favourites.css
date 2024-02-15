@@ -3,8 +3,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: end;
-  padding-right: 1rem;
-  padding-top: 1rem;
+  padding: 0.755rem;
   cursor: pointer;
 }
 

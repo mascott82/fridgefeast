@@ -11,8 +11,8 @@ const FavouritesPage = ({ sessionCookie }) => {
   const [filteredFavRecipes, setFilteredFavRecipes] = useState([])
   const [sortedFavRecipes, setSortedFavRecipes] = useState([])
   // Default to most popular sort on load
-  const [sortBy, setSortBy] = useState("spoonacularScore") 
-  const [sortOrder, setSortOrder] = useState("desc") 
+  const [sortBy, setSortBy] = useState("spoonacularScore")
+  const [sortOrder, setSortOrder] = useState("desc")
 
   const userid = sessionCookie.userid
 
@@ -107,28 +107,27 @@ const FavouritesPage = ({ sessionCookie }) => {
     setSortOrder(newSortOrder)
   }
 
-useEffect(() => {
-  if (filteredFavRecipes.length > 0) {
-    // Sorting the recipes array based on sortBy and sortOrder
-    const sortedRecipes = [...filteredFavRecipes].sort((a, b) => {
-      if (sortBy === "spoonacularScore") {
-        return sortOrder === "asc"
-          ? a.spoonacularScore - b.spoonacularScore
-          : b.spoonacularScore - a.spoonacularScore
-      } else if (sortBy === "readyInMinutes") {
-        return sortOrder === "asc"
-          ? a.readyInMinutes - b.readyInMinutes
-          : b.readyInMinutes - a.readyInMinutes
-      } else if (sortBy === "pricePerServing") {
-        return sortOrder === "asc"
-          ? a.pricePerServing - b.pricePerServing
-          : b.pricePerServing - a.pricePerServing
-      }
-    })
-    setSortedFavRecipes(sortedRecipes)
-  }
-}, [sortBy, sortOrder, filteredFavRecipes])
-
+  useEffect(() => {
+    if (filteredFavRecipes.length > 0) {
+      // Sorting the recipes array based on sortBy and sortOrder
+      const sortedRecipes = [...filteredFavRecipes].sort((a, b) => {
+        if (sortBy === "spoonacularScore") {
+          return sortOrder === "asc"
+            ? a.spoonacularScore - b.spoonacularScore
+            : b.spoonacularScore - a.spoonacularScore
+        } else if (sortBy === "readyInMinutes") {
+          return sortOrder === "asc"
+            ? a.readyInMinutes - b.readyInMinutes
+            : b.readyInMinutes - a.readyInMinutes
+        } else if (sortBy === "pricePerServing") {
+          return sortOrder === "asc"
+            ? a.pricePerServing - b.pricePerServing
+            : b.pricePerServing - a.pricePerServing
+        }
+      })
+      setSortedFavRecipes(sortedRecipes)
+    }
+  }, [sortBy, sortOrder, filteredFavRecipes])
 
   return (
     <Container className="my-4">
@@ -168,7 +167,7 @@ useEffect(() => {
             <div>Sorry, no favourite recipes match your filter criteria.</div>
           ) : (
             <Row>
-              {filteredFavRecipes.map((favRecipe) => (
+              {sortedFavRecipes.map((favRecipe) => (
                 <Col key={favRecipe.id} xs={6} sm={6} md={6} lg={4} xl={3}>
                   <Card className="recipe-card mb-4">
                     <a href={`/recipes/${favRecipe.id}`}>
@@ -184,7 +183,9 @@ useEffect(() => {
                       recipeid={favRecipe.id}
                     />
                     <Card.Body>
-                      <Card.Title className="smaller-title">{favRecipe.title}</Card.Title>
+                      <Card.Title className="smaller-title">
+                        {favRecipe.title}
+                      </Card.Title>
                       <Card.Text className="smaller-text">
                         {favRecipe.readyInMinutes} minutes | Serving Size:{" "}
                         {favRecipe.servings}
