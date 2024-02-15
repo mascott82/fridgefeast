@@ -12,7 +12,7 @@ import axios from "axios"
 import RecipeCard from "../components/RecipeCard"
 import "../styles/Search.css"
 
-const loadMoreCount = 6
+const loadMoreCount = 12
 
 function chunkArray(array, chunkSize) {
   const chunks = []
@@ -24,6 +24,7 @@ function chunkArray(array, chunkSize) {
 
 function SearchResults({ sessionCookie }) {
   const [searchTerm, setSearchTerm] = useState("")
+  const [originalRecipes, setOriginalRecipes] = useState([]) // New state for original recipes
   const [recipes, setRecipes] = useState([])
   const [showIndex, setShowIndex] = useState(loadMoreCount)
   const [sortBy, setSortBy] = useState("likes") // Default sort by likes
@@ -33,6 +34,7 @@ function SearchResults({ sessionCookie }) {
     e.preventDefault()
     try {
       const response = await axios.get(`http://localhost:3000/s/${searchTerm}`)
+      setOriginalRecipes(response.data) // Set original recipes
       setRecipes(response.data)
     } catch (error) {
       console.error("Error fetching recipes with ingredient:", error)
@@ -46,8 +48,8 @@ function SearchResults({ sessionCookie }) {
   }
 
   useEffect(() => {
-    // Sorting the recipes array based on sortBy and sortOrder
-    const sortedRecipes = [...recipes].sort((a, b) => {
+    // Sorting the original recipes array based on sortBy and sortOrder
+    const sortedRecipes = [...originalRecipes].sort((a, b) => {
       if (sortBy === "likes") {
         return sortOrder === "asc" ? a.likes - b.likes : b.likes - a.likes
       } else if (sortBy === "unusedIngredientCount") {
@@ -57,7 +59,7 @@ function SearchResults({ sessionCookie }) {
       }
     })
     setRecipes(sortedRecipes)
-  }, [sortBy, sortOrder])
+  }, [sortBy, sortOrder, originalRecipes])
 
   const handleClickLoadMore = () => {
     const newIndexEnd = showIndex + loadMoreCount
@@ -102,7 +104,7 @@ function SearchResults({ sessionCookie }) {
           {/* Sortby Dropdown */}
           <Container>
             <div className="sort-by-btn mt-5">
-              <label htmlFor="sortby">Sort By: </label> 
+              <label htmlFor="sortby">Sort By: </label>
               <select
                 id="sortby"
                 onChange={(e) => handleSortByChange(e.target.value)}
@@ -118,20 +120,23 @@ function SearchResults({ sessionCookie }) {
             </div>
           </Container>
           <Row className="mt-3 justify-content-center">
-            {chunkArray(recipes.slice(0, showIndex), 3).map((row, index) => (
-              <Row key={index} className="mb-4">
-                {row.map((recipe) => (
-                  <Col key={recipe.id} md={4} className="mb-4">
-                      <RecipeCard
-                        recipe={recipe}
-                        onClick={handleRecipeClick}
-                        sessionCookie={sessionCookie}
-                      />
-                  </Col>
-                ))}
-              </Row>
+            {recipes.slice(0, showIndex).map((recipe) => (
+              <Col
+                key={recipe.id}
+                xs={6}
+                sm={6}
+                md={4}
+                lg={3}
+                xl={3}
+                className="mb-4">
+                <RecipeCard
+                  recipe={recipe}
+                  onClick={handleRecipeClick}
+                  sessionCookie={sessionCookie}
+                />
+              </Col>
             ))}
-            {showIndex < 30 && (
+            {showIndex < 48 && (
               <div className="load-container">
                 <Button
                   className="btn btn-primary mb-4"

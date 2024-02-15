@@ -101,5 +101,7 @@
 
   .password-warning {
     color: red; 
-    margin-top: 5px; 
+    margin: 0 0 10px 0; 
+    font-size: smaller;
+    text-align: end;
   }

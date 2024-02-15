@@ -57,13 +57,13 @@ const RecipeItem = ({ sessionCookie }) => {
               src={recipeById.image}
               alt={recipeById.title}
               fluid
-              className="mb-3 recipe-page-img"
+              className="recipe-page-img"
             />
           </Col>
         </Row>
 
         <Row>
-          <Col>
+          <Col xs={12} md={12} lg={6}>
             <h3>Ingredients</h3>
             <ul className="mb-5">
               {recipeById.extendedIngredients.map((ingredient, index) => (
@@ -72,7 +72,7 @@ const RecipeItem = ({ sessionCookie }) => {
             </ul>
           </Col>
 
-          <Col>
+          <Col xs={12} md={12} lg={6}>
             {recipeById.analyzedInstructions &&
               recipeById.analyzedInstructions.length > 0 && (
                 <>

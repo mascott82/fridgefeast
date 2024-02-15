@@ -15,7 +15,7 @@ router.get('/random', (req, res) => {
   const options = {
     params: {
       // 'include-tags': 'meal, cuisine, vegetarian, dessert',
-      number: 3
+      number: 4
     },
 
     headers: {

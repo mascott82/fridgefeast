@@ -18,7 +18,7 @@ const RecipeCard = ({ recipe, sessionCookie }) => {
               recipeid={recipe.id}
             />
         )}
-        <Card.Title>{recipe.title}</Card.Title>
+        <Card.Title className="smaller-title">{recipe.title}</Card.Title>
       </Card.Body>
     </Card>
   )

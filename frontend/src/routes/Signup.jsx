@@ -29,7 +29,7 @@ const Signup = () => {
 
     const handlePasswordChange = (e) => {
         if (e.target.value.length < 8) {
-          setPasswordWarning('Password cannot be more than 8 characters.');
+          setPasswordWarning('*Password must be at least 8 characters');
         } else {
           setPasswordWarning(''); // Clear the warning
         }
@@ -86,8 +86,8 @@ const Signup = () => {
             >
               {showPassword ? 'Hide' : 'Show'}
             </button>
-            {passwordWarning && <div className="password-warning">{passwordWarning}</div>}
           </div>
+            {passwordWarning && <div className="password-warning">{passwordWarning}</div>}
           <div className="password-container">
           <label htmlFor="confirm-password">Confirm Password</label>
             <input
