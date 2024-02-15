@@ -1,13 +1,12 @@
-.recipe-card {
-  /* height: 55rem; */
-  --bs-card-height: 28rem !important;
+.home-recipe-card {
+  --bs-card-height: 22rem !important;
 }
 
-.recipe-card:hover {
+.home-recipe-card:hover {
   box-shadow: 0 0 2px #3a3755 !important;
 }
 
-.recipe-card-img:hover {
+.home-recipe-card-img:hover {
   cursor: pointer;
 }
 

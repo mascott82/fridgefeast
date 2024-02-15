@@ -169,7 +169,7 @@ useEffect(() => {
           ) : (
             <Row>
               {filteredFavRecipes.map((favRecipe) => (
-                <Col key={favRecipe.id} md={4} lg={3}>
+                <Col key={favRecipe.id} xs={6} sm={6} md={6} lg={4} xl={3}>
                   <Card className="recipe-card mb-4">
                     <a href={`/recipes/${favRecipe.id}`}>
                       <Card.Img

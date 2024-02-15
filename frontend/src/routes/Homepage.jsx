@@ -62,8 +62,8 @@ const Homepage = ({ sessionCookie }) => {
           <h2 className="mb-4">Featured Recipes</h2>
           <Row>
             {randomRecipes.map((randomRecipe) => (
-              <Col md={4} key={randomRecipe.id} className="pb-5">
-                <Card className="recipe-card">
+              <Col xs={6} sm={6} md={6} lg={3} key={randomRecipe.id} className="pb-5">
+                <Card className="home-recipe-card">
                   <a href={`/recipes/${randomRecipe.id}`}>
                     <Card.Img
                       variant="top"
@@ -84,8 +84,8 @@ const Homepage = ({ sessionCookie }) => {
                     </div>
                   )}
                   <Card.Body>
-                    <Card.Title>{randomRecipe.title}</Card.Title>
-                    <Card.Text>
+                    <Card.Title className="smaller-title">{randomRecipe.title}</Card.Title>
+                    <Card.Text className="smaller-text">
                       {randomRecipe.readyInMinutes} minutes | Serving Size:{" "}
                       {randomRecipe.servings}
                     </Card.Text>
