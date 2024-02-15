@@ -80,7 +80,7 @@ const FiltersMenu = ({ onFilterChange }) => {
             <Form.Check
               type="checkbox"
               id="<15"
-              label={"< 15 minutes"}
+              label="< 15 minutes"
               value="<15"
               checked={"<15" in selectedTimes}
               onChange={handleCheckboxChangeTime}
@@ -111,10 +111,10 @@ const FiltersMenu = ({ onFilterChange }) => {
             />
             <Form.Check
               type="checkbox"
-              id="90+"
-              label="90+ minutes"
-              value="90+"
-              checked={"90+" in selectedTimes}
+              id=">90"
+              label="> 90 minutes"
+              value=">90"
+              checked={">90" in selectedTimes}
               onChange={handleCheckboxChangeTime}
             />
           </div>

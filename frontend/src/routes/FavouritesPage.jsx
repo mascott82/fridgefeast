@@ -74,9 +74,17 @@ const FavouritesPage = ({ sessionCookie }) => {
 
       if (!noTimesChecked) {
         timeMatch = Object.keys(times).some((time) => {
-          const [min, max] = time.split("-").map(Number)
-          const readyInMinutes = parseInt(recipe.readyInMinutes)
-          return min <= readyInMinutes && readyInMinutes <= max
+          if (time === "<15") {
+            const readyInMinutes = parseInt(recipe.readyInMinutes)
+            return readyInMinutes < 15
+          } else if (time === ">90") {
+            const readyInMinutes = parseInt(recipe.readyInMinutes)
+            return readyInMinutes > 90
+          } else {
+            const [min, max] = time.split("-").map(Number)
+            const readyInMinutes = parseInt(recipe.readyInMinutes)
+            return min <= readyInMinutes && readyInMinutes <= max
+          }
         })
       }
       console.log(
@@ -166,10 +174,10 @@ const FavouritesPage = ({ sessionCookie }) => {
                         alt={favRecipe.title}
                       />
                     </a>
-                      <FavButton
-                        sessionCookie={sessionCookie}
-                        recipeid={favRecipe.id}
-                      />
+                    <FavButton
+                      sessionCookie={sessionCookie}
+                      recipeid={favRecipe.id}
+                    />
                     <Card.Body>
                       <Card.Title>{favRecipe.title}</Card.Title>
                       <Card.Text>
