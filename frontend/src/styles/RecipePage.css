@@ -12,7 +12,9 @@
 }
 
 .recipe-page-img {
+  width: 25rem;
   border-radius: 0.375rem;
+  margin: 1rem 0 2rem 0;
 }
 
 .recipe-title-container {

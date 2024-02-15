@@ -9,12 +9,3 @@
   background-color: rgba(var(--bs-light-rgb), var(--bs-bg-opacity)) !important;
   --bs-bg-opacity: 1;
 }
-
-/* 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-} */
