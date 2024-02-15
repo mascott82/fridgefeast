@@ -9,7 +9,7 @@ const FavouritesPage = ({ sessionCookie }) => {
   const [loading, setLoading] = useState(true)
   const [allFavRecipes, setAllFavRecipes] = useState([])
   const [filteredFavRecipes, setFilteredFavRecipes] = useState([]) // State to hold filtered recipes
-  const [sortBy, setSortBy] = useState("likes") // Default sort by likes
+  const [sortBy, setSortBy] = useState("spoonacularScore") // Default sort by likes
   const [sortOrder, setSortOrder] = useState("desc") // Default sort order descending
 
   const userid = sessionCookie.userid
@@ -105,7 +105,8 @@ const FavouritesPage = ({ sessionCookie }) => {
     setSortOrder(newSortOrder)
   }
 
-  useEffect(() => {
+useEffect(() => {
+  if (filteredFavRecipes.length > 0) {
     // Sorting the recipes array based on sortBy and sortOrder
     const sortedRecipes = [...filteredFavRecipes].sort((a, b) => {
       if (sortBy === "spoonacularScore") {
@@ -123,7 +124,8 @@ const FavouritesPage = ({ sessionCookie }) => {
       }
     })
     setFilteredFavRecipes(sortedRecipes)
-  }, [sortBy, sortOrder])
+  }
+}, [sortBy, sortOrder, filteredFavRecipes])
 
   return (
     <Container className="my-4">
