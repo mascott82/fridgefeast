@@ -8,9 +8,11 @@ import "../styles/Favourites.css"
 const FavouritesPage = ({ sessionCookie }) => {
   const [loading, setLoading] = useState(true)
   const [allFavRecipes, setAllFavRecipes] = useState([])
-  const [filteredFavRecipes, setFilteredFavRecipes] = useState([]) // State to hold filtered recipes
-  const [sortBy, setSortBy] = useState("spoonacularScore") // Default sort by likes
-  const [sortOrder, setSortOrder] = useState("desc") // Default sort order descending
+  const [filteredFavRecipes, setFilteredFavRecipes] = useState([])
+  const [sortedFavRecipes, setSortedFavRecipes] = useState([])
+  // Default to most popular sort on load
+  const [sortBy, setSortBy] = useState("spoonacularScore") 
+  const [sortOrder, setSortOrder] = useState("desc") 
 
   const userid = sessionCookie.userid
 
@@ -123,9 +125,10 @@ useEffect(() => {
           : b.pricePerServing - a.pricePerServing
       }
     })
-    setFilteredFavRecipes(sortedRecipes)
+    setSortedFavRecipes(sortedRecipes)
   }
 }, [sortBy, sortOrder, filteredFavRecipes])
+
 
   return (
     <Container className="my-4">
@@ -166,7 +169,7 @@ useEffect(() => {
           ) : (
             <Row>
               {filteredFavRecipes.map((favRecipe) => (
-                <Col key={favRecipe.id} md={4}>
+                <Col key={favRecipe.id} md={4} lg={3}>
                   <Card className="recipe-card mb-4">
                     <a href={`/recipes/${favRecipe.id}`}>
                       <Card.Img
@@ -181,8 +184,8 @@ useEffect(() => {
                       recipeid={favRecipe.id}
                     />
                     <Card.Body>
-                      <Card.Title>{favRecipe.title}</Card.Title>
-                      <Card.Text>
+                      <Card.Title className="smaller-title">{favRecipe.title}</Card.Title>
+                      <Card.Text className="smaller-text">
                         {favRecipe.readyInMinutes} minutes | Serving Size:{" "}
                         {favRecipe.servings}
                       </Card.Text>
