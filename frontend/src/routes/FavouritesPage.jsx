@@ -8,10 +8,12 @@ import "../styles/Favourites.css"
 const FavouritesPage = ({ sessionCookie }) => {
   const [loading, setLoading] = useState(true)
   const [allFavRecipes, setAllFavRecipes] = useState([])
-  const [filteredFavRecipes, setFilteredFavRecipes] = useState([]) // State to hold filtered recipes
-  const [sortBy, setSortBy] = useState("spoonacularScore") // Default sort by likes
-  const [sortOrder, setSortOrder] = useState("desc") // Default sort order descending
+  const [filteredFavRecipes, setFilteredFavRecipes] = useState([])
+  const [sortedFavRecipes, setSortedFavRecipes] = useState([])
 
+  // Sory by most popular recipes by default 
+  const [sortBy, setSortBy] = useState("spoonacularScore")
+  const [sortOrder, setSortOrder] = useState("desc")
   const userid = sessionCookie.userid
 
   // GET USERS FAV RECIPES
@@ -123,7 +125,7 @@ useEffect(() => {
           : b.pricePerServing - a.pricePerServing
       }
     })
-    setFilteredFavRecipes(sortedRecipes)
+    setSortedFavRecipes(sortedRecipes)
   }
 }, [sortBy, sortOrder, filteredFavRecipes])
 
